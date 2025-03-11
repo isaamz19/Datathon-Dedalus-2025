@@ -3,56 +3,58 @@ import pandas as pd
 import csv as csv
 
 cd = os.getcwd()  # obtenemos el path
-<<<<<<< HEAD
 # Carga de datos para que funcione desde cualquier sitio
+#Isa
 pacientes = pd.read_csv(f'{cd}/data/cohorte_pacientes.csv')
 alergias = pd.read_csv(f'{cd}/data/cohorte_alegias.csv')
+#Roo
 condiciones = pd.read_csv(f'{cd}/data/cohorte_condiciones.csv') 
 medicacion = pd.read_csv(f'{cd}/data/cohorte_medicationes.csv')
-
-encuentros = pd.read_csv(f'{cd}/data/cohorte_encuentros.csv')
-procedimientos = pd.read_csv(f'{cd}/data/cohorte_procedimientos.csv')
-=======
->>>>>>> 1cc6157515929e37d437487833919fef7719ecd1
-
-# Carga de datos para que funcione desde cualquier sitio
-pacientes = pd.read_csv(f'{cd}/data/cohorte_pacientes.csv')
-alergias = pd.read_csv(f'{cd}/data/cohorte_alegias.csv')
-condiciones = pd.read_csv(f'{cd}/data/cohorte_condiciones.csv') 
-medicacion = pd.read_csv(f'{cd}/data/cohorte_medicationes.csv')
+#marus
 encuentros = pd.read_csv(f'{cd}/data/cohorte_encuentros.csv')
 procedimientos = pd.read_csv(f'{cd}/data/cohorte_procedimientos.csv')
 
-
-# PACIENTES 
-
-<<<<<<< HEAD
 #print(pacientes.head())
 #print(pacientes.describe())
 #print(pacientes.info())
 
+#Patrón por emfeermedades
+ #Sustituir los generos por numero y provinciar por nº
 
-print(procedimientos.head())
-print(procedimientos.describe())
-print(procedimientos.info())
+#------ Contar días de tratamiento por paciente
+# Convertir las columnas de fechas a tipo datetime
 
-#PacienteID: Es de tipo int y sus valores van de 1 a 30
-#Fecha de inicio y fecha de fin: de tipo object, el formato es el siguiente: "YYYY-MM-DD"
-#Código SNOMED: Código identificador de la descripción
-#Descripción: Cadena de String que explica el procedimiento a seguir, hay 10 tipos distintos de descripción
-print(procedimientos['Descripcion'].unique())
+condiciones["Fecha_inicio"] = pd.to_datetime(condiciones["Fecha_inicio"])
+condiciones["Fecha_fin"] = pd.to_datetime(condiciones["Fecha_fin"])
 
-print('#------------------------------------------')
+# Calcular la diferencia en días y añadir una nueva columna
+condiciones["Dias"] = (condiciones["Fecha_fin"] - condiciones["Fecha_inicio"]).dt.days
 
-print(encuentros.head())
-print(encuentros.describe())
-print(encuentros.info())
+print(condiciones.head())
+print(condiciones.describe())
 
-print(encuentros['Tipo_encuentro'].unique())
+#------ Contar días de tratamiento por paciente
+print(medicacion.head())
 
-#PacienteID: Es de tipo int y sus valores van de 1 a 30
-#Tipo de encuentro:
-=======
+# Filtrar datos del paciente con id 23
+paciente_23 = pacientes[pacientes["PacienteID"] == 23]
+condiciones_23 = condiciones[condiciones["PacienteID"] == 23]
+medicacion_23 = medicacion[medicacion["PacienteID"] == 23]
+
+# Mostrar datos del paciente 23
+print("Datos del paciente 23:")
+print(paciente_23)
+
+# Mostrar condiciones del paciente 23
+print("\nCondiciones del paciente 23:")
+print(condiciones_23)
+
+# Mostrar medicación del paciente 23
+print("\nMedicación del paciente 23:")
+print(medicacion_23)
+
+# PACIENTES 
+
 print(pacientes.head())
 print(pacientes.describe())
 print(pacientes.info())
@@ -85,8 +87,3 @@ print(alergias['Descripcion'].unique())
  # 'Alergia a la leche' 'Alergia a los ácaros del polvo' 'Alergia al látex'
  # 'Alergia al pelo de gato' 'Alergia a la picadura de abeja'
  # 'Alergia a la aspirina' 'Alergia a los mariscos']).
-
->>>>>>> 1cc6157515929e37d437487833919fef7719ecd1
-
-
-
