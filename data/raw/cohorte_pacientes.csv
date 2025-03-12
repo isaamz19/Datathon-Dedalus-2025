@@ -32,3 +32,5 @@ PacienteID,Genero,Edad,Provincia,Latitud,Longitud
 31,Masculino,50,Sevilla,37.3886,-5.9823
 32,Femenino,67,Huelva,37.2614,-6.9447
 33,Masculino,28,Córdoba,37.8847,-4.7792
+34,Femenino,45,Málaga,2,3
+43,Femenino,90,Málaga,3,4
