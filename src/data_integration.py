@@ -50,7 +50,7 @@ encuentros = encuentros.rename(columns={'Fecha_inicio': 'Fecha_inicio', 'Fecha_f
 
 # Unificar eventos
 df_2 = pd.concat([
-    medicacion[['PacienteID', 'Fecha_inicio', 'Fecha_fin', 'Nombre']].assign(Tipo_Evento='Medicacion'),
+    medicacion[['PacienteID', 'Fecha_inicio', 'Fecha_fin', 'Nombre','Dosis','Frecuencia','Vía de administración']].assign(Tipo_Evento='Medicacion'),
     procedimientos[['PacienteID', 'Fecha_inicio', 'Fecha_fin', 'Descripcion']].assign(Tipo_Evento='Procedimiento'),
     encuentros[['PacienteID', 'Fecha_inicio', 'Fecha_fin', 'Tipo_encuentro']].assign(Tipo_Evento='Encuentro')
 ])
@@ -59,7 +59,7 @@ df_2['Descripcion_Evento'] = df_2.apply(lambda row: row['Nombre'] if pd.notnull(
                                         else (row['Descripcion'] if pd.notnull(row['Descripcion']) 
                                               else row['Tipo_encuentro']), axis=1)
 
-df_2 = df_2[['PacienteID', 'Fecha_inicio', 'Fecha_fin', 'Tipo_Evento', 'Descripcion_Evento']].sort_values(by=['PacienteID', 'Fecha_inicio'])
+df_2 = df_2[['PacienteID', 'Fecha_inicio', 'Fecha_fin', 'Tipo_Evento', 'Descripcion_Evento','Dosis','Frecuencia','Vía de administración']].sort_values(by=['PacienteID', 'Fecha_inicio'])
 
 # 5. Guardar los datasets
 df_1.to_csv(f'{cd}/data/processed/dataset_paciente_final.csv', index=False)

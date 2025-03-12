@@ -8,14 +8,14 @@ df_1 = pd.read_csv(f'{cd}/data/processed/dataset_paciente_final.csv')
 df_2 = pd.read_csv(f'{cd}/data/processed/dataset_eventos_final.csv')
 
 def remove_duplicates(cell):
-    if pd.notna(cell):  # Verificar que no esté vacío
+    if pd.notna(cell):
         unique_values = list(set(cell.split(', ')))
         return ', '.join(unique_values)
     return cell  
 
-df_1['Condiciones_Snomed'] = df_1['Condiciones_Snomed'].apply(remove_duplicates)
+df_1['Codigo_SNOMED_Condiciones'] = df_1['Codigo_SNOMED_Condiciones'].apply(remove_duplicates)
 df_1['Descripcion_Condiciones'] = df_1['Descripcion_Condiciones'].apply(remove_duplicates)
-df_1['Alergias_Snomed'] = df_1['Alergias_Snomed'].apply(remove_duplicates)
+df_1['Codigo_SNOMED_Alergias'] = df_1['Codigo_SNOMED_Alergias'].apply(remove_duplicates)
 df_1['Descripcion_Alergias'] = df_1['Descripcion_Alergias'].apply(remove_duplicates)
 
 #------------------------------------------------------
