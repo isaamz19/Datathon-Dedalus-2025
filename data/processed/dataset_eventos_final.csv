@@ -1,0 +1,313 @@
+PacienteID,Fecha_inicio,Fecha_fin,Tipo_Evento,Descripcion_Evento,Dosis,Frecuencia,Vía de administración
+1,2018-06-01,,Medicacion,Lisinopril,10 mg,1 vez al día,oral
+1,2018-06-01,,Medicacion,Ácido acetilsalicílico,100 mg,1 vez al día,oral
+1,2018-06-05,,Medicacion,Atorvastatina,20 mg,1 vez al día,oral
+1,2019-01-15,,Medicacion,Hidroclorotiazida,25 mg,1 vez al día,oral
+1,2023-06-23,2023-07-10,Encuentro,Hospitalización,,,
+1,2023-08-05,2023-08-10,Procedimiento,Sutura de herida,,,
+1,2024-01-27,2024-02-03,Procedimiento,Resonancia magnética cerebral,,,
+1,2024-02-10,2024-02-16,Encuentro,Urgencia,,,
+1,2024-11-11,2024-12-05,Encuentro,Hospitalización,,,
+2,2017-04-01,,Medicacion,Metformina,500 mg,2 veces al día,oral
+2,2017-04-01,,Medicacion,Simvastatina,20 mg,1 vez al día,oral
+2,2018-08-01,,Medicacion,Losartán,50 mg,1 vez al día,oral
+2,2020-11-01,,Medicacion,Insulina glargina,20 UI,1 vez al día,inyección
+2,2023-06-13,2023-06-23,Encuentro,Atención Primaria,,,
+2,2024-01-09,2024-01-17,Encuentro,Atención Primaria,,,
+2,2024-01-17,2024-02-06,Encuentro,Hospitalización,,,
+2,2024-05-09,2024-05-12,Procedimiento,Electrocardiograma,,,
+3,2012-06-01,,Medicacion,Salbutamol (inhalador),100 mcg,cada 6 horas si es necesario,inhalación
+3,2012-06-02,,Medicacion,Beclometasona (inhalador),250 mcg,2 veces al día,inhalación
+3,2013-01-01,,Medicacion,Montelukast,10 mg,1 vez al día,oral
+3,2023-03-16,2023-03-24,Encuentro,Urgencia,,,
+3,2023-09-16,2023-09-17,Encuentro,Urgencia,,,
+3,2023-09-23,2023-09-28,Procedimiento,Cirugía de apendicitis,,,
+3,2024-02-06,2024-03-04,Encuentro,Hospitalización,,,
+3,2024-07-24,2024-08-02,Encuentro,Atención Primaria,,,
+3,2025-01-22,2025-01-26,Procedimiento,Ecografía abdominal,,,
+4,2020-01-15,,Medicacion,Levotiroxina,50 mcg,1 vez al día,oral
+4,2020-02-01,2020-05-01,Medicacion,Sulfato ferroso,325 mg,1 vez al día,oral
+4,2023-04-10,2023-04-14,Procedimiento,Resonancia magnética cerebral,,,
+4,2023-07-21,2023-07-27,Procedimiento,Colonoscopía,,,
+4,2024-02-06,2024-02-21,Encuentro,Hospitalización,,,
+4,2024-08-13,2024-09-04,Encuentro,Hospitalización,,,
+4,2024-10-10,2024-10-16,Procedimiento,Sutura de herida,,,
+4,2024-10-30,2024-11-02,Procedimiento,Sutura de herida,,,
+4,2024-11-07,2024-11-10,Procedimiento,Colonoscopía,,,
+4,2024-11-10,2024-12-01,Encuentro,Hospitalización,,,
+5,2019-05-10,2019-07-01,Medicacion,Paroxetina,20 mg,1 vez al día,oral
+5,2019-07-02,2020-07-01,Medicacion,Sertralina,50 mg,1 vez al día,oral
+5,2023-04-04,2023-04-10,Encuentro,Atención Primaria,,,
+5,2023-04-24,2023-04-25,Procedimiento,Radiografía de tórax,,,
+5,2023-05-13,2023-05-14,Encuentro,Urgencia,,,
+5,2023-07-06,2023-07-12,Procedimiento,Cirugía de apendicitis,,,
+5,2023-11-11,2023-11-16,Procedimiento,Cirugía de apendicitis,,,
+5,2023-12-22,2023-12-31,Encuentro,Urgencia,,,
+5,2024-03-09,2024-03-15,Procedimiento,Radiografía de tórax,,,
+5,2024-04-04,2024-04-13,Encuentro,Atención Primaria,,,
+6,2015-04-10,,Medicacion,Ácido acetilsalicílico,100 mg,1 vez al día,oral
+6,2015-04-15,,Medicacion,Enalapril,5 mg,2 veces al día,oral
+6,2015-04-15,,Medicacion,Furosemida,40 mg,1 vez al día,oral
+6,2015-04-15,,Medicacion,Rosuvastatina,20 mg,1 vez al día,oral
+6,2015-04-20,,Medicacion,Metoprolol,50 mg,2 veces al día,oral
+6,2015-06-01,,Medicacion,Espironolactona,25 mg,1 vez al día,oral
+6,2023-07-27,2023-07-28,Encuentro,Atención Primaria,,,
+6,2023-11-26,2023-12-01,Procedimiento,Vacunación contra la gripe,,,
+6,2023-12-24,2023-12-26,Encuentro,Urgencia,,,
+6,2024-09-19,2024-09-20,Encuentro,Atención Primaria,,,
+6,2024-10-11,2024-10-13,Procedimiento,Resonancia magnética cerebral,,,
+6,2024-12-23,2024-12-30,Procedimiento,Colonoscopía,,,
+6,2025-02-19,2025-02-27,Encuentro,Urgencia,,,
+7,2016-09-15,2017-03-15,Medicacion,Prednisona,10 mg,1 vez al día,oral
+7,2016-09-15,2016-12-01,Medicacion,Ibuprofeno,400 mg,3 veces al día,oral
+7,2016-10-01,,Medicacion,Metotrexato,15 mg,1 vez por semana,oral
+7,2018-01-01,,Medicacion,Adalimumab,40 mg,1 vez cada 2 semanas,inyección
+7,2023-08-01,2023-08-10,Encuentro,Urgencia,,,
+7,2023-09-28,2023-09-29,Procedimiento,Sutura de herida,,,
+7,2023-11-07,2023-11-23,Encuentro,Hospitalización,,,
+7,2024-04-07,2024-04-08,Procedimiento,Sutura de herida,,,
+7,2024-05-18,2024-05-28,Encuentro,Atención Primaria,,,
+7,2024-05-23,2024-06-05,Encuentro,Hospitalización,,,
+7,2024-07-12,2024-07-16,Procedimiento,Extracción de muela,,,
+7,2025-02-17,2025-02-24,Procedimiento,Extracción de muela,,,
+8,2018-01-10,,Medicacion,Amlodipino,5 mg,1 vez al día,oral
+8,2018-03-15,,Medicacion,Pravastatina,40 mg,1 vez al día,oral
+8,2023-03-19,2023-03-21,Encuentro,Urgencia,,,
+8,2023-08-27,2023-09-02,Procedimiento,Cirugía de apendicitis,,,
+8,2023-09-08,2023-09-10,Procedimiento,Cirugía de apendicitis,,,
+8,2024-04-10,2024-04-12,Encuentro,Urgencia,,,
+8,2024-05-24,2024-05-25,Encuentro,Urgencia,,,
+8,2024-10-02,2024-10-06,Procedimiento,Extracción de muela,,,
+8,2024-11-27,2024-11-28,Procedimiento,Vacunación contra la gripe,,,
+8,2025-01-22,2025-02-01,Encuentro,Hospitalización,,,
+9,2021-05-20,,Medicacion,Omeprazol,20 mg,1 vez al día,oral
+9,2021-05-20,2021-06-10,Medicacion,Domperidona,10 mg,3 veces al día,oral
+9,2023-04-10,2023-05-08,Encuentro,Hospitalización,,,
+9,2023-04-16,2023-04-24,Encuentro,Urgencia,,,
+9,2023-10-08,2023-10-15,Encuentro,Atención Primaria,,,
+9,2024-01-01,2024-01-05,Procedimiento,Sutura de herida,,,
+9,2024-01-12,2024-01-17,Procedimiento,Ecografía abdominal,,,
+9,2024-03-26,2024-03-31,Procedimiento,Cirugía de apendicitis,,,
+9,2024-05-22,2024-06-08,Encuentro,Hospitalización,,,
+9,2024-09-01,2024-09-08,Encuentro,Hospitalización,,,
+10,2014-03-01,,Medicacion,Tiotropio (inhalador),18 mcg,1 vez al día,inhalación
+10,2014-03-01,,Medicacion,Salmeterol (inhalador),50 mcg,2 veces al día,inhalación
+10,2014-03-05,,Medicacion,Fluticasona (inhalador),250 mcg,2 veces al día,inhalación
+10,2015-06-01,2016-06-01,Medicacion,Roflumilast,500 mcg,1 vez al día,oral
+10,2023-06-25,2023-06-26,Procedimiento,Cateterismo cardíaco,,,
+10,2023-09-25,2023-09-30,Procedimiento,Resonancia magnética cerebral,,,
+10,2023-10-19,2023-10-26,Encuentro,Hospitalización,,,
+10,2023-11-26,2023-11-27,Encuentro,Atención Primaria,,,
+10,2024-01-12,2024-01-13,Encuentro,Urgencia,,,
+10,2024-02-24,2024-02-27,Procedimiento,Resonancia magnética cerebral,,,
+10,2024-10-12,2024-10-19,Procedimiento,Extracción de muela,,,
+10,2024-11-09,2024-11-10,Encuentro,Atención Primaria,,,
+11,2018-09-10,,Medicacion,Ramipril,5 mg,1 vez al día,oral
+11,2020-01-10,,Medicacion,Epoetina alfa,4000 UI,1 vez por semana,inyección
+11,2023-04-18,2023-04-25,Procedimiento,Vacunación contra la gripe,,,
+11,2023-04-20,2023-04-24,Procedimiento,Radiografía de tórax,,,
+11,2023-08-03,2023-08-10,Encuentro,Urgencia,,,
+11,2024-06-09,2024-06-11,Encuentro,Atención Primaria,,,
+11,2024-11-19,2024-11-24,Encuentro,Hospitalización,,,
+11,2024-11-29,2024-12-03,Procedimiento,Resonancia magnética cerebral,,,
+12,2010-06-01,,Medicacion,Insulina lispro,10 UI,3 veces al día,inyección
+12,2010-06-01,,Medicacion,Insulina detemir,20 UI,1 vez al día,inyección
+12,2023-03-21,2023-03-24,Encuentro,Atención Primaria,,,
+12,2023-04-17,2023-04-18,Procedimiento,Radiografía de tórax,,,
+12,2023-07-11,2023-07-18,Procedimiento,Cateterismo cardíaco,,,
+12,2024-06-25,2024-07-05,Encuentro,Urgencia,,,
+12,2024-11-24,2024-11-29,Encuentro,Atención Primaria,,,
+13,2010-01-01,2012-12-31,Medicacion,Carbamazepina,200 mg,2 veces al día,oral
+13,2013-01-01,,Medicacion,Levetiracetam,500 mg,2 veces al día,oral
+13,2023-06-09,2023-06-12,Procedimiento,Extracción de muela,,,
+13,2023-09-08,2023-09-17,Encuentro,Urgencia,,,
+13,2023-10-04,2023-10-31,Encuentro,Hospitalización,,,
+13,2024-02-04,2024-02-05,Encuentro,Urgencia,,,
+13,2024-10-27,2024-11-26,Encuentro,Hospitalización,,,
+13,2024-12-21,2025-01-20,Encuentro,Hospitalización,,,
+13,2025-02-05,2025-02-10,Procedimiento,Resonancia magnética cerebral,,,
+14,2019-07-01,,Medicacion,Paracetamol,500 mg,3 veces al día,oral
+14,2020-01-01,2020-02-15,Medicacion,Naproxeno,500 mg,2 veces al día,oral
+14,2021-01-01,2021-03-01,Medicacion,Tramadol,50 mg,2 veces al día,oral
+14,2023-03-16,2023-03-25,Encuentro,Atención Primaria,,,
+14,2023-03-23,2023-04-02,Encuentro,Urgencia,,,
+14,2023-05-22,2023-05-27,Encuentro,Atención Primaria,,,
+14,2023-05-22,2023-05-24,Encuentro,Atención Primaria,,,
+14,2024-08-04,2024-08-07,Encuentro,Urgencia,,,
+14,2024-09-01,2024-09-04,Procedimiento,Cirugía de apendicitis,,,
+14,2025-01-30,2025-02-04,Procedimiento,Cateterismo cardíaco,,,
+15,2021-01-01,,Medicacion,Sumatriptán,50 mg,según necesidad,oral
+15,2021-02-01,,Medicacion,Propranolol,40 mg,2 veces al día,oral
+15,2023-04-25,2023-04-30,Procedimiento,Ecografía abdominal,,,
+15,2023-05-27,2023-05-30,Encuentro,Urgencia,,,
+15,2024-03-29,2024-04-05,Procedimiento,Electrocardiograma,,,
+15,2024-05-07,2024-06-05,Encuentro,Hospitalización,,,
+15,2024-05-25,2024-06-19,Encuentro,Hospitalización,,,
+15,2024-05-29,2024-06-05,Procedimiento,Cateterismo cardíaco,,,
+15,2024-06-30,2024-07-05,Procedimiento,Extracción de muela,,,
+15,2025-01-14,2025-01-22,Encuentro,Atención Primaria,,,
+16,2020-03-01,2020-06-30,Medicacion,Loratadina,10 mg,1 vez al día,oral
+16,2020-03-01,2020-06-30,Medicacion,Fluticasona (spray nasal),50 mcg,1 vez al día,intranasal
+16,2021-03-01,2021-06-30,Medicacion,Cetirizina,10 mg,1 vez al día,oral
+16,2021-03-01,2021-06-30,Medicacion,Fluticasona (spray nasal),50 mcg,1 vez al día,intranasal
+16,2023-08-11,2023-08-14,Encuentro,Urgencia,,,
+16,2023-10-17,2023-10-22,Encuentro,Atención Primaria,,,
+16,2023-11-01,2023-11-13,Encuentro,Hospitalización,,,
+16,2024-04-09,2024-04-16,Procedimiento,Sutura de herida,,,
+16,2024-11-09,2024-11-11,Procedimiento,Cateterismo cardíaco,,,
+17,2022-11-10,2022-11-24,Medicacion,Amoxicilina/Ácido clavulánico,875/125 mg,2 veces al día,oral
+17,2022-11-10,2022-11-20,Medicacion,Paracetamol,500 mg,4 veces al día,oral
+17,2024-02-15,2024-02-20,Encuentro,Hospitalización,,,
+17,2024-03-03,2024-03-12,Encuentro,Atención Primaria,,,
+17,2024-03-27,2024-03-28,Procedimiento,Cirugía de apendicitis,,,
+17,2024-06-01,2024-06-07,Procedimiento,Vacunación contra la gripe,,,
+17,2024-09-06,2024-09-13,Encuentro,Urgencia,,,
+17,2025-03-03,2025-03-07,Procedimiento,Extracción de muela,,,
+18,2023-05-05,2023-05-08,Encuentro,Urgencia,,,
+18,2023-06-01,2023-06-07,Medicacion,Nitrofurantoína,100 mg,2 veces al día,oral
+18,2023-06-01,2023-06-05,Medicacion,Fenazopiridina,200 mg,3 veces al día,oral
+18,2023-09-09,2023-09-15,Procedimiento,Vacunación contra la gripe,,,
+18,2024-08-31,2024-09-06,Encuentro,Hospitalización,,,
+18,2024-09-09,2024-09-12,Procedimiento,Ecografía abdominal,,,
+18,2024-10-24,2024-10-27,Encuentro,Urgencia,,,
+19,2021-09-01,2021-12-01,Medicacion,Alprazolam,0.5 mg,2 veces al día,oral
+19,2021-09-10,,Medicacion,Escitalopram,10 mg,1 vez al día,oral
+19,2023-05-09,2023-05-16,Procedimiento,Ecografía abdominal,,,
+19,2023-05-27,2023-05-28,Encuentro,Urgencia,,,
+19,2023-07-03,2023-07-10,Encuentro,Atención Primaria,,,
+19,2023-10-28,2023-10-31,Encuentro,Urgencia,,,
+19,2024-03-14,2024-03-18,Procedimiento,Ecografía abdominal,,,
+19,2024-03-30,2024-04-02,Procedimiento,Resonancia magnética cerebral,,,
+19,2024-06-18,2024-06-25,Procedimiento,Cateterismo cardíaco,,,
+19,2024-08-11,2024-08-15,Procedimiento,Radiografía de tórax,,,
+19,2025-01-16,2025-01-18,Encuentro,Atención Primaria,,,
+19,2025-01-31,2025-02-06,Encuentro,Hospitalización,,,
+20,2019-04-01,2019-06-01,Medicacion,Betametasona (tópica),0.05%,2 veces al día,tópica
+20,2019-04-01,,Medicacion,Calcipotriol (tópico),50 mcg/g,2 veces al día,tópica
+20,2023-06-22,2023-06-29,Encuentro,Atención Primaria,,,
+20,2024-01-17,2024-01-19,Procedimiento,Sutura de herida,,,
+20,2024-06-21,2024-06-30,Encuentro,Urgencia,,,
+20,2024-08-09,2024-08-14,Encuentro,Urgencia,,,
+20,2024-09-11,2024-09-30,Encuentro,Hospitalización,,,
+20,2024-10-23,2024-10-27,Procedimiento,Radiografía de tórax,,,
+20,2024-12-25,2024-12-29,Encuentro,Hospitalización,,,
+21,2019-01-15,,Medicacion,Metamizol,575 mg,3 veces al día,oral
+21,2019-01-15,2019-02-15,Medicacion,Diazepam,5 mg,1 vez al día,oral
+21,2019-03-01,,Medicacion,Gabapentina,300 mg,3 veces al día,oral
+21,2023-05-12,2023-05-16,Procedimiento,Ecografía abdominal,,,
+21,2023-05-30,2023-06-03,Procedimiento,Colonoscopía,,,
+21,2023-07-06,2023-07-10,Procedimiento,Resonancia magnética cerebral,,,
+21,2023-08-06,2023-08-08,Encuentro,Urgencia,,,
+21,2023-10-25,2023-11-03,Encuentro,Hospitalización,,,
+21,2023-12-23,2024-01-02,Encuentro,Urgencia,,,
+21,2024-01-29,2024-02-03,Procedimiento,Extracción de muela,,,
+21,2024-07-13,2024-07-14,Encuentro,Urgencia,,,
+22,2018-02-05,,Medicacion,Clopidogrel,75 mg,1 vez al día,oral
+22,2018-02-05,,Medicacion,Atorvastatina,80 mg,1 vez al día,oral
+22,2018-03-01,,Medicacion,Indapamida,2.5 mg,1 vez al día,oral
+22,2018-03-01,,Medicacion,Perindopril,4 mg,1 vez al día,oral
+22,2023-04-03,2023-04-30,Encuentro,Hospitalización,,,
+22,2023-06-26,2023-06-29,Procedimiento,Sutura de herida,,,
+22,2023-07-27,2023-07-30,Procedimiento,Radiografía de tórax,,,
+22,2023-08-23,2023-08-24,Encuentro,Atención Primaria,,,
+22,2024-06-22,2024-06-26,Procedimiento,Vacunación contra la gripe,,,
+22,2024-08-19,2024-08-24,Procedimiento,Extracción de muela,,,
+22,2024-10-14,2024-10-17,Procedimiento,Radiografía de tórax,,,
+22,2025-01-02,2025-01-04,Procedimiento,Sutura de herida,,,
+22,2025-01-18,2025-02-15,Encuentro,Hospitalización,,,
+23,2019-08-10,,Medicacion,Apixabán,5 mg,2 veces al día,oral
+23,2019-08-10,,Medicacion,Bisoprolol,5 mg,1 vez al día,oral
+23,2019-08-15,2020-08-15,Medicacion,Amiodarona,200 mg,1 vez al día,oral
+23,2023-11-18,2023-11-28,Encuentro,Hospitalización,,,
+23,2024-01-03,2024-01-08,Encuentro,Urgencia,,,
+23,2024-05-05,2024-05-13,Encuentro,Hospitalización,,,
+24,2019-11-05,2020-11-05,Medicacion,Tiamazol,10 mg,1 vez al día,oral
+24,2019-11-05,2020-05-05,Medicacion,Propranolol,20 mg,2 veces al día,oral
+24,2023-06-18,2023-06-24,Procedimiento,Resonancia magnética cerebral,,,
+24,2023-08-06,2023-09-04,Encuentro,Hospitalización,,,
+24,2023-08-23,2023-08-30,Procedimiento,Ecografía abdominal,,,
+24,2023-09-06,2023-09-13,Procedimiento,Radiografía de tórax,,,
+24,2023-12-09,2023-12-16,Procedimiento,Sutura de herida,,,
+24,2024-01-02,2024-01-03,Procedimiento,Colonoscopía,,,
+24,2024-05-04,2024-05-06,Procedimiento,Colonoscopía,,,
+24,2024-10-22,2024-10-26,Encuentro,Hospitalización,,,
+24,2024-12-28,2024-12-29,Procedimiento,Ecografía abdominal,,,
+24,2025-01-25,2025-01-29,Encuentro,Atención Primaria,,,
+25,2015-09-15,,Medicacion,Levodopa/Carbidopa,100/25 mg,3 veces al día,oral
+25,2015-09-15,2016-09-15,Medicacion,Trihexifenidilo,2 mg,2 veces al día,oral
+25,2016-01-01,,Medicacion,Pramipexol,1 mg,3 veces al día,oral
+25,2017-07-01,,Medicacion,Entacapona,200 mg,3 veces al día,oral
+25,2023-07-05,2023-07-15,Encuentro,Atención Primaria,,,
+25,2023-09-19,2023-09-23,Procedimiento,Vacunación contra la gripe,,,
+25,2024-01-15,2024-01-21,Procedimiento,Cateterismo cardíaco,,,
+25,2024-05-22,2024-05-27,Encuentro,Urgencia,,,
+25,2025-02-17,2025-03-02,Encuentro,Hospitalización,,,
+26,2018-07-10,,Medicacion,Alendronato,70 mg,1 vez por semana,oral
+26,2018-07-10,,Medicacion,Colecalciferol,1000 UI,1 vez al día,oral
+26,2023-04-22,2023-04-28,Encuentro,Urgencia,,,
+26,2023-10-13,2023-10-14,Encuentro,Atención Primaria,,,
+26,2024-04-03,2024-04-08,Encuentro,Atención Primaria,,,
+26,2024-07-26,2024-07-28,Procedimiento,Radiografía de tórax,,,
+26,2024-09-10,2024-09-17,Encuentro,Urgencia,,,
+26,2024-09-14,2024-09-20,Procedimiento,Electrocardiograma,,,
+26,2024-10-27,2024-11-03,Encuentro,Urgencia,,,
+26,2025-02-05,2025-02-11,Procedimiento,Cirugía de apendicitis,,,
+27,2020-06-10,,Medicacion,Tamsulosina,0.4 mg,1 vez al día,oral
+27,2020-06-10,,Medicacion,Finasterida,5 mg,1 vez al día,oral
+27,2023-04-28,2023-04-30,Procedimiento,Cirugía de apendicitis,,,
+27,2023-06-25,2023-07-03,Encuentro,Urgencia,,,
+27,2023-07-09,2023-07-17,Encuentro,Atención Primaria,,,
+27,2023-09-22,2023-09-30,Encuentro,Urgencia,,,
+27,2024-04-05,2024-04-10,Procedimiento,Ecografía abdominal,,,
+27,2024-05-01,2024-05-05,Procedimiento,Resonancia magnética cerebral,,,
+27,2025-01-23,2025-01-27,Procedimiento,Resonancia magnética cerebral,,,
+27,2025-02-18,2025-02-24,Procedimiento,Electrocardiograma,,,
+28,2022-08-01,2022-08-20,Medicacion,Omeprazol,20 mg,2 veces al día,oral
+28,2022-08-01,2022-08-20,Medicacion,Claritromicina,500 mg,2 veces al día,oral
+28,2022-08-01,2022-08-20,Medicacion,Amoxicilina,1 g,2 veces al día,oral
+28,2023-12-23,2023-12-29,Procedimiento,Extracción de muela,,,
+28,2024-03-12,2024-03-13,Encuentro,Atención Primaria,,,
+28,2024-07-19,2024-07-21,Procedimiento,Cateterismo cardíaco,,,
+28,2024-10-01,2024-10-07,Procedimiento,Vacunación contra la gripe,,,
+28,2024-10-24,2024-11-18,Encuentro,Hospitalización,,,
+28,2024-12-25,2024-12-30,Encuentro,Atención Primaria,,,
+28,2025-02-12,2025-02-21,Encuentro,Urgencia,,,
+28,2025-02-15,2025-02-17,Procedimiento,Cateterismo cardíaco,,,
+29,2021-04-01,2021-04-14,Medicacion,Colchicina,0.6 mg,3 veces al día,oral
+29,2021-05-01,,Medicacion,Alopurinol,300 mg,1 vez al día,oral
+29,2023-08-09,2023-08-15,Procedimiento,Electrocardiograma,,,
+29,2024-02-04,2024-02-11,Encuentro,Urgencia,,,
+29,2024-04-17,2024-04-23,Encuentro,Atención Primaria,,,
+29,2024-12-18,2024-12-22,Procedimiento,Ecografía abdominal,,,
+29,2025-01-15,2025-01-22,Procedimiento,Resonancia magnética cerebral,,,
+29,2025-01-26,2025-01-28,Procedimiento,Electrocardiograma,,,
+29,2025-02-08,2025-02-15,Procedimiento,Cirugía de apendicitis,,,
+29,2025-03-03,2025-03-09,Encuentro,Atención Primaria,,,
+30,2020-01-10,,Medicacion,Mesalazina,1.5 g,1 vez al día,oral
+30,2021-01-01,,Medicacion,Azatioprina,50 mg,1 vez al día,oral
+30,2021-06-01,2021-08-01,Medicacion,Prednisona,40 mg,1 vez al día,oral
+30,2023-05-22,2023-05-23,Procedimiento,Colonoscopía,,,
+30,2023-07-30,2023-08-05,Encuentro,Urgencia,,,
+30,2023-10-16,2023-10-22,Procedimiento,Extracción de muela,,,
+30,2023-10-17,2023-10-19,Procedimiento,Vacunación contra la gripe,,,
+30,2024-01-07,2024-01-17,Encuentro,Atención Primaria,,,
+30,2024-05-07,2024-05-09,Encuentro,Urgencia,,,
+30,2024-09-09,2024-09-13,Procedimiento,Cateterismo cardíaco,,,
+30,2025-01-18,2025-01-24,Procedimiento,Cateterismo cardíaco,,,
+30,2025-02-02,2025-03-04,Encuentro,Hospitalización,,,
+31,2021-07-01,,Medicacion,Melatonina,2 mg,1 vez al día,oral
+31,2021-09-01,2021-11-01,Medicacion,Zolpidem,10 mg,1 vez al día,oral
+32,2019-03-01,2020-03-01,Medicacion,Orlistat,120 mg,3 veces al día,oral
+33,2021-05-01,2021-05-14,Medicacion,Hidrocortisona (tópica),1%,2 veces al día,tópica
+34,2022-04-01,2022-04-10,Medicacion,Aciclovir,800 mg,5 veces al día,oral
+35,2021-11-01,2021-11-07,Medicacion,Levofloxacino,500 mg,1 vez al día,oral
+35,2021-11-01,2021-11-10,Medicacion,Prednisona,30 mg,1 vez al día,oral
+36,2020-02-10,,Medicacion,Fenofibrato,160 mg,1 vez al día,oral
+37,2018-06-01,,Medicacion,Cianocobalamina,1000 mcg,1 vez al mes,inyección
+38,2017-01-01,,Medicacion,Hidroxicloroquina,200 mg,1 vez al día,oral
+38,2017-01-01,2018-01-01,Medicacion,Prednisona,20 mg,1 vez al día,oral
+38,2018-01-01,,Medicacion,Micofenolato mofetil,1 g,2 veces al día,oral
+39,2020-07-01,,Medicacion,Testosterona enantato,250 mg,1 vez cada 3 semanas,inyección
+40,2019-05-01,,Medicacion,Timolol (colirio),0.5%,2 veces al día,oftálmica
+41,2021-04-10,2021-05-10,Medicacion,Olopatadina (colirio),0.1%,2 veces al día,oftálmica
+42,2019-09-01,,Medicacion,Oxibutinina,5 mg,2 veces al día,oral
