@@ -1,49 +1,28 @@
 .consultas-container {
-    display: flex;
-    flex-direction: column;
-    gap: 1rem;
-    margin-top: 1rem;
-  }
-  
-  .consulta-button {
-    background-color: rgba(255, 255, 255, 0.3);
-    color: var(--text-color);
-    padding: 0.8rem 1rem;
-    border-radius: 1.5rem;
-    font-size: 0.9rem;
-    text-align: center;
-    transition: background-color 0.2s, transform 0.2s;
-    font-weight: 500;
-  }
-  
-  .consulta-button:hover {
-    background-color: rgba(255, 255, 255, 0.5);
-    transform: translateY(-2px);
-  }
-  
-  .consulta-button:active {
-    transform: translateY(0);
-  }
-
-  #menuToggle, #closeMenu {
-    font-size: 24px;
-    cursor: pointer;
-    background: none;
-    border: none;
+  display: flex;
+  flex-direction: column;
+  gap: 0.8rem;
 }
 
-#sidebar {
-  width: 250px;
-  height: 100%;
-  position: fixed;
-  top: 0;
-  left: -250px;
-  background-color: #f4f4f4;
-  transition: left 0.3s ease;
+.consulta-button {
+  background-color: rgba(255, 255, 255, 0.2);
+  color: var(--text-color);
+  padding: 0.8rem 1rem;
+  border-radius: 0.5rem;
+  font-size: 0.9rem;
+  text-align: left;
+  transition: all 0.2s ease;
+  border: none;
+  cursor: pointer;
 }
 
-#sidebar.active {
-  left: 0;
+.consulta-button:hover {
+  background-color: var(--primary-color);
+  color: white;
+  transform: translateX(5px);
 }
-  
-  
+
+.consulta-button:active {
+  transform: translateX(2px);
+}
+

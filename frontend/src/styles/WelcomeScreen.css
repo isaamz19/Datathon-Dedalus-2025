@@ -1,82 +1,91 @@
 .welcome-container {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    height: 100vh;
-    background-color: #e1f0e5; /* Color verde claro de fondo */
-    padding: 2rem;
-  }
-  
-  .welcome-content {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    max-width: 500px;
-    text-align: center;
-  }
-  
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  height: 100vh; /* Para que ocupe toda la pantalla */
+  padding: 2rem;
+  background-image: url('/BackgroundRobot.png'); /* Asegúrate de que la ruta es correcta */
+  background-size: cover; /* Asegura que cubra todo el área */
+  background-position: center; /* Centra la imagen */
+  background-repeat: no-repeat; /* No repetir la imagen */
+  position: relative
+}
+
+.welcome-content {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  justify-content: center; /* Centra el contenido verticalmente */
+  position: absolute;
+  right: 0;
+  top: 50%; /* Centra el contenido verticalmente */
+  transform: translateY(-50%); /* Ajusta la posición para centrarlo perfectamente */
+  max-width: 500px;
+  text-align: right;
+  margin-right: 2rem; /* Ajusta el margen si es necesario */
+}
+
+
+.robot-image-placeholder {
+  width: 250px;
+  height: 250px;
+  margin-bottom: 2rem;
+  background-image: url("/BackgroundRobot.png");
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+}
+
+.robot-image-placeholder::after {
+  content: "Imagen del robot";
+  color: rgba(0, 0, 0, 0.5);
+  font-size: 0.9rem;
+}
+
+.welcome-title {
+  font-size: 3rem;
+  font-weight: bold;
+  color: #ff914d; /* Color naranja del texto */
+  margin-bottom: 2rem;
+  text-transform: uppercase;
+}
+
+.start-button {
+  background-color: #ff914d; /* Color naranja del botón */
+  color: white;
+  font-size: 1.2rem;
+  font-weight: bold;
+  padding: 1rem 3rem;
+  border-radius: 2rem;
+  text-transform: uppercase;
+  transition: transform 0.2s, background-color 0.2s;
+}
+
+.start-button:hover {
+  transform: translateY(-3px);
+  background-color: #fba060;
+}
+
+.start-button:active {
+  transform: translateY(0);
+}
+
+/* Responsive */
+@media (max-width: 768px) {
   .robot-image-placeholder {
-    width: 250px;
-    height: 250px;
-    margin-bottom: 2rem;
-    background-image: url('/BackgroundRobot.png');
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    position: relative;
+    width: 180px;
+    height: 180px;
   }
-  
-  .robot-image-placeholder::after {
-    content: "Imagen del robot";
-    color: rgba(0, 0, 0, 0.5);
-    font-size: 0.9rem;
-  }
-  
+
   .welcome-title {
-    font-size: 3rem;
-    font-weight: bold;
-    color: #ff914d; /* Color naranja del texto */
-    margin-bottom: 2rem;
-    text-transform: uppercase;
+    font-size: 2.5rem;
   }
-  
+
   .start-button {
-    background-color: #ff914d; /* Color naranja del botón */
-    color: white;
-    font-size: 1.2rem;
-    font-weight: bold;
-    padding: 1rem 3rem;
-    border-radius: 2rem;
-    text-transform: uppercase;
-    transition: transform 0.2s, background-color 0.2s;
+    padding: 0.8rem 2.5rem;
+    font-size: 1rem;
   }
-  
-  .start-button:hover {
-    transform: translateY(-3px);
-    background-color: #fba060;
-  }
-  
-  .start-button:active {
-    transform: translateY(0);
-  }
-  
-  /* Responsive */
-  @media (max-width: 768px) {
-    .robot-image-placeholder {
-      width: 180px;
-      height: 180px;
-    }
-  
-    .welcome-title {
-      font-size: 2.5rem;
-    }
-  
-    .start-button {
-      padding: 0.8rem 2.5rem;
-      font-size: 1rem;
-    }
-  }
-  
-  
+}
+

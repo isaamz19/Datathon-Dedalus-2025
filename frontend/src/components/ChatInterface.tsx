@@ -1,8 +1,9 @@
 import { useState } from "react"
-import { Moon, Sun, Eye, Search, Menu } from "lucide-react"
+import { Menu } from "lucide-react"
 import ConsultasSidebar from "./ConsultasSidebar"
 import ChatInput from "./ChatInput"
 import ChatMessages from "./ChatMessages"
+import ThemeToggle from "./ThemeToggle"
 import "../styles/ChatInterface.css"
 
 type Theme = "light" | "dark" | "colorblind"
@@ -12,33 +13,60 @@ type ChatInterfaceProps = {
   onThemeChange: (theme: Theme) => void
 }
 
+// URL base del backend
+const API_BASE_URL = "http://localhost:5000"
+
 const ChatInterface = ({ theme, onThemeChange }: ChatInterfaceProps) => {
   const [sidebarOpen, setSidebarOpen] = useState(false)
   const [messages, setMessages] = useState<Array<{ text: string; isBot: boolean }>>([
-    { text: "¿EN QUÉ PUEDO AYUDARTE?", isBot: true },
+    { text: "¿Buenas, en qué puedo ayudarte hoy?", isBot: true },
   ])
   const [isLoading, setIsLoading] = useState(false)
 
   const handleSendMessage = async (text: string) => {
     if (!text.trim()) return
 
-    // Añadir mensaje del usuario
+    // Añadir mensaje del usuario a la interfaz
     const userMessage = { text, isBot: false }
     setMessages((prev) => [...prev, userMessage])
     setIsLoading(true)
 
     try {
-      // Simulación de respuesta del bot
-      setTimeout(() => {
-        const botResponse = {
-          text: `¡Claro! Aquí tienes la información sobre: "${text}"`,
-          isBot: true,
-        }
-        setMessages((prev) => [...prev, botResponse])
-        setIsLoading(false)
-      }, 1000)
+      // Primera llamada: enviar la pregunta del usuario
+      const sendResponse = await fetch(`${API_BASE_URL}/api/send-question`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ message: text }),
+      })
+
+      if (!sendResponse.ok) {
+        const errorData = await sendResponse.json()
+        throw new Error(errorData.error || "Error al enviar la pregunta")
+      }
+
+      // Segunda llamada: obtener la respuesta del bot
+      const getResponse = await fetch(`${API_BASE_URL}/api/get-bot-response`, {
+        method: "GET",
+      })
+
+      if (!getResponse.ok) {
+        const errorData = await getResponse.json()
+        throw new Error(errorData.error || "Error al obtener la respuesta del bot")
+      }
+
+      const data = await getResponse.json()
+
+      // Añadir respuesta del bot
+      const botResponse = {
+        text: data.message || "Lo siento, no pude procesar tu mensaje.",
+        isBot: true,
+      }
+
+      setMessages((prev) => [...prev, botResponse])
     } catch (error) {
-      console.error("Error al enviar mensaje:", error)
+      console.error("Error en la comunicación con el backend:", error)
       setMessages((prev) => [
         ...prev,
         {
@@ -46,62 +74,39 @@ const ChatInterface = ({ theme, onThemeChange }: ChatInterfaceProps) => {
           isBot: true,
         },
       ])
+    } finally {
       setIsLoading(false)
     }
   }
 
   return (
     <div className="chat-interface">
-      <aside className={`sidebar ${sidebarOpen ? "open" : ""}`}>
-        <div className="theme-controls">
-          <div className="theme-toggle">
-            <button
-              className={`theme-button ${theme === "light" ? "active" : ""}`}
-              onClick={() => onThemeChange("light")}
-              aria-label="Modo día"
-              title="Modo día"
-            >
-              <Sun size={20} />
+      <header className="app-header">
+        <div className="header-content">
+          <div className="header-left">
+            <button className="menu-button" onClick={() => setSidebarOpen(!sidebarOpen)} aria-label="Toggle menu">
+              <Menu />
             </button>
-            <button
-              className={`theme-button ${theme === "dark" ? "active" : ""}`}
-              onClick={() => onThemeChange("dark")}
-              aria-label="Modo noche"
-              title="Modo noche"
-            >
-              <Moon size={20} />
-            </button>
-            <button
-              className={`theme-button ${theme === "colorblind" ? "active" : ""}`}
-              onClick={() => onThemeChange("colorblind")}
-              aria-label="Modo daltónico"
-              title="Modo daltónico"
-            >
-              <Eye size={20} />
-            </button>
+            <h1>DR. DIAGNOBOT</h1>
           </div>
-          <button className="search-button" aria-label="Buscar">
-            <Search />
-          </button>
+          <div className="bot-logo">
+            <div className="bot-logo-placeholder"></div>
+          </div>
+        </div>
+      </header>
+
+      <aside className={`sidebar ${sidebarOpen ? "open" : ""}`}>
+        <div className="sidebar-header">
+          <ThemeToggle currentTheme={theme} onThemeChange={onThemeChange} />
         </div>
         <ConsultasSidebar />
       </aside>
 
-      <main className="main-content">
-        <button className="menu-toggle" onClick={() => setSidebarOpen(!sidebarOpen)} aria-label="Abrir menú">
-          <Menu />
-        </button>
-
+      <main className={`main-content ${!sidebarOpen ? "expanded" : ""}`}>
         <div className="chat-container">
-          <div className="bot-header">
-            <h1>HOLA, SOY EL DR. DIAGNOBOT</h1>
-            <div className="bot-avatar">
-              <div className="bot-logo-placeholder"></div>
-            </div>
+          <div className="messages-wrapper">
+            <ChatMessages messages={messages} isLoading={isLoading} theme={theme} />
           </div>
-
-          <ChatMessages messages={messages} isLoading={isLoading} theme={theme} />
-
           <ChatInput onSendMessage={handleSendMessage} isLoading={isLoading} />
         </div>
       </main>
