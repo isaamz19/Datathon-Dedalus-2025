@@ -1,5 +1,3 @@
-"use client"
-
 import { Moon, Sun, Eye } from "lucide-react"
 import "../styles/ThemeToggle.css"
 

@@ -3,3 +3,7 @@ numpy==1.23.5
 scikit-learn==1.2.2
 transformers==4.30.0
 streamlit==1.23.0
+Flask==2.3.2
+Flask-CORS==4.0.0
+boto3==1.28.62
+python-dotenv==1.0.0
