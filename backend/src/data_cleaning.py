@@ -20,8 +20,6 @@ df_1['Descripcion_Alergias'] = df_1['Descripcion_Alergias'].apply(remove_duplica
 
 #------------------------------------------------------
 
-
-
 # 5. Guardar los datasets finales
 df_1.to_csv(f'{cd}/data/processed/dataset_paciente_final.csv', index=False)
 df_2.to_csv(f'{cd}/data/processed/dataset_eventos_final.csv', index=False)
