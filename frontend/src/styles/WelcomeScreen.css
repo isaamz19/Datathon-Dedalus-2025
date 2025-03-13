@@ -1,0 +1,82 @@
+.welcome-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    background-color: #e1f0e5; /* Color verde claro de fondo */
+    padding: 2rem;
+  }
+  
+  .welcome-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    max-width: 500px;
+    text-align: center;
+  }
+  
+  .robot-image-placeholder {
+    width: 250px;
+    height: 250px;
+    margin-bottom: 2rem;
+    background-color: rgba(255, 255, 255, 0.2);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+  }
+  
+  .robot-image-placeholder::after {
+    content: "Imagen del robot";
+    color: rgba(0, 0, 0, 0.5);
+    font-size: 0.9rem;
+  }
+  
+  .welcome-title {
+    font-size: 3rem;
+    font-weight: bold;
+    color: #ff9966; /* Color naranja del texto */
+    margin-bottom: 2rem;
+    text-transform: uppercase;
+  }
+  
+  .start-button {
+    background-color: #ff9966; /* Color naranja del botón */
+    color: white;
+    font-size: 1.2rem;
+    font-weight: bold;
+    padding: 1rem 3rem;
+    border-radius: 2rem;
+    text-transform: uppercase;
+    transition: transform 0.2s, background-color 0.2s;
+  }
+  
+  .start-button:hover {
+    transform: translateY(-3px);
+    background-color: #ff8c52;
+  }
+  
+  .start-button:active {
+    transform: translateY(0);
+  }
+  
+  /* Responsive */
+  @media (max-width: 768px) {
+    .robot-image-placeholder {
+      width: 180px;
+      height: 180px;
+    }
+  
+    .welcome-title {
+      font-size: 2.5rem;
+    }
+  
+    .start-button {
+      padding: 0.8rem 2.5rem;
+      font-size: 1rem;
+    }
+  }
+  
+  

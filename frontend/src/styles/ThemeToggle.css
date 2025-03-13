@@ -1,0 +1,27 @@
+.theme-toggle {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+  
+  .theme-button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--text-color);
+    opacity: 0.6;
+    transition: opacity 0.2s;
+    padding: 0.3rem;
+    border-radius: 50%;
+  }
+  
+  .theme-button:hover {
+    opacity: 0.8;
+    background-color: rgba(0, 0, 0, 0.1);
+  }
+  
+  .theme-button.active {
+    opacity: 1;
+  }
+  
+  
