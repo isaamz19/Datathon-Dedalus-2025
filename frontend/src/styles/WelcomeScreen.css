@@ -20,7 +20,7 @@
     width: 250px;
     height: 250px;
     margin-bottom: 2rem;
-    background-color: rgba(255, 255, 255, 0.2);
+    background-image: url('/BackgroundRobot.png');
     border-radius: 50%;
     display: flex;
     align-items: center;
@@ -37,13 +37,13 @@
   .welcome-title {
     font-size: 3rem;
     font-weight: bold;
-    color: #ff9966; /* Color naranja del texto */
+    color: #ff914d; /* Color naranja del texto */
     margin-bottom: 2rem;
     text-transform: uppercase;
   }
   
   .start-button {
-    background-color: #ff9966; /* Color naranja del botón */
+    background-color: #ff914d; /* Color naranja del botón */
     color: white;
     font-size: 1.2rem;
     font-weight: bold;
@@ -55,7 +55,7 @@
   
   .start-button:hover {
     transform: translateY(-3px);
-    background-color: #ff8c52;
+    background-color: #fba060;
   }
   
   .start-button:active {
