@@ -50,6 +50,8 @@
   color: #ff914d; /* Color naranja del texto */
   margin-bottom: 2rem;
   text-transform: uppercase;
+  position: relative;
+  top: 110px; /* Baja el título */
 }
 
 .start-button {
@@ -61,6 +63,8 @@
   border-radius: 2rem;
   text-transform: uppercase;
   transition: transform 0.2s, background-color 0.2s;
+  position: relative;
+  top: 90px; /* Baja el botón*/
 }
 
 .start-button:hover {

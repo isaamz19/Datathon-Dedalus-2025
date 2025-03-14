@@ -8,21 +8,25 @@
   --button-text: #ffffff;
   --input-bg: #ffffff;
   --bot-message-bg: #ffffff;
-  --user-message-bg: #ff9966;
+  --user-message-bg: #ffffff;
+  --user-message-tx: #ff914d;
   --border-color: #dddddd;
+  --background-image: url('/LogoNaranja.png');
 }
 
 [data-theme="dark"] {
-  --background-color: #2c3e50;
-  --sidebar-color: #243342;
+  --background-color: #9fad86;
+  --sidebar-color: #f1a87b;
   --text-color: #ffffff;
-  --primary-color: #ff9966;
+  --primary-color: #ff914d;
   --secondary-color: #34495e;
   --button-text: #ffffff;
-  --input-bg: #34495e;
-  --bot-message-bg: #34495e;
-  --user-message-bg: #ff9966;
-  --border-color: #4a6572;
+  --input-bg: #f1a87b;
+  --bot-message-bg: #f1a87b;
+  --user-message-bg: #f1a87b;
+  --user-message-tx: #ffffff;
+  --border-color: #eae2da;
+  --background-image: url('/LogoBlanco.png');
 }
 
 [data-theme="colorblind"] {

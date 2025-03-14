@@ -23,7 +23,7 @@
 .user-message {
   align-self: flex-end;
   background-color: var(--user-message-bg);
-  color: white;
+  color: var(--user-message-tx);
   border-bottom-right-radius: 0;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
@@ -37,9 +37,14 @@
 .small-bot-icon-placeholder {
   width: 25px;
   height: 25px;
-  background-color: var(--primary-color);
+  /*background-color: var(--primary-color);
   border-radius: 50%;
-  opacity: 0.8;
+  opacity: 0.8; */
+  /* Agregar logo como fondo */
+  background-image: var(--background-image); /* Ruta del logo */
+  background-size: contain; /* Ajusta la imagen al tamaño del círculo */
+  background-position: center; /* Centra la imagen */
+  background-repeat: no-repeat; /* Evita que la imagen se repita */
 }
 
 .message-content {

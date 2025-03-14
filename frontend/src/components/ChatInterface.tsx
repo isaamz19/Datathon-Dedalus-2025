@@ -19,7 +19,7 @@ const API_BASE_URL = "http://localhost:5000"
 const ChatInterface = ({ theme, onThemeChange }: ChatInterfaceProps) => {
   const [sidebarOpen, setSidebarOpen] = useState(false)
   const [messages, setMessages] = useState<Array<{ text: string; isBot: boolean }>>([
-    { text: "¿Buenas, en qué puedo ayudarte hoy?", isBot: true },
+    { text: "Buenas, ¿en qué puedo ayudarte hoy?", isBot: true },
   ])
   const [isLoading, setIsLoading] = useState(false)
 
