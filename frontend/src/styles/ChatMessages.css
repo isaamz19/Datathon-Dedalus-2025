@@ -49,6 +49,7 @@
 
 .message-content {
   word-break: break-word;
+  font-weight: bold;
 }
 
 .typing-indicator {
