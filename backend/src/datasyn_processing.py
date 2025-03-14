@@ -1,9 +1,9 @@
 import os
 import pandas as pd
-from googletrans import Translator
+##from googletrans import Translator
 
 # Inicializamos el traductor
-translator = Translator()
+##translator = Translator()
 
 def translate_text(text, src='en', dest='es'):
     try:
@@ -14,7 +14,7 @@ def translate_text(text, src='en', dest='es'):
         return text
 
 
-from deep_translator import GoogleTranslator
+##from deep_translator import GoogleTranslator
 
 def translate_text_medical(text, src='en', dest='es'):
     """
@@ -365,8 +365,8 @@ def main():
                             os.path.join(base_processed, "imaging_studies_procesado.csv"))
     process_medications(os.path.join(base_raw, "medications.csv"),
                         os.path.join(base_processed, "medications_procesado.csv"))
-    process_observations(os.path.join(base_raw, "observations.csv"),
-                         os.path.join(base_processed, "observations_procesado.csv"))
+    ##process_observations(os.path.join(base_raw, "observations.csv"),
+                         ##os.path.join(base_processed, "observations_procesado.csv"))
     process_procedures(os.path.join(base_raw, "procedures.csv"),
                        os.path.join(base_processed, "procedures_procesado.csv"))
     process_immunizations(os.path.join(base_raw, "immunizations.csv"),
@@ -374,4 +374,4 @@ def main():
 
 if __name__ == "__main__":
     main()
-    post_process_translation()
+    ##post_process_translation()
