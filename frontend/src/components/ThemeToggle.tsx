@@ -6,30 +6,24 @@ type ThemeToggleProps = {
   onThemeChange: (theme: "light" | "dark" | "colorblind"| "dyslexia") => void
 }
 
-const ThemeToggle = ({ currentTheme, onThemeChange }: ThemeToggleProps) => {
+const ThemeToggle = ({ currentTheme, onThemeChange }: { currentTheme: string; onThemeChange: (theme: string) => void }) => {
+  const isLightMode = currentTheme === "light";  
+  
   return (
     <div className="theme-toggle">
       <button
-        className={`theme-button ${currentTheme === "light" ? "active" : ""}`}
-        onClick={() => onThemeChange("light")}
-        aria-label="Modo día"
-        title="Modo día"
-      >
-        <Sun size={20} />
-      </button>
-      <button
-        className={`theme-button ${currentTheme === "dark" ? "active" : ""}`}
-        onClick={() => onThemeChange("dark")}
-        aria-label="Modo noche"
-        title="Modo noche"
-      >
-        <Moon size={20} />
-      </button>
+      className="theme-button"
+      onClick={() => onThemeChange(isLightMode ? "dark" : "light")}
+      aria-label={isLightMode ? "Modo noche" : "Modo día"}
+      title={isLightMode ? "Modo noche" : "Modo día"}
+    >
+      {isLightMode ? <Moon size={20} /> : <Sun size={20} />}
+    </button>
       <button
         className={`theme-button ${currentTheme === "colorblind" ? "active" : ""}`}
         onClick={() => onThemeChange("colorblind")}
-        aria-label="Modo daltónico"
-        title="Modo daltónico"
+        aria-label="Modo daltonismo"
+        title="Modo daltonismo"
       >
         <Eye size={20} />
       </button>
