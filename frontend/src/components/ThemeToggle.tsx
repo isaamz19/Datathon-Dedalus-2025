@@ -22,8 +22,8 @@ const ThemeToggle = ({ currentTheme, onThemeChange }: { currentTheme: string; on
       <button
         className={`theme-button ${currentTheme === "colorblind" ? "active" : ""}`}
         onClick={() => onThemeChange("colorblind")}
-        aria-label="Modo daltónico"
-        title="Modo daltónico"
+        aria-label="Modo daltonismo"
+        title="Modo daltonismo"
       >
         <Eye size={20} />
       </button>
