@@ -5,6 +5,7 @@
 }
 
 .consulta-button {
+  font-family: inherit;
   background-color: var(--background-color);
   color: var(--text-color);
   padding: 0.8rem 1rem;
