@@ -19,28 +19,48 @@
   --sidebar-color: #f1a87b;
   --text-color: #ffffff;
   --primary-color: #ff914d;
-  --secondary-color: #34495e;
+  --secondary-color: #709fcd;
   --button-text: #ffffff;
-  --input-bg: #f1a87b;
-  --bot-message-bg: #f1a87b;
-  --user-message-bg: #f1a87b;
+  --input-bg: #cccacc;
+  --bot-message-bg: #cccacc;
+  --user-message-bg: #cccacc;
   --user-message-tx: #ffffff;
   --border-color: #eae2da;
   --background-image: url('/LogoBlanco.png');
 }
 
 [data-theme="colorblind"] {
-  --background-color: #f5f5f5;
-  --sidebar-color: #c8e6c9;
-  --text-color: #000000;
-  --primary-color: #0000ff;
-  --secondary-color: #c8e6c9;
-  --button-text: #ffffff;
-  --input-bg: #ffffff;
-  --bot-message-bg: #ffffff;
-  --user-message-bg: #0000ff;
-  --border-color: #dddddd;
+  --background-color: #F2F2F2; /* Fondo blanco para máximo contraste */
+  --sidebar-color: #A8DADC; /* Azul verdoso suave, accesible para daltónicos */
+  --text-color: #000000; /* Texto negro para mejor legibilidad */
+  --primary-color: #1D3557; /* Azul oscuro con buen contraste */
+  --secondary-color: #A8DADC; /* Azul verdoso, fácil de distinguir */
+  --button-text: #ffffff; /* Texto blanco en botones */
+  --input-bg: #ffffff; /* Fondo claro en inputs para contraste */
+  --bot-message-bg: #ffffff; /* Fondo gris claro para diferenciación */
+  --user-message-bg: #457B9D; /* Azul fuerte para destacar el mensaje del usuario */
+  --user-message-tx: #ffffff;
+  --border-color: #dddddd; /* Borde neutro */
+  --background-image: url('/LogoNegro.png');
+  --font-family: 'Atkinson Hyperlegible', sans-serif;
 }
+
+[data-theme="dyslexia"] {
+  --background-color: #FAF3E0; /* Beige muy suave para reducir el deslumbramiento */
+  --sidebar-color: #A8DADC;    /* Azul verdoso suave, accesible para los ojos */
+  --text-color: #2E2E2E;       /* Gris oscuro, más suave que el negro para evitar fatiga visual */
+  --primary-color: #1D3557;    /* Azul oscuro, genera un buen contraste sin ser demasiado brillante */
+  --secondary-color: #F4A261;  /* Naranja suave para resaltar botones y elementos importantes */
+  --button-text: #FFFFFF;      /* Texto blanco en botones para buen contraste */
+  --input-bg: #FFF8E7;         /* Fondo crema claro en los inputs */
+  --bot-message-bg: #ffffff;   /* Fondo crema claro para mejorar legibilidad */
+  --user-message-bg: #264653;  /* Azul oscuro para los mensajes del usuario */
+  --user-message-tx: #FFFFFF;  /* Texto blanco en los mensajes del usuario */
+  --border-color: #D0C8B4;     /* Gris muy suave para bordes, evitando distracciones */
+  --background-image: url('/LogoNegro.png'); /* Imágen de fondo */
+  --font-family: 'Comic Sans MS', sans-serif; /* Fuente accesible y cómoda para lectura */
+}
+
 
 * {
   margin: 0;
@@ -49,7 +69,7 @@
 }
 
 body {
-  font-family: "Arial", sans-serif;
+  font-family:  var(--font-family, "Arial", sans-serif);
   background-color: var(--background-color);
   color: var(--text-color);
   transition: background-color 0.3s, color 0.3s;

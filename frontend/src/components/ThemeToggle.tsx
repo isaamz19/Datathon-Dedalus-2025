@@ -1,9 +1,9 @@
-import { Moon, Sun, Eye } from "lucide-react"
+import { Moon, Sun, Eye, BookOpen} from "lucide-react"
 import "../styles/ThemeToggle.css"
 
 type ThemeToggleProps = {
-  currentTheme: "light" | "dark" | "colorblind"
-  onThemeChange: (theme: "light" | "dark" | "colorblind") => void
+  currentTheme: "light" | "dark" | "colorblind" | "dyslexia"
+  onThemeChange: (theme: "light" | "dark" | "colorblind"| "dyslexia") => void
 }
 
 const ThemeToggle = ({ currentTheme, onThemeChange }: ThemeToggleProps) => {
@@ -32,6 +32,14 @@ const ThemeToggle = ({ currentTheme, onThemeChange }: ThemeToggleProps) => {
         title="Modo daltónico"
       >
         <Eye size={20} />
+      </button>
+      <button
+        className={`theme-button ${currentTheme === "dyslexia" ? "active" : ""}`}
+        onClick={() => onThemeChange("dyslexia")}
+        aria-label="Modo dislexia"
+        title="Modo dislexia"
+      >
+        <BookOpen size={20} />
       </button>
     </div>
   )
