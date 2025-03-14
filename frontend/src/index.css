@@ -16,14 +16,14 @@
 
 [data-theme="dark"] {
   --background-color: #9fad86;
-  --sidebar-color: #f1a87b;
+  --sidebar-color: #cfbdaa;
   --text-color: #ffffff;
   --primary-color: #ff914d;
   --secondary-color: #709fcd;
   --button-text: #ffffff;
-  --input-bg: #cccacc;
-  --bot-message-bg: #cccacc;
-  --user-message-bg: #cccacc;
+  --input-bg: #f1a87b;
+  --bot-message-bg: #f1a87b;
+  --user-message-bg: #f1a87b;
   --user-message-tx: #ffffff;
   --border-color: #eae2da;
   --background-image: url('/LogoBlanco.png');
@@ -38,8 +38,8 @@
   --button-text: #ffffff; /* Texto blanco en botones */
   --input-bg: #ffffff; /* Fondo claro en inputs para contraste */
   --bot-message-bg: #ffffff; /* Fondo gris claro para diferenciación */
-  --user-message-bg: #457B9D; /* Azul fuerte para destacar el mensaje del usuario */
-  --user-message-tx: #ffffff;
+  --user-message-bg: #ffffff; /* Azul fuerte para destacar el mensaje del usuario */
+  --user-message-tx: #000000;
   --border-color: #dddddd; /* Borde neutro */
   --background-image: url('/LogoNegro.png');
   --font-family: 'Atkinson Hyperlegible', sans-serif;
@@ -48,14 +48,14 @@
 [data-theme="dyslexia"] {
   --background-color: #FAF3E0; /* Beige muy suave para reducir el deslumbramiento */
   --sidebar-color: #A8DADC;    /* Azul verdoso suave, accesible para los ojos */
-  --text-color: #2E2E2E;       /* Gris oscuro, más suave que el negro para evitar fatiga visual */
+  --text-color: #000000;       /* Gris oscuro, más suave que el negro para evitar fatiga visual */
   --primary-color: #1D3557;    /* Azul oscuro, genera un buen contraste sin ser demasiado brillante */
   --secondary-color: #F4A261;  /* Naranja suave para resaltar botones y elementos importantes */
   --button-text: #FFFFFF;      /* Texto blanco en botones para buen contraste */
-  --input-bg: #FFF8E7;         /* Fondo crema claro en los inputs */
+  --input-bg: #Ffffff;         /* Fondo crema claro en los inputs */
   --bot-message-bg: #ffffff;   /* Fondo crema claro para mejorar legibilidad */
-  --user-message-bg: #264653;  /* Azul oscuro para los mensajes del usuario */
-  --user-message-tx: #FFFFFF;  /* Texto blanco en los mensajes del usuario */
+  --user-message-bg: #ffffff;  /* Azul oscuro para los mensajes del usuario */
+  --user-message-tx: #000000;  /* Texto blanco en los mensajes del usuario */
   --border-color: #D0C8B4;     /* Gris muy suave para bordes, evitando distracciones */
   --background-image: url('/LogoNegro.png'); /* Imágen de fondo */
   --font-family: 'Comic Sans MS', sans-serif; /* Fuente accesible y cómoda para lectura */
