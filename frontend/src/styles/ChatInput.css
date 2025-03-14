@@ -8,6 +8,7 @@
 }
 
 .chat-input {
+  font-family: inherit;
   flex: 1;
   border: none;
   background: transparent;
