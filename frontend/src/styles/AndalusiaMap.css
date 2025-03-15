@@ -1,0 +1,92 @@
+.andalusia-map {
+  width: 100%;
+  height: 100%;
+  max-height: 250px;
+}
+
+.province {
+  transition: all 0.3s ease;
+  cursor: pointer;
+  stroke: #666;
+  stroke-width: 1;
+}
+
+.province:hover {
+  filter: brightness(1.1);
+  transform: translateY(-1px);
+}
+
+.province:hover {
+  filter: brightness(1.1);
+}
+
+.province-name {
+  font-size: 12px;
+  font-weight: bold;
+  text-anchor: middle;
+  pointer-events: none;
+  fill: #333;
+}
+
+.province-name {
+  font-size: 11px;
+  font-weight: bold;
+  text-anchor: middle;
+  pointer-events: none;
+  fill: #333;
+}
+
+.province-value {
+  font-size: 10px;
+  font-weight: normal;
+  fill: #666;
+}
+
+.legend {
+  font-size: 12px;
+}
+
+.legend-item {
+  transition: opacity 0.2s ease;
+}
+
+.legend-item:hover {
+  opacity: 0.8;
+}
+
+.legend-box {
+  stroke: #666;
+  stroke-width: 1px;
+}
+
+.legend-text {
+  fill: #333;
+  font-weight: 500;
+}
+
+.map-title {
+  font-size: 16px;
+  font-weight: bold;
+  text-anchor: middle;
+  fill: var(--text-color);
+}
+
+.tooltip {
+  position: absolute;
+  background-color: rgba(0, 0, 0, 0.8);
+  color: white;
+  padding: 4px 8px;
+  border-radius: 4px;
+  font-size: 12px;
+  pointer-events: none;
+  z-index: 1000;
+  transform: translate(-50%, -100%);
+  margin-top: -8px;
+}
+
+.map-container {
+  position: relative;
+  width: 100%;
+  height: 100%;
+}
+

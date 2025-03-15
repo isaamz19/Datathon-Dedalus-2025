@@ -12,17 +12,16 @@ def cargar_dataset(data):
     """Carga el dataset y lo convierte en una lista de textos."""
     textos = []
     for _, fila in data.iterrows():
-        texto = f"Paciente {fila['PacienteID']}: Vive en {fila['Provincia']}, Alergias: {fila['Descripcion_Alergias']}, Enfermedades: {fila['Descripcion_Condiciones']}"
+        texto = f"Paciente {fila['PacienteID']}: Vive en {fila['Provincia']}, Alergias: {fila['Descripcion_Alergias']}, Enfermedades: {fila['Descripcion_Condiciones']}, Género: {fila['Genero']}"
         textos.append(texto)
     return textos
 
 def buscar_info(pregunta, textos):
-    """Busca el texto más relevante en base a la pregunta (búsqueda simple)."""
-    for texto in textos:
-        if any(palabra.lower() in texto.lower() for palabra in pregunta.split()):
-            return texto
-    return "No tengo información relevante en mis datos."
+    """Busca todos los textos relevantes en base a la pregunta y los concatena."""
+    resultados = [texto for texto in textos if any(palabra.lower() in texto.lower() for palabra in pregunta.split())]
+    return "\n".join(resultados) if resultados else "No tengo información relevante en mis datos."
 
+  
 def preguntar_chatbot(pregunta, contexto):
     """Envía la pregunta con el contexto relevante a litellm."""
     client = openai.OpenAI(api_key="sk-P_a0RaVeWsY5R46N1ACKIQ", base_url="https://litellm.dccp.pbu.dedalus.com")
