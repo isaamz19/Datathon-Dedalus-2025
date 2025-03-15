@@ -28,12 +28,22 @@ def get_bot_response():
     
     # Aquí procesarías la pregunta y generarías una respuesta
     # Este es un ejemplo simple
-    buscar_info = modelo.buscar_info(last_question, modelo.textos)
-    response = modelo.preguntar_chatbot(last_question, buscar_info)
+    response = modelo.preguntar_chatbot(last_question, modelo.contexto)
     # Limpiar la pregunta después de responder
     last_question = ""
     
     return jsonify({"message": response})
+
+mujeres = 0
+hombres = 0
+@app.route('/api/sexo', methods=['GET'])
+def sexo():
+    global mujeres
+    global hombres
+    if request.method == 'GET':
+        mujeres = mujeres + 1
+        hombres = hombres
+        return jsonify({"mujeres": mujeres, "hombres": hombres})
 
 if __name__ == '__main__':
     app.run(debug=True, port=5000)
