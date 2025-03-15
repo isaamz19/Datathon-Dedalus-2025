@@ -116,6 +116,12 @@ const ChatInput = ({ onSendMessage, isLoading }: ChatInputProps) => {
     }
   };
 
+  const handleKeyDown = (e: React.KeyboardEvent) => {
+    if (e.key === "Enter") {
+      handleSubmit(e as unknown as React.FormEvent)  // Enviar el mensaje al presionar ENTER
+    }
+  }
+
   return (
     <form className="chat-input-container" onSubmit={handleSubmit}>
       <textarea
@@ -123,6 +129,7 @@ const ChatInput = ({ onSendMessage, isLoading }: ChatInputProps) => {
         ref={textAreaRef} // Asignar la referencia aquí
         value={message}
         onChange={(e) => setMessage(e.target.value)}
+        onKeyDown={handleKeyDown} // Detectar el ENTER
         placeholder="ESCRIBE A DR. DIAGNOBOT"
         disabled={isLoading}
         className="chat-input"
