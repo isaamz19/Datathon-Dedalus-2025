@@ -1,6 +1,6 @@
 import type React from "react"
-import { useState, useEffect } from "react"
-import { Mic } from "lucide-react"
+import { useState, useEffect, useRef } from "react"
+import { Mic, ArrowUpCircle } from "lucide-react"
 import "../styles/ChatInput.css"
 
 interface SpeechRecognitionErrorEvent extends Event {
@@ -46,6 +46,7 @@ const ChatInput = ({ onSendMessage, isLoading }: ChatInputProps) => {
   const [message, setMessage] = useState("")
   const [isListening, setIsListening] = useState(false)
   const [recognition, setRecognition] = useState<SpeechRecognition | null>(null)
+  const textAreaRef = useRef<HTMLTextAreaElement | null>(null)
 
   useEffect(() => {
     if ("SpeechRecognition" in window || "webkitSpeechRecognition" in window) {
@@ -78,7 +79,6 @@ const ChatInput = ({ onSendMessage, isLoading }: ChatInputProps) => {
           }
         }
 
-        // setMessage((prev) => prev + (finalTranscript || interimTranscript)); // Aquí solo actualizamos el texto en tiempo real sin enviarlo automáticamente
         setMessage(finalTranscript || interimTranscript); // Cambio: solo actualiza el mensaje con el texto final o interino
 
       };
@@ -88,6 +88,14 @@ const ChatInput = ({ onSendMessage, isLoading }: ChatInputProps) => {
       console.warn("Tu navegador no soporta la API de reconocimiento de voz.");
     }
   }, [])
+
+  // Ajustar el tamaño del textarea
+  useEffect(() => {
+    if (textAreaRef.current) {
+      textAreaRef.current.style.height = "auto"; // Resetear la altura
+      textAreaRef.current.style.height = `${textAreaRef.current.scrollHeight}px`; // Ajustar la altura
+    }
+  }, [message]) // Cada vez que el mensaje cambia, ajustar el tamaño
 
   // Función de manejo de submit (solo se llama cuando el usuario hace clic en enviar)
   const handleSubmit = (e: React.FormEvent) => {
@@ -110,14 +118,23 @@ const ChatInput = ({ onSendMessage, isLoading }: ChatInputProps) => {
 
   return (
     <form className="chat-input-container" onSubmit={handleSubmit}>
-      <input
-        type="text"
+      <textarea
+        // type="text"
+        ref={textAreaRef} // Asignar la referencia aquí
         value={message}
         onChange={(e) => setMessage(e.target.value)}
         placeholder="ESCRIBE A DR. DIAGNOBOT"
         disabled={isLoading}
         className="chat-input"
       />
+      <button
+        type="submit"
+        className="send-button"
+        aria-label="Enviar mensaje"
+        disabled={isLoading}
+      >
+        <ArrowUpCircle size={24} /> {/* Flecha de enviar */}
+      </button>
       <button
         type="button"
         className={`mic-button ${isListening ? "listening" : ""}`}
