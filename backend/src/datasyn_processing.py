@@ -195,11 +195,12 @@ def process_encounters(input_path, output_path):
     descripcion, razoncodigo y razondescripcion.
     """
     df = pd.read_csv(input_path)
-    df = df[['Id', 'START', 'STOP', 'ENCOUNTERCLASS', 'CODE', 'DESCRIPTION', 'REASONCODE', 'REASONDESCRIPTION']]
+    df = df[['Id', 'START', 'STOP', 'PATIENT', 'ENCOUNTERCLASS', 'CODE', 'DESCRIPTION', 'REASONCODE', 'REASONDESCRIPTION']]
     df.rename(columns={
         'Id': 'id',
         'START': 'fecha_inicio',
         'STOP': 'fecha_fin',
+        'PATIENT': 'PacienteID',
         'ENCOUNTERCLASS': 'tipo_encuentro',
         'CODE': 'codigo_encuentro',
         'DESCRIPTION': 'descripcion',
