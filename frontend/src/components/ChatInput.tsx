@@ -78,7 +78,8 @@ const ChatInput = ({ onSendMessage, isLoading }: ChatInputProps) => {
           }
         }
 
-        setMessage((prev) => prev + (finalTranscript || interimTranscript)); // Aquí solo actualizamos el texto en tiempo real sin enviarlo automáticamente
+        // setMessage((prev) => prev + (finalTranscript || interimTranscript)); // Aquí solo actualizamos el texto en tiempo real sin enviarlo automáticamente
+        setMessage(finalTranscript || interimTranscript); // Cambio: solo actualiza el mensaje con el texto final o interino
 
       };
 
@@ -86,7 +87,7 @@ const ChatInput = ({ onSendMessage, isLoading }: ChatInputProps) => {
     } else {
       console.warn("Tu navegador no soporta la API de reconocimiento de voz.");
     }
-  }, [onSendMessage])
+  }, [])
 
   // Función de manejo de submit (solo se llama cuando el usuario hace clic en enviar)
   const handleSubmit = (e: React.FormEvent) => {
