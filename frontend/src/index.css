@@ -27,40 +27,40 @@
   --user-message-tx: #ffffff;
   --border-color: #eae2da;
   --background-image: url('/LogoBlanco.png');
+  --speaker-icon-color: #ffffff; /* Cambiar color del icono del altavoz a blanco en modo oscuro */
 }
 
 [data-theme="colorblind"] {
-  --background-color: #F2F2F2; /* Fondo blanco para máximo contraste */
-  --sidebar-color: #A8DADC; /* Azul verdoso suave, accesible para daltónicos */
-  --text-color: #000000; /* Texto negro para mejor legibilidad */
-  --primary-color: #1D3557; /* Azul oscuro con buen contraste */
-  --secondary-color: #A8DADC; /* Azul verdoso, fácil de distinguir */
-  --button-text: #ffffff; /* Texto blanco en botones */
-  --input-bg: #ffffff; /* Fondo claro en inputs para contraste */
-  --bot-message-bg: #ffffff; /* Fondo gris claro para diferenciación */
-  --user-message-bg: #ffffff; /* Azul fuerte para destacar el mensaje del usuario */
+  --background-color: #F5F5F5;
+  --sidebar-color: #0077B6;
+  --text-color: #222222;
+  --primary-color: #264653;
+  --secondary-color: #E76F51;
+  --button-text: #FFFFFF;
+  --input-bg: #FFFFFF;
+  --bot-message-bg: #DDE5B6;
+  --user-message-bg: #DDE5B6;
   --user-message-tx: #000000;
-  --border-color: #dddddd; /* Borde neutro */
+  --border-color: #B0B0B0;
   --background-image: url('/LogoNegro.png');
   --font-family: 'Atkinson Hyperlegible', sans-serif;
 }
 
 [data-theme="dyslexia"] {
-  --background-color: #FAF3E0; /* Beige muy suave para reducir el deslumbramiento */
-  --sidebar-color: #A8DADC;    /* Azul verdoso suave, accesible para los ojos */
-  --text-color: #000000;       /* Gris oscuro, más suave que el negro para evitar fatiga visual */
-  --primary-color: #1D3557;    /* Azul oscuro, genera un buen contraste sin ser demasiado brillante */
-  --secondary-color: #F4A261;  /* Naranja suave para resaltar botones y elementos importantes */
-  --button-text: #FFFFFF;      /* Texto blanco en botones para buen contraste */
-  --input-bg: #Ffffff;         /* Fondo crema claro en los inputs */
-  --bot-message-bg: #ffffff;   /* Fondo crema claro para mejorar legibilidad */
-  --user-message-bg: #ffffff;  /* Azul oscuro para los mensajes del usuario */
-  --user-message-tx: #000000;  /* Texto blanco en los mensajes del usuario */
-  --border-color: #D0C8B4;     /* Gris muy suave para bordes, evitando distracciones */
-  --background-image: url('/LogoNegro.png'); /* Imágen de fondo */
-  --font-family: 'Comic Sans MS', sans-serif; /* Fuente accesible y cómoda para lectura */
+  --background-color: #FAF3E0;
+  --sidebar-color: #A8DADC;
+  --text-color: #000000;
+  --primary-color: #1D3557;
+  --secondary-color: #F4A261;
+  --button-text: #FFFFFF;
+  --input-bg: #Ffffff;
+  --bot-message-bg: #ffffff;
+  --user-message-bg: #ffffff;
+  --user-message-tx: #000000;
+  --border-color: #D0C8B4;
+  --background-image: url('/LogoNegro.png');
+  --font-family: 'Comic Sans MS', sans-serif;
 }
-
 
 * {
   margin: 0;
@@ -69,7 +69,7 @@
 }
 
 body {
-  font-family:  var(--font-family, "Arial", sans-serif);
+  font-family: var(--font-family, "Arial", sans-serif);
   background-color: var(--background-color);
   color: var(--text-color);
   transition: background-color 0.3s, color 0.3s;
@@ -94,5 +94,139 @@ img {
 /* Asegurarse de que los temas se aplican correctamente */
 [data-theme] {
   transition: all 0.3s ease;
+}
+
+/* Modificaciones para los mensajes */
+.messages-container {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem; /* Increased gap between messages */
+  padding: 1.5rem;
+  height: 100%;
+}
+
+.message {
+  display: flex;
+  max-width: 80%;
+  padding: 1.5rem; /* Increased padding */
+  border-radius: 1.5rem;
+  animation: fadeIn 0.3s ease;
+  min-height: 80px; /* Minimum height for messages */
+}
+
+.bot-message {
+  align-self: flex-start; /* Align bot messages to the left */
+  background-color: var(--bot-message-bg);
+  border-bottom-left-radius: 0;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.user-message {
+  align-self: flex-end; /* Align user messages to the right */
+  background-color: var(--user-message-bg);
+  color: var(--user-message-tx);
+  border-bottom-right-radius: 0;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.bot-icon {
+  margin-right: 1rem;
+  display: flex;
+  align-items: flex-start;
+  padding-top: 0.25rem;
+}
+
+.small-bot-icon-placeholder {
+  width: 25px;
+  height: 25px;
+  background-image: var(--background-image);
+  background-size: contain;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+.message-content {
+  word-break: break-word;
+  font-weight: bold;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.typing-indicator {
+  display: flex;
+  align-items: center;
+  gap: 0.3rem;
+}
+
+.typing-indicator span {
+  width: 6px;
+  height: 6px;
+  background-color: var(--text-color);
+  border-radius: 50%;
+  display: inline-block;
+  opacity: 0.6;
+  animation: typing 1s infinite;
+}
+
+.typing-indicator span:nth-child(1) {
+  animation-delay: 0s;
+}
+
+.typing-indicator span:nth-child(2) {
+  animation-delay: 0.2s;
+}
+
+.typing-indicator span:nth-child(3) {
+  animation-delay: 0.4s;
+}
+
+.stats-button {
+  background-color: var(--primary-color);
+  color: white;
+  border: none;
+  border-radius: 2rem;
+  padding: 0.5rem 1.5rem;
+  font-size: 0.9rem;
+  font-weight: bold;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  transition: background-color 0.2s;
+  margin-top: 0.5rem;
+  align-self: flex-end;
+}
+
+.stats-button:hover {
+  background-color: var(--primary-color);
+  opacity: 0.9;
+}
+
+@keyframes typing {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-5px);
+  }
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(5px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Asegurarse de que el icono del altavoz sea blanco en modo oscuro */
+[data-theme="dark"] .speaker-icon {
+  color: var(--speaker-icon-color); /* Cambiar color del altavoz */
 }
 

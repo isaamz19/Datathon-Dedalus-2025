@@ -1,7 +1,7 @@
 "use client"
 
 import { useEffect, useRef, useState } from "react"
-import { BarChart } from "lucide-react"
+import { BarChart, Volume2 } from "lucide-react"
 import StatisticsDialog from "./StatisticsDialog"
 import "../styles/ChatMessages.css"
 
@@ -27,10 +27,20 @@ const ChatMessages = ({ messages, isLoading }: ChatMessagesProps) => {
     setLastBotMessage(lastBotIndex)
   }, [messages])
 
+  const handleSpeak = (text: string) => {
+    if (text && 'speechSynthesis' in window) {
+      const utterance = new SpeechSynthesisUtterance(text);
+      utterance.lang = "es-ES";
+      window.speechSynthesis.speak(utterance);
+    } else {
+      alert("Tu navegador no soporta la síntesis de voz o el mensaje está vacío.");
+    }
+  };
+
   return (
     <div className="messages-container">
       {messages.map((msg, index) => (
-        <div key={index}>
+        <div key={index} className={`message-container ${msg.isBot ? "bot-container" : "user-container"}`}>
           <div className={`message ${msg.isBot ? "bot-message" : "user-message"}`}>
             {msg.isBot && (
               <div className="bot-icon">
@@ -39,12 +49,17 @@ const ChatMessages = ({ messages, isLoading }: ChatMessagesProps) => {
             )}
             <div className="message-content">
               {msg.text}
-              {/* Mostrar el botón de estadísticas dentro del mensaje del bot */}
+              {/* Mostrar el botón de estadísticas y el altavoz dentro del mensaje del bot */}
               {msg.isBot && index === lastBotMessage && (
-                <button className="stats-button" onClick={() => setShowStats(true)}>
-                  <BarChart size={16} />
-                  Ver estadísticas
-                </button>
+                <div className="message-buttons">
+                  <button className="speaker-button" onClick={() => handleSpeak(msg.text)}>
+                    <Volume2 size={20} />
+                  </button>
+                  <button className="stats-button" onClick={() => setShowStats(true)}>
+                    <BarChart size={16} />
+                    Ver estadísticas
+                  </button>
+                </div>
               )}
             </div>
           </div>
@@ -69,4 +84,5 @@ const ChatMessages = ({ messages, isLoading }: ChatMessagesProps) => {
 }
 
 export default ChatMessages
+
 

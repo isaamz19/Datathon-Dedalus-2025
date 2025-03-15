@@ -6,6 +6,12 @@
   height: 100%;
 }
 
+.message-container {
+  display: flex;
+  justify-content: flex-start;
+  /* Asegura que el mensaje se alinee de acuerdo al tipo de mensaje (bot o usuario) */
+}
+
 .message {
   display: flex;
   max-width: 80%;
@@ -15,15 +21,21 @@
   min-height: 80px; /* Minimum height for messages */
 }
 
+.bot-container {
+  justify-content: flex-start; /* Alineación a la izquierda para el bot */
+}
+
+.user-container {
+  justify-content: flex-end; /* Alineación a la derecha para el usuario */
+}
+
 .bot-message {
-  align-self: flex-start;
   background-color: var(--bot-message-bg);
   border-bottom-left-radius: 0;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
 .user-message {
-  align-self: flex-end;
   background-color: var(--user-message-bg);
   color: var(--user-message-tx);
   border-bottom-right-radius: 0;
@@ -125,4 +137,3 @@
     transform: translateY(0);
   }
 }
-
