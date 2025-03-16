@@ -39,7 +39,7 @@ def preguntar_chatbot(pregunta, contexto):
         "No expliques cómo realizaste la búsqueda ni detalles del proceso interno. Solo proporciona los resultados obtenidos."
         "Bajo ninguna circunstancia inventes datos ni busques información en otras bases de datos."
         "Si la tabla que se te proporciona está vacía, informa al usuario de manera clara y amable de que no tienes datos para responder a esa pregunta."
-        "La respuesta concreta que debes dar es: En estos momentos no dispongo de datos suficientes para contestar a esa pregunta. Por favor, introduzca otra consulta."
+        "La respuesta concreta que debes dar es: En estos momentos no hay pacientes en nuestra base de datos que cumplan los requisitos que propone. Por favor, introduzca otra consulta."
         "Si el usuario solicita información fuera de tu alcance, explícale cortésmente que tu función es "
         "exclusivamente la identificación de cohortes de pacientes con enfermedades crónicas. A continuación, te muestro la"
         "estructura de respuesta sugerida en distintos escenarios: "
@@ -80,7 +80,7 @@ def preguntar_query(pregunta, contexto):
 cd = os.getcwd()
 #sdata = pd.read_csv(f'{cd}/backend/data/processed/dataset_paciente_final.csv')
 #textos = cargar_dataset(data)
-pregunta = "Mujeres mayores de 50 años con alergia al látex y que hayan acudido al hospital en 2015"
+pregunta = "Mujeres mayores de 50 años con hipertensión y negras"
 
 #1º Descripción completa de nuestra base de datos
 descripcion = "Estamos trabajando sobre una base de datos que" \
@@ -157,14 +157,17 @@ descripcion = "Estamos trabajando sobre una base de datos que" \
 ""
 query = preguntar_query(pregunta,descripcion)
 print(query)
-dataset = sqlite3.connect(f'{cd}/backend/data/base_de_datos/BaseDeDatos.db')
-# Crear un cursor para ejecutar consultas
-cursor = dataset.cursor()
-# Obtener nombres de tablas
-cursor.execute(query)
-tablas = cursor.fetchall()
 
-# Cerrar conexión
-dataset.close()
-respuesta = preguntar_chatbot(pregunta, tablas)
+def abrirbasededatos(query):
+    dataset = sqlite3.connect(f'{cd}/backend/data/base_de_datos/BaseDeDatos.db')
+    # Crear un cursor para ejecutar consultas
+    cursor = dataset.cursor()
+    # Obtener nombres de tablas
+    cursor.execute(query)
+    tablas = cursor.fetchall()
+    # Cerrar conexión
+    dataset.close()
+    return tablas
+
+respuesta = preguntar_chatbot(pregunta, abrirbasededatos(query))
 print(respuesta)

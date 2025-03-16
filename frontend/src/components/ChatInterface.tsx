@@ -70,7 +70,7 @@ const ChatInterface = ({ theme, onThemeChange }: ChatInterfaceProps) => {
       setMessages((prev) => [
         ...prev,
         {
-          text: "Lo siento, ha ocurrido un error. Inténtalo de nuevo más tarde.",
+          text: "Lo siento el conjunto de datos que pide es demasiado grande para ser procesado por el servidor.Por favor, añada más filtros para reducir el tamaño del conjunto de datos.",
           isBot: true,
         },
       ])
