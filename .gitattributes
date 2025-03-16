@@ -1,1 +1,2 @@
 backend/data/base_de_datos/basedatosfinal.db filter=lfs diff=lfs merge=lfs -text
+backend/data/base_de_datos/BaseDeDatos.db filter=lfs diff=lfs merge=lfs -text
