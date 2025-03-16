@@ -82,7 +82,7 @@ def preguntar_query(pregunta, contexto):
 cd = os.getcwd()
 #sdata = pd.read_csv(f'{cd}/backend/data/processed/dataset_paciente_final.csv')
 #textos = cargar_dataset(data)
-pregunta = "Pacientes QUE HAYAN tenido gingivitis"
+pregunta = "Pacientes con alergia a los cacahuetes"
 
 #1º Descripción completa de nuestra base de datos
 descripcion = "Estamos trabajando sobre la base de datos baseparatesting. Esta base de datos" \
@@ -122,11 +122,14 @@ descripcion = "Estamos trabajando sobre la base de datos baseparatesting. Esta b
 "EncuentroID es de tipo TEXT y contiene el identificador del encuentro en el que se detectó la alergia." \
 "Fecha_diagnostico es de tipo TEXT NOT NULL y contiene la fecha de diagnóstico de la alergia. La fecha tiene el formato AÑO-MES-DÍA." \
 "Fecha_fin es de tipo TEXT y contiene la fecha del fin de la alergia. Si está a NULL es porque la alergia continua a día de hoy. La fecha tiene el formato AÑO-MES-DÍA" \
-"Codigo_SNOMED es de tipo INTEGER y contiene un código único para cada alergia. Al preguntarte por una alergia determinada, " \
-"lo que debes hacer primero es buscar su código SNOMED y luego filtrar la base de datos en base a ese código." \
-"Descripcion es de tipo TEXT y contiene la descripción de la alergia en inglés. El usuario te preguntará en español, por lo que debes traducir este campo del inglés al español." \
-"El usuario preguntará por datos del campo Descripción, pero debes hacer la búsqueda por su código SNOMED asociado. La respuesta NO debe contener el código SNOMED, sino la descripción de la alergia." \
-"" 
+"Codigo_SNOMED es de tipo INTEGER y contiene un código único para cada alergia. "\
+"Descripción es de tipo TEXT y contiene la descripción de la alergia en inglés. " \
+"Cuando el usuario te pregunte por una alergia en español, primero debes traducirla al inglés y luego buscar su código Código_SNOMED en la base de datos." \
+"NO incluyas el código SNOMED en la respuesta. Una vez encontrado el código, usa la Descripción en español para responder al usuario." \
+"Un ejemplo de búsqueda es el siguiente: El usuario pregunta: 'Pacientes con alergia al polvo'. Debes traducir 'polvo' al ingés." \
+"'dust'. Luego buscas su código SNOMED en la base de datos: 260147004. Finalmente, filtras los pacientes según ese código y " \
+"respondes con la descripción traducida en español. " \
+""
 query = preguntar_query(pregunta,descripcion)
 print(query)
 dataset = sqlite3.connect(f'{cd}/backend/data/base_de_datos/baseparatesting.db')
