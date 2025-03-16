@@ -28,18 +28,30 @@ def preguntar_chatbot(pregunta, contexto):
     client = openai.OpenAI(api_key="sk-P_a0RaVeWsY5R46N1ACKIQ", base_url="https://litellm.dccp.pbu.dedalus.com")
 
     mensajes = [
-        {"role": "system", "content": "Eres un asistente médico especializado en análisis de datos clínicos."
-        "Tu objetivo es ayudar a profesionales del área de la salud a "
-        "identificar cohortes de pacientes con enfermedades crónicas de manera rápida y eficiente, a partir de "
-        "criterios clínicos. Debes presentar respuestas claras y organizadas."
-        "Debes mantener un tono profesional, pero accesible y amigable. No debes usar palabras"
-        "malsonantes ni Si el usuario te pregunta por "
-        "algo fuera de tu alcance, di amablemente que no puedes ayudarlo en ese tema y recuérdale amablemente "
-        "que tu objetivo es crear cohortes de pacientes con enfermedades crónicas. "
-        "NO debes decirle al usuario como has llegado hasta la cohorte, debes reducirte a darle la cohorte que hayas"
-        "obtenido al hacer la consulta en la base de datos f'{cd}/backend/data/base_de_datos/baseparatesting.db'. "
-        "NO TE INVENTES DATOS NI BUSQUES OTRAS BASES DE DATOS. Si no hay ningún paciente que cumpla con "
-        "los criterios especificados por el usuario, comunícaselo amablemente. Di de que base de datos has sacado la informacioón"},
+        {"role": "system", "content": "Eres un asistente médico especializado en análisis de datos clínicos. "
+        "Tu principal objetivo es ayudar a profesionales de la salud a identificar cohortes de pacientes con "
+        "enfermedades crónicas de manera rápida y eficiente, utilizando criterios clínicos específicos."
+        "Tu estilo de comunicación es el siguiente: Debes responder de manera clara, concisa y estructurada."
+        "Mantén un tono profesional, accesible y amigable. Evita tecnicismos innecesarios a menos que el "
+        "usuario los solicite. No utilices palabras malsonantes ni un lenguaje inapropiado. Además, debes"
+        "seguir las siguientes reglas y restricciones: Solo debes generar cohortes de pacientes basándote "
+        "en la información almacenada en la base de datos localizada en "f'{cd}/backend/data/base_de_datos/basedatosfinal.db'""
+        "No expliques cómo realizaste la búsqueda ni detalles el proceso interno. Solo proporciona los resultados obtenidos."
+        "Bajo ninguna circunstancia inventes datos ni busques información en otras bases de datos."
+        "Si ningún paciente cumple los criterios clínicos especificados, informa al usuario de manera clara y amable."
+        "Si el usuario solicita información fuera de tu alcance, explícale cortésmente que tu función es "
+        "exclusivamente la identificación de cohortes de pacientes con enfermedades crónicas. A continuación, te muestro la"
+        "estructura de respuesta sugerida en distintos escenarios: "
+        "Si hay pacientes que cumplen los criterios: Se han identificado X pacientes que cumplen con los criterios "
+        "clínicos especificados. A continuación, se presentan los detalles:(Proporciona la información "
+        "de la cohorte según el formato clínico adecuado) (Devuelve datos estadísticos relevantes de la cohorte, como"
+        "la edad media de los pacientes, la distribución de géneros, el tiempo medio de la condicion, etc. No incluyas distribución "
+        "por etnicidad ni por etnia)."
+        "Si no hay pacientes que cumplan con los criterios: No se han encontrado pacientes que cumplan con "
+        "los criterios clínicos especificados. (Dile amablemente otras consultas que puede hacerte)."
+        "Si el usuario pregunta algo fuera del alcance: Mi función es identificar cohortes "
+        "de pacientes con enfermedades crónicas a partir de criterios clínicos. Para otro tipo de "
+        "consultas, te recomiendo acudir a un especialista en el área correspondiente."},
         {"role": "user", "content": f"Pregunta: {pregunta}\nContexto: {contexto}"}
     ]
     response = client.chat.completions.create(
@@ -53,7 +65,10 @@ def preguntar_query(pregunta, contexto):
     client = openai.OpenAI(api_key="sk-P_a0RaVeWsY5R46N1ACKIQ", base_url="https://litellm.dccp.pbu.dedalus.com")
 
     mensajes = [
-        {"role": "system", "content": "Responde unicamente con la query que vaya a darme la informacion necesaría. Tus mensaje se deben reducir únicamente a la query. Por ejemplo: SELECT * FROM Pacientes WHERE Alergias = 'si'"},
+        {"role": "system", "content": "Responde unicamente con la query que vaya a darme la "
+        "informacion necesaría. Tus mensaje se deben reducir únicamente a la query. "
+        "Por ejemplo: SELECT p.*, a.* FROM Pacientes p JOIN Alergias a ON p.PacienteID = a.PacienteID WHERE Codigo_SNOMED == 782576004. "
+        "Al hacer la query, en el SELECT tráete todas las columnas de las tablas usadas."},
         {"role": "user", "content": f"Pregunta: {pregunta}\nContexto: {contexto}"}
     ]
     response = client.chat.completions.create(
@@ -67,7 +82,7 @@ def preguntar_query(pregunta, contexto):
 cd = os.getcwd()
 #sdata = pd.read_csv(f'{cd}/backend/data/processed/dataset_paciente_final.csv')
 #textos = cargar_dataset(data)
-pregunta = "Cuantos pacientes son de genero femenino"
+pregunta = "Pacientes QUE HAYAN tenido gingivitis"
 
 #1º Descripción completa de nuestra base de datos
 descripcion = "Estamos trabajando sobre la base de datos baseparatesting. Esta base de datos" \
@@ -92,10 +107,14 @@ descripcion = "Estamos trabajando sobre la base de datos baseparatesting. Esta b
 "PacienteID es de tipo TEXT y contiene el número identificativo de cada paciente." \
 "Fecha_inicio es de tipo TEXT y contiene la fecha de inicio de la condición médica. La fecha tiene el formato AÑO-MES-DÍA." \
 "Fecha_fin es de tipo TEXT y contiene la fecha de fin de la condición médica. Si está a NULL es porque la condición sigue activa a día de hoy. La fecha es de la forma AÑO-MES-DÍA." \
-"Codigo_SNOMED es de tipo INTEGER y contiene un código único para cada condición. Al preguntarte por una condición determinada, " \
-"lo que debes hacer primero es buscar su código SNOMED y luego filtrar la base de datos en base a ese código." \
-"Descripción es de tipo TEXT y contiene la descripción de la condición médica en inglés. El usuario te preguntará en español, por lo que debes traducir este campo del inglés al español." \
-"El usuario preguntará por datos del campo Descripción, pero debes hacer la búsqueda por su código SNOMED asociado. La respuesta NO debe contener el código SNOMED, sino la descripción de la condición." \
+"Codigo_SNOMED es de tipo INTEGER y contiene un código único para cada condición. "\
+"Descripción es de tipo TEXT y contiene la descripción de la condición médica en inglés. " \
+"Cuando el usuario te pregunte por una condición médica en español, primero debes traducirla al inglés y luego buscar su código Código_SNOMED en la base de datos." \
+"NO incluyas el código SNOMED en la respuesta. Una vez encontrado el código, usa la Descripción en español para responder al usuario." \
+"Un ejemplo de búsqueda es el siguiente: El usuario pregunta: 'Pacientes embarazadas'. Debes traducir 'embarazada' al ingés." \
+"'pregnancy'. Luego buscas su código SNOMED en la base de datos: 72892002. Finalmente, filtras los pacientes según ese código y " \
+"respondes con la descripción traducida en español. Sin embargo, en la base de datos también hay información sobre" \
+"embarazos con abortos, eclampsia en el ambarazo, embarazos ectópicos... Por lo que debes buscar con atención el número correcto SNOMED."\
 "" \
 "La tabla Alergias contiene información sobre las alergias que padecen los pacientes. " \
 "Tiene como PRIMARY KEY EncuentroID y Codigo_SNOMED. Contiene los siguientes campos:" \
