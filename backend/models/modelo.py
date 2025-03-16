@@ -132,11 +132,11 @@ descripcion = "Estamos trabajando sobre la base de datos baseparatesting. Esta b
 ""
 query = preguntar_query(pregunta,descripcion)
 print(query)
-dataset = sqlite3.connect(f'{cd}/backend/data/base_de_datos/baseparatesting.db')
+dataset = sqlite3.connect(f'{cd}/backend/data/base_de_datos/BaseDeDatos.db')
 # Crear un cursor para ejecutar consultas
 cursor = dataset.cursor()
 # Obtener nombres de tablas
-cursor.execute(query)
+cursor.execute("Select * from Pacientes")
 tablas = cursor.fetchall()
 print("Tablas disponibles:", tablas)
 
