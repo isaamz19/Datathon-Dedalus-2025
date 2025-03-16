@@ -17,6 +17,9 @@
   font-size: 1rem;
   outline: none;
   font-weight: bold;
+  resize: none; /* Evita que el usuario redimensione el textarea manualmente */
+  overflow: hidden; /* Para evitar barras de desplazamiento */
+  min-height: 40px; /* Altura mínima */
 }
 
 .chat-input::placeholder {
@@ -42,4 +45,30 @@
   color: red;
   transform: scale(1.1);
   background-color: rgba(0, 0, 0, 0.1);
+}
+
+.send-button {
+  background-color: none;  
+  border: none;
+  border-radius: 50%;
+  padding: 10px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background-color 0.3s;
+}
+
+.send-button:disabled {
+  background-color: #ccc; /* Color para el botón deshabilitado */
+  cursor: not-allowed;
+}
+
+.send-button svg {
+  color: var(--text-color); /* Color de la flecha */
+  transition: transform 0.2s;
+}
+
+.send-button:hover svg {
+  transform: scale(1.1);  /* Efecto de hover */
 }

@@ -117,6 +117,30 @@
   opacity: 0.9;
 }
 
+.speaker-button {
+  background-color: none; 
+  color: var(--primary-color);  /* Color del texto en naranja */
+  border: none;  /* Sin borde */
+  padding: 8px 12px;  /* Relleno interno */
+  border-radius: 4px;  /* Bordes redondeados */
+  cursor: pointer;  /* Cambia el cursor a mano */
+  display: flex;  /* Alineación con otros elementos */
+  align-items: center;  /* Centrado vertical */
+}
+
+.speaker-button:hover {
+  background-color: var(--primary-color);  /* Color más oscuro al pasar el ratón */
+  opacity: 0.4;
+  color: white;
+}
+
+.message-buttons {
+  display: flex;  /* Hace que los botones estén en la misma línea */
+  align-items: center;  /* Centra verticalmente los botones */
+  gap: 10px;  /* Espacio entre los botones */
+  justify-content: flex-end;  /* Alinea los botones a la derecha */
+}
+
 @keyframes typing {
   0%,
   100% {

@@ -6,7 +6,7 @@ import ChatMessages from "./ChatMessages"
 import ThemeToggle from "./ThemeToggle"
 import "../styles/ChatInterface.css"
 
-type Theme = "light" | "dark" | "colorblind"
+type Theme = "light" | "dark" | "colorblind" | "dyslexia"
 
 type ChatInterfaceProps = {
   theme: Theme
