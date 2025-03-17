@@ -94,5 +94,6 @@ def get_provincias_distribution():
 def get_pathology_distribution():
     # En un entorno real, esto sería una consulta SQL
     return modelo.calcular_distribucion_patologias(df)
+
 if __name__ == '__main__':
     app.run(debug=True, port=5000)
