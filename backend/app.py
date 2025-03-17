@@ -46,6 +46,7 @@ def convert_last_table_to_df(last_table, column_name):
         return jsonify({"error": "No hay datos en last_table"}), 400
     try:
         df = pd.DataFrame(last_table, columns=column_name)
+        df = df.loc[:, ~df.columns.duplicated()]
     except Exception as e:
         return jsonify({"error": f"Error al convertir a DataFrame: {str(e)}"}), 500
     
@@ -82,18 +83,21 @@ def get_summary_data():
 def get_gender_distribution():
     global df
     return modelo.calcular_distribucion_genero(df)
-
 def get_age_distribution():
     # En un entorno real, esto sería una consulta SQL con CASE para agrupar por rangos de edad
     return modelo.calcular_distribucion_edad(df)
-
 def get_provincias_distribution():
     # En un entorno real, esto sería una consulta SQL
     return modelo.calcular_distribucion_provincias(df)
 
 def get_pathology_distribution():
     # En un entorno real, esto sería una consulta SQL
-    return modelo.calcular_distribucion_patologias(df)
-
+    return [
+        {"name": "Hipertensión", "value": 24},
+        {"name": "Diabetes", "value": 18},
+        {"name": "Resp.", "value": 15},
+        {"name": "Cardio.", "value": 12},
+        {"name": "Otras", "value": 31}
+    ]
 if __name__ == '__main__':
     app.run(debug=True, port=5000)

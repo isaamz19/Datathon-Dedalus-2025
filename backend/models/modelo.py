@@ -4,22 +4,17 @@ import sqlite3
 import os
 
 #Datos para calcular las estadisticas
-
 def calcular_resumen(tabla):
-    """ Calcula el resumen de pacientes. """
+    """Calcula el resumen de pacientes."""
+    if 'PacienteID' not in tabla.columns:
+        raise ValueError("La columna 'PacienteID' no existe en la tabla.")
     numero = tabla['PacienteID'].nunique()
     return {
-        "totalPatients": numero
+        "totalPatients": int(numero)  # Asegurarnos de que sea un entero
     }
-
-def calcular_distribucion_patologias(tabla):
-    """ Obtiene las 5 patologías más comunes. """
-    pathology_counts = tabla['Descripcion'].value_counts().nlargest(5)
-    return [{"name": pat, "value": int(valor)} for pat, valor in pathology_counts.items()]
 
 def calcular_distribucion_genero(tabla):
     """ Calcula la distribución de género. """
-    tabla['Genero'] = tabla['Genero'].replace({'Femenino': 'Mujer', 'Masculino': 'Hombre'})
     gender_counts = tabla['Genero'].value_counts(normalize=True) * 100
     return [{"name": genero, "value": round(valor, 2)} for genero, valor in gender_counts.items()]
 
@@ -60,13 +55,6 @@ def calcular_distribucion_edad(tabla):
     ]
     return result
 
-
-def calcular_distribucion_patologias(tabla):
-    """ Obtiene las 5 patologías más comunes. """
-    pathology_counts = tabla['Descripcion'].value_counts().nlargest(5)
-    return [{"name": pat, "value": int(valor)} for pat, valor in pathology_counts.items()]
-
-
 def preguntar_chatbot(pregunta, contexto):
     """Envía la pregunta con el contexto relevante a litellm."""
     client = openai.OpenAI(api_key="sk-P_a0RaVeWsY5R46N1ACKIQ", base_url="https://litellm.dccp.pbu.dedalus.com")
@@ -87,10 +75,17 @@ def preguntar_chatbot(pregunta, contexto):
         "Si el usuario solicita información fuera de tu alcance, explícale cortésmente que tu función es "
         "exclusivamente la identificación de cohortes de pacientes con enfermedades crónicas. A continuación, te muestro la"
         "estructura de respuesta sugerida en distintos escenarios: "
-        "Si hay pacientes que cumplen los criterios: Se han identificado X pacientes que cumplen con los criterios "
+        "Si hay pacientes que cumplen los criterios: Se han identificado exitosamente pacientes que cumplen con los criterios "
         "clínicos especificados. A continuación, se presentan los detalles:(Proporciona la información "
-        "de la cohorte según el formato clínico adecuado) (Devuelve datos estadísticos relevantes de la cohorte, como"
-        "la edad media de los pacientes, la distribución de géneros, el tiempo medio de la condicion, etc)."
+        "de la cohorte según el formato clínico adecuado)."
+        "A menos que se te pida detalles concretos como por ejemplo, informame más sobre el paciente X, solo debes contestar haciendo una descripcion general de 4 o 5 frases."
+        "Si te pregunta acerca de un paciente ya si debes contetar toda la informacion de forma estructurada que poseas."
+        "Ejemplo: 3. ID: 2ace29d0-1625-302c-eb43-3ce86b20aeaf"
+        "Fecha de nacimiento: 1992-08-30"
+        "Sexo: Femenino"
+        "Ciudad: Málaga"
+        "Edad: 32 años"
+        "Etnia: Asiático"
         "Si el usuario pregunta algo fuera del alcance: Mi función es identificar cohortes "
         "de pacientes con enfermedades crónicas a partir de criterios clínicos. Para otro tipo de "
         "consultas, te recomiendo acudir a un especialista en el área correspondiente."},
@@ -109,7 +104,7 @@ def preguntar_query(pregunta, contexto):
     mensajes = [
         {"role": "system", "content": "Responde unicamente con la query que vaya a darme la "
         "informacion necesaría. Tus mensaje se deben reducir únicamente a la query. Bajo ningún concepto utilices Codigo_SNOMED para hacer las query."
-        "Por ejemplo: SELECT p.*, a.* FROM Pacientes p JOIN Alergias a ON p.PacienteID = a.PacienteID WHERE Codigo_SNOMED == 782576004. "
+        "Por ejemplo: SELECT p.*, a.* FROM Pacientes p JOIN Alergias a ON p.PacienteID = a.PacienteID WHERE p.Edad = 'X años' AND a.Descripcion = 'Alergia al polen'."
         "Al hacer la query, en el SELECT tráete todas las columnas de las tablas usadas."},
         {"role": "user", "content": f"Pregunta: {pregunta}\nContexto: {contexto}"}
     ]
@@ -206,7 +201,7 @@ def abrirbasededatos(query):
     column_names = [desc[0] for desc in cursor.description]
 
     # Mostrar resultados con nombres de columnas
-    print(column_names)
+    print("-------------------------------------",column_names)
     # Cerrar conexión
     dataset.close()
     return tablas,column_names
