@@ -1,11 +1,15 @@
 from flask import Flask, request, jsonify
 from flask_cors import CORS
 from models import modelo
+import pandas as pd
 
 app = Flask(__name__)
 CORS(app)
 
 last_question = ""
+last_table = None
+column_name = ""
+df = None
 
 @app.route('/api/send-question', methods=['POST'])
 def send_question():
@@ -21,7 +25,7 @@ def send_question():
 
 @app.route('/api/get-bot-response', methods=['GET'])
 def get_bot_response():
-    global last_question
+    global last_question, last_table
     
     if not last_question:
         return jsonify({"message": "No hay preguntas pendientes"}), 400
@@ -29,12 +33,66 @@ def get_bot_response():
     # Aquí procesarías la pregunta y generarías una respuesta
     # Este es un ejemplo simple
     query = modelo.preguntar_query(last_question,modelo.descripcion)
-    print(f"Query generada: {query}")
-    response = modelo.preguntar_chatbot(last_question,modelo.abrirbasededatos(query))
-    # Limpiar la pregunta después de responder
+    last_table ,column_name  = modelo.abrirbasededatos(query)
+    convert_last_table_to_df(last_table, column_name)
+    response = modelo.preguntar_chatbot(last_question,last_table)
     last_question = ""
-    
     return jsonify({"message": response})
 
+def convert_last_table_to_df(last_table, column_name):
+    # Verificar si last_table es None o está vacío
+    global df
+    if last_table is None or len(last_table) == 0:
+        return jsonify({"error": "No hay datos en last_table"}), 400
+    try:
+        df = pd.DataFrame(last_table, columns=column_name)
+    except Exception as e:
+        return jsonify({"error": f"Error al convertir a DataFrame: {str(e)}"}), 500
+    
+@app.route('/api/get-estadistic', methods=['GET'])
+def get_estadistic():
+
+    summary_data = get_summary_data()
+    
+    # Obtener distribución por género
+    gender_data = get_gender_distribution()
+    
+    # Obtener distribución por edad
+    age_data = get_age_distribution()
+
+    provincia_data = get_provincias_distribution()
+    
+    # Obtener patologías más comunes
+    pathology_data = get_pathology_distribution()
+    
+    # Devolver todos los datos en un solo objeto
+    return jsonify({
+        "summaryData": summary_data,
+        "genderData": gender_data,
+        "ageData": age_data,
+        "provinciasData": provincia_data,
+        "pathologyData": pathology_data
+    })
+
+def get_summary_data():
+    # En un entorno real, esto sería una consulta SQL
+    global df
+    return modelo.calcular_resumen(df)
+
+def get_gender_distribution():
+    global df
+    return modelo.calcular_distribucion_genero(df)
+
+def get_age_distribution():
+    # En un entorno real, esto sería una consulta SQL con CASE para agrupar por rangos de edad
+    return modelo.calcular_distribucion_edad(df)
+
+def get_provincias_distribution():
+    # En un entorno real, esto sería una consulta SQL
+    return modelo.calcular_distribucion_provincias(df)
+
+def get_pathology_distribution():
+    # En un entorno real, esto sería una consulta SQL
+    return modelo.calcular_distribucion_patologias(df)
 if __name__ == '__main__':
     app.run(debug=True, port=5000)

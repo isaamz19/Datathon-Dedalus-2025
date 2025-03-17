@@ -1,140 +1,205 @@
 .statistics-dialog {
-    max-width: 90vw;
-    width: 800px;
-    background-color: var(--background-color);
-    border-radius: 1rem;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
-    position: fixed;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    z-index: 1000;
-    overflow: auto;
-    max-height: 90vh;
-  }
-  
-  .statistics-overlay {
-    position: fixed;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background-color: rgba(0, 0, 0, 0.5);
-    z-index: 999;
-  }
-  
-  .statistics-header {
-    padding: 1rem;
-    text-align: center;
-    background-color: var(--primary-color);
-    color: white;
-    font-weight: bold;
-    font-size: 1.5rem;
-    border-top-left-radius: 1rem;
-    border-top-right-radius: 1rem;
-  }
-  
-  .statistics-content {
-    padding: 1.5rem;
-  }
-  
+  max-width: 90vw;
+  width: 800px;
+  background-color: var(--background-color);
+  border-radius: 1rem;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 1000;
+  overflow: auto;
+  max-height: 90vh;
+}
+
+.statistics-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 999;
+}
+
+.statistics-header {
+  padding: 1rem;
+  text-align: center;
+  background-color: var(--primary-color);
+  color: white;
+  font-weight: bold;
+  font-size: 1.5rem;
+  border-top-left-radius: 1rem;
+  border-top-right-radius: 1rem;
+}
+
+.statistics-content {
+  padding: 1.5rem;
+}
+
+.statistics-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1.5rem;
+  margin-top: 1.5rem;
+}
+
+@media (min-width: 768px) {
   .statistics-grid {
-    display: grid;
-    grid-template-columns: 1fr;
-    gap: 1.5rem;
+    grid-template-columns: 1fr 1fr;
   }
-  
-  @media (min-width: 768px) {
-    .statistics-grid {
-      grid-template-columns: 1fr 1fr;
-    }
+}
+
+.statistics-card {
+  background-color: white;
+  border-radius: 0.5rem;
+  padding: 1rem;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.statistics-card h3 {
+  font-size: 1.1rem;
+  font-weight: bold;
+  margin-bottom: 1rem;
+  text-align: center;
+  color: var(--text-color);
+}
+
+.chart-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.close-button {
+  position: absolute;
+  top: 0.5rem;
+  right: 0.5rem;
+  background: none;
+  border: none;
+  color: white;
+  font-size: 1.5rem;
+  cursor: pointer;
+}
+
+.stats-button {
+  background-color: var(--primary-color);
+  color: white;
+  border: none;
+  border-radius: 2rem;
+  padding: 0.5rem 1.5rem;
+  font-size: 0.9rem;
+  font-weight: bold;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  transition: background-color 0.2s;
+  margin-top: 0.5rem;
+  align-self: flex-end;
+}
+
+.stats-button:hover {
+  background-color: var(--primary-color);
+  opacity: 0.9;
+}
+
+/* Estilos para la tarjeta de resumen de pacientes */
+.patient-summary-card {
+  background-color: white;
+  border-radius: 0.5rem;
+  padding: 1.5rem;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  margin-bottom: 1.5rem;
+}
+
+.patient-summary-card h3 {
+  font-size: 1.3rem;
+  font-weight: bold;
+  margin-bottom: 1.5rem;
+  text-align: center;
+  color: var(--primary-color);
+}
+
+/* Estilos para el total de pacientes */
+.total-patients-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 2rem;
+  background-color: var(--secondary-color);
+  border-radius: 0.5rem;
+  margin: 0 auto;
+  max-width: 300px;
+}
+
+.total-patients-value {
+  font-size: 3rem;
+  font-weight: bold;
+  color: var(--primary-color);
+  margin-bottom: 0.5rem;
+}
+
+.total-patients-label {
+  font-size: 1.2rem;
+  color: var(--text-color);
+  font-weight: 500;
+}
+
+.pathology-title {
+  font-size: 1.1rem;
+  font-weight: bold;
+  margin: 1.5rem 0 1rem;
+  text-align: center;
+  color: var(--primary-color);
+}
+
+/* Estilos para estados de carga y error */
+.loading-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 3rem;
+  text-align: center;
+}
+
+.spinner {
+  animation: spin 1s linear infinite;
+  color: var(--primary-color);
+  margin-bottom: 1rem;
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
   }
-  
-  .statistics-card {
-    background-color: white;
-    border-radius: 0.5rem;
-    padding: 1rem;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  100% {
+    transform: rotate(360deg);
   }
-  
-  .statistics-card h3 {
-    font-size: 1.1rem;
-    font-weight: bold;
-    margin-bottom: 1rem;
-    text-align: center;
-    color: var(--text-color);
-  }
-  
-  .chart-container {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-  }
-  
-  .notebook-card {
-    background-color: var(--secondary-color);
-    border-radius: 0.5rem;
-    padding: 1.5rem;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-  }
-  
-  .notebook-card h3 {
-    font-size: 1.1rem;
-    font-weight: bold;
-    margin-bottom: 1rem;
-    color: var(--text-color);
-    text-align: center;
-    border-bottom: 1px solid var(--text-color);
-    padding-bottom: 0.5rem;
-  }
-  
-  .notebook-content {
-    display: flex;
-    flex-direction: column;
-    gap: 0.8rem;
-  }
-  
-  .notebook-content p {
-    font-size: 0.9rem;
-    color: var(--text-color);
-    line-height: 1.4;
-  }
-  
-  .notebook-content strong {
-    font-weight: bold;
-  }
-  
-  .close-button {
-    position: absolute;
-    top: 0.5rem;
-    right: 0.5rem;
-    background: none;
-    border: none;
-    color: white;
-    font-size: 1.5rem;
-    cursor: pointer;
-  }
-  
-  .stats-button {
-    background-color: var(--primary-color);
-    color: white;
-    border: none;
-    border-radius: 2rem;
-    padding: 0.5rem 1.5rem;
-    font-size: 0.9rem;
-    font-weight: bold;
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-    gap: 0.5rem;
-    transition: background-color 0.2s;
-    margin-top: 0.5rem;
-    align-self: flex-end;
-  }
-  
-  .stats-button:hover {
-    background-color: var(--primary-color);
-    opacity: 0.9;
-  }
-  
-  
+}
+
+.error-container {
+  text-align: center;
+  padding: 2rem;
+  color: #e74c3c;
+}
+
+.retry-button {
+  background-color: var(--primary-color);
+  color: white;
+  border: none;
+  border-radius: 0.5rem;
+  padding: 0.5rem 1.5rem;
+  margin-top: 1rem;
+  cursor: pointer;
+  font-weight: bold;
+  transition: background-color 0.2s;
+}
+
+.retry-button:hover {
+  opacity: 0.9;
+}
+

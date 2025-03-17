@@ -3,26 +3,65 @@ import openai
 import sqlite3
 import os
 
-#Ejemplo hehco con OPeNAI
-#Nosotros debemos elegir el modelo que mejor se adapte a nuestras necesidades
-#En este caso se eligió el modelo bedrock/anthropic.claude-3-5-sonnet-20240620-v1:0
-#Este modelo es un modelo de lenguaje conversacional que puede ser utilizado para responder preguntas
-#sobre un contexto dado. En este caso, se utiliza para responder preguntas sobre pacientes en un hospital.
+#Datos para calcular las estadisticas
 
-def cargar_dataset(data):
-    """Carga el dataset y lo convierte en una lista de textos."""
-    textos = []
-    for _, fila in data.iterrows():
-        texto = f"Paciente {fila['PacienteID']}: Vive en {fila['Provincia']}, Alergias: {fila['Descripcion_Alergias']}, Enfermedades: {fila['Descripcion_Condiciones']}, Género: {fila['Genero']}"
-        textos.append(texto)
-    return textos
+def calcular_resumen(tabla):
+    """ Calcula el resumen de pacientes. """
+    numero = tabla['PacienteID'].nunique()
+    return {
+        "totalPatients": numero
+    }
 
-def buscar_info(pregunta, textos):
-    """Busca todos los textos relevantes en base a la pregunta y los concatena."""
-    resultados = [texto for texto in textos if any(palabra.lower() in texto.lower() for palabra in pregunta.split())]
-    return "\n".join(resultados) if resultados else "Lo siente, pero no tengo información relevante sobre eso en mis datos."
+def calcular_distribucion_genero(tabla):
+    """ Calcula la distribución de género. """
+    tabla['Genero'] = tabla['Genero'].replace({'Femenino': 'Mujer', 'Masculino': 'Hombre'})
+    gender_counts = tabla['Genero'].value_counts(normalize=True) * 100
+    return [{"name": genero, "value": round(valor, 2)} for genero, valor in gender_counts.items()]
 
-  
+def calcular_distribucion_provincias(tabla):
+    """ Calcula la distribución por provincias. """
+    province_counts = tabla['Provincia'].value_counts(normalize=True) * 100
+    return [{"name": provincia, "value": round(valor, 2)} for provincia, valor in province_counts.items()]
+
+def calcular_distribucion_edad(tabla):
+    # Eliminar los caracteres no numéricos y convertir la columna 'Edad' en números
+    tabla['Edad'] = tabla['Edad'].str.extract('(\d+)').astype(float)
+    
+    # Eliminar filas con NaN (si alguna edad no pudo ser convertida)
+    tabla = tabla.dropna(subset=['Edad'])
+    
+    # Definir los bins y etiquetas
+    bins = [0, 18, 25, 40, 70, 100]  # Rango de edades
+    labels = ['< 18', '18-25', '25-40', '40-70', '> 70']  # Etiquetas para los bins
+    
+    # Aplicar pd.cut para categorizar las edades
+    tabla['Rango Edad'] = pd.cut(tabla['Edad'], bins=bins, labels=labels, right=False)
+
+    # Contar la cantidad de personas por cada rango de edad
+    age_distribution = tabla['Rango Edad'].value_counts().sort_index()
+
+    # Suponiendo que hay una columna 'Fecha_muerte' para identificar los fallecidos
+    # Filtrar los fallecidos (si la columna 'Fecha_muerte' está presente y tiene valores)
+    fallecidos_count = tabla[tabla['Fecha_muerte'].notnull()].shape[0]
+
+    # Construir la lista final con la distribución de edades
+    result = [
+        {"name": "< 18", "value": int(age_distribution.get('< 18', 0))},
+        {"name": "18-25", "value": int(age_distribution.get('18-25', 0))},
+        {"name": "25-40", "value": int(age_distribution.get('25-40', 0))},
+        {"name": "40-70", "value": int(age_distribution.get('40-70', 0))},
+        {"name": "> 70", "value": int(age_distribution.get('> 70', 0))},
+        {"name": "Fallecidos", "value": int(fallecidos_count)}
+    ]
+    return result
+
+
+def calcular_distribucion_patologias(tabla):
+    """ Obtiene las 5 patologías más comunes. """
+    pathology_counts = tabla['Descripcion'].value_counts().nlargest(5)
+    return [{"name": pat, "value": int(valor)} for pat, valor in pathology_counts.items()]
+
+
 def preguntar_chatbot(pregunta, contexto):
     """Envía la pregunta con el contexto relevante a litellm."""
     client = openai.OpenAI(api_key="sk-P_a0RaVeWsY5R46N1ACKIQ", base_url="https://litellm.dccp.pbu.dedalus.com")
@@ -75,12 +114,6 @@ def preguntar_query(pregunta, contexto):
     )
     return response.choices[0].message.content
 
-
-# Cargar datos
-cd = os.getcwd()
-#sdata = pd.read_csv(f'{cd}/backend/data/processed/dataset_paciente_final.csv')
-#textos = cargar_dataset(data)
-pregunta = "Mujeres mayores de 50 años con hipertensión y negras"
 
 #1º Descripción completa de nuestra base de datos
 descripcion = "Estamos trabajando sobre una base de datos que" \
@@ -155,9 +188,8 @@ descripcion = "Estamos trabajando sobre una base de datos que" \
 "Descripcion es de tipo TEXT. Los posibles valores son: Reconciliación de medicación, Procedimiento de examen físico, Detección de depresión, Evaluación de necesidades de atención social y de salud, Detección de abuso doméstico, Evaluación del consumo de sustancias, Evaluación utilizando el Alcohol Use Disorders Identification Test - Consumo, Referencia del paciente para atención dental, Consulta dental e informe, Atención dental, Eliminación de placa y cálculo supragingival de todos los dientes utilizando instrumento dental, Eliminación de placa y cálculo subgingival de todos los dientes utilizando instrumento dental, Radiografía dental de tipo mordida, Examen de encías, Tratamiento dental con flúor, Educación sobre salud bucal, Procedimiento quirúrgico dental, Aplicación dental de medicamento desensibilizante, Borrar, Cuidado postoperatorio para procedimiento dental, Restauración del diente con cobertura de todas las cúspides usando material de relleno dental, Tomar impresión oral o dental, Colocación de dentadura, Medición de la función respiratoria, Evaluación de ansiedad, Aplicación de material de relleno dental compuesto a la dentina del diente tras fractura dental, Prueba estándar de embarazo, Ecografía para viabilidad fetal, Evaluación de altura del fondo uterino, Auscultación del corazón fetal, Tipificación de grupo sanguíneo, Medición de antígeno de superficie de Hepatitis B, Prueba de antígeno del virus de la inmunodeficiencia humana (VIH), Prueba de antígeno de Chlamydia, Prueba de título de infección por gonorrea, Prueba de título infeccioso de sífilis, Cultivo de orina, Prueba de detección de orina para diabetes, Prueba de detección de rubéola, Medición de anticuerpos del virus varicela-zóster, Prueba de proteínas en orina, Detección de aneuploidía cromosómica en muestra de líquido amniótico prenatal usando técnica de hibridación fluorescente in situ, Estudio de anatomía fetal, Prueba de alfa-fetoproteína - antenatal, Cultivo de garganta, Inserción de dispositivo anticonceptivo intrauterino, Detección de abuso de sustancias, Detección de depresión usando el cuestionario de salud del paciente de nueve ítems, Vacunación contra la gripe, Detección de glucosa en orina, Nacimiento prematuro de recién nacido, Historia y examen físico, Evaluación inicial del paciente, Desarrollo de plan de atención individualizado, Atención de enfermería/supervisión complementaria, Procedimiento de fisioterapia, Atención de servicios profesionales/auxiliares, Evaluación previa al alta, Alta hospitalaria, Retiro de dispositivo anticonceptivo intrauterino, Detección de anticuerpos RhD en el embarazo, Inmunización pasiva, Ensayo de antígeno del grupo B de Streptococcus pneumoniae, Episiotomía, Cesárea, Colonoscopia, Polipectomía rectal, Reemplazo de dispositivo anticonceptivo intrauterino, Inducción médica del parto, Parto, Inserción de anticonceptivo subcutáneo, Anestesia epidural, Retiro de anticonceptivo subcutáneo, Inyección intramuscular, Parto instrumentado, Extracción de muela, Radiografía de clavícula, Escáner de densidad ósea, Procedimiento de certificación, Notificaciones, Cuidados paliativos, Cribado de sangre oculta en heces, Resección parcial del colon, Cuidados postoperatorios, Quimioterapia combinada con radioterapia, Orientación anticipatoria, Radiografía de húmero, Inmovilización ósea, Examen de esputo, Educación sobre riesgos para la salud, Interpretación de frotis de sangre periférica, Revisión de sistemas, Examen general breve, Extracción de muela del juicio, Derivación al servicio de cardiología, Consulta para tratamiento, Angiografía de arteria coronaria, Manejo postoperatorio de anestesia, Cateterismo cardíaco, Mascarilla facial, Radiografía de tórax, Administración de oxígeno por mascarilla, Colocación del sujeto en posición prono, Terapia de rehabilitación, Evaluación del estado cardíaco con dispositivo de monitoreo, Procedimiento electrocardiográfico, Prueba de laboratorio, Evaluación diagnóstica, Evaluación de riesgos, Ecocardiografía transtorácica, Injerto de defecto óseo periodontal, Terapia ocupacional, Terapia del habla y lenguaje, Recopilación de información, Procedimiento de alveólo dental, Exéresis de torus palatino maxilar, Espirometría, Rehabilitación pulmonar, Transplante de pulmón, Observación cercana, Toma de historia clínica, Discusión sobre signos y síntomas, Procedimiento de evaluación, Discusión sobre el embarazo, Recolección de muestra de orina, Análisis de orina con referencia a microscopía y cultivo, Terapia antibiótica, Educación sobre esterilización, Ligadura bilateral de trompas de falopio, Sutura de herida, Resucitación con líquidos intravenosos, Traslado a unidad de transición, Ingreso a la unidad de cuidados intensivos, Examen neurológico, Examen físico del sistema musculoesquelético, Reparación de mielomeningocele, Exteriorización endoscópica del tercer ventrículo, Cauterización del plexo coroideo, Estudios urodinámicos, Ultrasonografía Doppler de la vena renal, Tomografía computarizada de la cabeza, Resonancia magnética de la columna vertebral, Prueba manual de la función muscular, Cardioversión con corriente continua, Radiografía simple de la región del tobillo, Asesoramiento para la interrupción del embarazo, Interrupción inducida del embarazo, Cuidado post interrupción del embarazo, Radiografía simple de la región de la rodilla, Manipulación quirúrgica de la articulación de la rodilla, Evaluación de regímenes de cuidado, Terapia de movimiento, Cirugía de apendicitis, Electroencefalograma, Referencia a servicio, Radiografía simple de pelvis, Ventilación artificial, Desconexión de ventilación asistida mecánicamente, Referencia a clínica de apnea del sueño, Titulación de presión positiva continua en las vías respiratorias, Diálisis renal, Referencia a cirujano de trasplantes, Referencia a servicio de cirugía cardíaca, Pruebas prequirúrgicas, Ecocardiografía, Notificación del plan de tratamiento, Programación, Inserción de catéter en arteria, Administración de anestesia para procedimiento, Intubación, Cateterización pulmonar con catéter Swan-Ganz, Preparación del paciente para el procedimiento, Canulación, Operación de bypass cardiopulmonar, Colocación de pinza de cruzamiento aórtico y Resonancia magnética cerebral." \
 "Razon_descripcion es de tipo TEXT. Los posibles valores son: Gingivitis, Derivación del paciente para atención dental, Enfermedad gingival, Caries dentales primarias, Pérdida de dientes, Bronquitis aguda, Relleno dental flojo, Relleno dental fracturado, Embarazo normal, Faringitis viral aguda, Pólipo rectal recurrente, Aborto espontáneo completo, Infección dental, Trastorno del sueño, Fractura de clavícula, Pólipo de colon, Neoplasia maligna de colon, Faringitis estreptocócica, Fractura de antebrazo, Involucramiento en actividad de riesgo, Enfermedad isquémica del corazón, Hallazgos anormales en imágenes diagnósticas del corazón y circulación coronaria, Enfermedad sospechada causada por el coronavirus 2 de síndrome respiratorio agudo severo, Hipoxemia, Abuso de drogas dependiente, Óvulo huero, Relleno dental con fuga, Infarto de miocardio sin elevación del segmento ST agudo, Resorción del proceso alveolar debido a trauma dental, Relleno dental perdido, Alveolitis de la mandíbula, Torus palatino, Enfisema pulmonar, Esterilización solicitada, Historia de ligadura de trompas, Laceración de la mano, Sepsis, Shock séptico, Meningomielocele, Hidrocefalia, Fibrilación auricular, Fractura de tobillo, Laceración facial, Lesión del ligamento colateral medial de la rodilla, Apendicitis, Fractura cerrada de cadera, Laceración de antebrazo, Síndrome de dificultad respiratoria aguda, Bronquitis crónica obstructiva, Enfermedad renal crónica estadio 4, En espera de trasplante de riñón, Historia de injerto de derivación de arteria coronaria, Embarazo tubárico, Enfermedad renal en etapa terminal, Historia de trasplante renal, Neoplasia maligna superpuesta de colon, Fractura subluxación de muñeca, Fractura de costilla, Luxación traumática de la articulación temporomandibular, Infección por el virus de inmunodeficiencia humana, Cáncer de pulmón sospechado, Carcinoma de pulmón de células no pequeñas en estadio TNM 1, Neoplasia de próstata, Neoplasia maligna primaria de células pequeñas de pulmón en estadio TNM 1, Laceración de pie, Neoplasia maligna de mama, Complicación durante el embarazo, Estenosis de la válvula aórtica, Historia de reemplazo de válvula aórtica, Torus mandibular, Insuficiencia cardíaca congestiva crónica, Regurgitación de la válvula aórtica, Laceración de muslo, Trastorno por déficit de atención en niños, Feto con anomalía cromosómica, Fibrosis quística, Sepsis causada por Pseudomonas, Enfermedad causada por el coronavirus 2 del síndrome respiratorio agudo severo, Depresión mayor episodio único, Ruptura del tendón rotuliano, Quemadura de espesor total, Asma infantil, Anquiloglosia, Fractura de mandíbula, Infarto agudo de miocardio con elevación del segmento ST, Abuso de opioides, En espera de trasplante de médula ósea, Historia de trasplante autólogo de médula ósea, Lesión del ligamento cruzado anterior, Lesión del tendón del manguito rotador del hombro, Trastorno de estrés postraumático, Herida de bala, Salivación excesiva, Historia de trasplante de células madre periféricas y Neoplasia maligna metastásica en colon." \
 ""
-query = preguntar_query(pregunta,descripcion)
-print(query)
 
+cd = os.getcwd()
 def abrirbasededatos(query):
     dataset = sqlite3.connect(f'{cd}/backend/data/base_de_datos/BaseDeDatos.db')
     # Crear un cursor para ejecutar consultas
@@ -165,9 +197,11 @@ def abrirbasededatos(query):
     # Obtener nombres de tablas
     cursor.execute(query)
     tablas = cursor.fetchall()
+
+    column_names = [desc[0] for desc in cursor.description]
+
+    # Mostrar resultados con nombres de columnas
+    print(column_names)
     # Cerrar conexión
     dataset.close()
-    return tablas
-
-respuesta = preguntar_chatbot(pregunta, abrirbasededatos(query))
-print(respuesta)
+    return tablas,column_names

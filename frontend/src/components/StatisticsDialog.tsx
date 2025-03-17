@@ -1,24 +1,34 @@
-import { useEffect } from "react"
-import { PieChart, Pie, Cell, BarChart, Bar, XAxis, YAxis, Tooltip } from "recharts"
-import { X } from "lucide-react"
-import AndalusiaMap from "./AndalusiaMap"
+"use client"
+
+import { useEffect, useState } from "react"
+import { PieChart, Pie, Cell, BarChart, Bar, XAxis, YAxis, Tooltip, ResponsiveContainer } from "recharts"
+import { X, Loader } from "lucide-react"
 import "../styles/StatisticsDialog.css"
 
-const genderData = [
-  { name: "Mujeres", value: 44 },
-  { name: "Hombres", value: 56 },
-]
+// Definición de tipos para los datos de estadísticas
+type GenderData = { name: string; value: number }[]
+type AgeData = { name: string; value: number }[]
+type PathologyData = { name: string; value: number }[]
+type ProvinciasData = { name: string; value: number }[]
 
-const ageData = [
-  { name: "< 18", value: 23 },
-  { name: "18-25", value: 12 },
-  { name: "25-40", value: 56 },
-  { name: "40-70", value: 4 },
-  { name: "> 70", value: 1 },
-  { name: "Fallecidos", value: 4 },
-]
+// Tipo para los datos de resumen
+type SummaryData = {
+  totalPatients: number
+}
 
-const COLORS = ["#FF914D", "#B8D2AD"]
+// Tipo para todos los datos de estadísticas (coincide con la estructura de la API)
+type StatisticsData = {
+  summaryData: SummaryData
+  genderData: GenderData
+  ageData: AgeData
+  provinciasData: ProvinciasData
+  pathologyData: PathologyData
+}
+
+const COLORS = ["#FF914D", "#B8D2AD", "#EAE2DA", "#9FAD86", "#CFBDAA"]
+
+// URL base del backend
+const API_BASE_URL = "http://localhost:5000"
 
 type StatisticsDialogProps = {
   isOpen: boolean
@@ -26,6 +36,42 @@ type StatisticsDialogProps = {
 }
 
 const StatisticsDialog = ({ isOpen, onClose }: StatisticsDialogProps) => {
+  // Estados para los datos de estadísticas
+  const [statisticsData, setStatisticsData] = useState<StatisticsData | null>(null)
+  const [isLoading, setIsLoading] = useState(false)
+  const [error, setError] = useState<string | null>(null)
+
+  // Función para cargar los datos de estadísticas
+  const fetchStatistics = async () => {
+    if (!isOpen) return
+
+    setIsLoading(true)
+    setError(null)
+
+    try {
+      const response = await fetch(`${API_BASE_URL}/api/get-estadistic`)
+
+      if (!response.ok) {
+        throw new Error(`Error al obtener estadísticas: ${response.status}`)
+      }
+
+      const data = await response.json()
+      setStatisticsData(data)
+    } catch (err) {
+      console.error("Error al cargar estadísticas:", err)
+      setError("No se pudieron cargar las estadísticas. Por favor, inténtalo de nuevo más tarde.")
+    } finally {
+      setIsLoading(false)
+    }
+  }
+
+  // Cargar datos cuando se abre el diálogo
+  useEffect(() => {
+    if (isOpen) {
+      fetchStatistics()
+    }
+  }, [isOpen])
+
   // Prevenir scroll del body cuando el modal está abierto
   useEffect(() => {
     if (isOpen) {
@@ -51,84 +97,127 @@ const StatisticsDialog = ({ isOpen, onClose }: StatisticsDialogProps) => {
             <X size={24} />
           </button>
         </div>
+
         <div className="statistics-content">
-          <div className="statistics-grid">
-            {/* Género */}
-            <div className="statistics-card">
-              <h3>Distribución por Género</h3>
-              <div className="chart-container">
-                <PieChart width={300} height={300}>
-                  <Pie
-                    data={genderData}
-                    cx={150}
-                    cy={150}
-                    innerRadius={60}
-                    outerRadius={100}
-                    fill="#8884d8"
-                    paddingAngle={5}
-                    dataKey="value"
-                    label={({ name, value }) => `${name}: ${value}%`}
-                  >
-                    {genderData.map((entry, index) => (
-                      <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
-                    ))}
-                  </Pie>
-                </PieChart>
-              </div>
+          {isLoading ? (
+            <div className="loading-container">
+              <Loader className="spinner" size={40} />
+              <p>Cargando estadísticas...</p>
             </div>
+          ) : error ? (
+            <div className="error-container">
+              <p>{error}</p>
+              <button className="retry-button" onClick={fetchStatistics}>
+                Reintentar
+              </button>
+            </div>
+          ) : statisticsData ? (
+            <>
+              {/* Resumen de Pacientes - Parte superior */}
+              <div className="patient-summary-card">
+                <h3>Resumen de Pacientes</h3>
+                <div className="total-patients-container">
+                  <div className="total-patients-value">
+                    {statisticsData.summaryData.totalPatients.toLocaleString()}
+                  </div>
+                  <div className="total-patients-label">Total de pacientes</div>
+                </div>
 
-            {/* Edad */}
-            <div className="statistics-card">
-              <h3>Distribución por Edad</h3>
-              <BarChart width={300} height={300} data={ageData} margin={{ top: 20, right: 30, left: 20, bottom: 5 }}>
-                <XAxis dataKey="name" />
-                <YAxis />
-                <Tooltip />
-                <Bar dataKey="value" fill="#FF914D">
-                  {ageData.map((entry, index) => (
-                    <Cell key={`cell-${index}`} fill={COLORS[0]} />
-                  ))}
-                </Bar>
-              </BarChart>
-            </div>
-
-            {/* Mapa */}
-            <div className="statistics-card">
-              <h3>Distribución Geográfica</h3>
-              <div className="chart-container" style={{ height: "250px" }}>
-                <AndalusiaMap />
+                {/* Patologías más comunes como gráfico */}
+                <h4 className="pathology-title">Patologías más comunes</h4>
+                <ResponsiveContainer width="100%" height={200}>
+                  <PieChart>
+                    <Pie
+                      data={statisticsData.pathologyData}
+                      cx="50%"
+                      cy="50%"
+                      outerRadius={80}
+                      fill="#8884d8"
+                      dataKey="value"
+                      label={({ name, value }) => `${name}: ${value}%`}
+                    >
+                      {statisticsData.pathologyData.map((entry, index) => (
+                        <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
+                      ))}
+                    </Pie>
+                    <Tooltip />
+                  </PieChart>
+                </ResponsiveContainer>
               </div>
-            </div>
 
-            {/* Notas */}
-            <div className="notebook-card">
-              <h3>Pacientes y sus estadísticas</h3>
-              <div className="notebook-content">
-                <p>
-                  <strong>Total de pacientes:</strong> 1,248 registrados en el sistema
-                </p>
-                <p>
-                  <strong>Consultas mensuales:</strong> 342 consultas en el último mes
-                </p>
-                <p>
-                  <strong>Patologías más comunes:</strong> Hipertensión (24%), Diabetes (18%), Problemas respiratorios
-                  (15%)
-                </p>
-                <p>
-                  <strong>Tiempo medio de consulta:</strong> 12 minutos por paciente
-                </p>
-                <p>
-                  <strong>Satisfacción del paciente:</strong> 4.7/5 basado en 856 valoraciones
-                </p>
-                <p>
-                  <strong>Tendencia de uso:</strong> Incremento del 12% respecto al mes anterior
-                </p>
-                <p>
-                  <strong>Pacientes recurrentes:</strong> 68% han realizado más de una consulta
-                </p>
+              {/* Gráficos inferiores */}
+              <div className="statistics-grid">
+                {/* Género */}
+                <div className="statistics-card">
+                  <h3>Distribución por Género</h3>
+                  <div className="chart-container">
+                    <PieChart width={300} height={300}>
+                      <Pie
+                        data={statisticsData.genderData}
+                        cx={150}
+                        cy={150}
+                        innerRadius={60}
+                        outerRadius={100}
+                        fill="#8884d8"
+                        paddingAngle={5}
+                        dataKey="value"
+                        label={({ name, value }) => `${name}: ${value}%`}
+                      >
+                        {statisticsData.genderData.map((entry, index) => (
+                          <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
+                        ))}
+                      </Pie>
+                    </PieChart>
+                  </div>
+                </div>
+
+                {/* Edad */}
+                <div className="statistics-card">
+                  <h3>Distribución por Edad</h3>
+                  <ResponsiveContainer width="100%" height={300}>
+                    <BarChart data={statisticsData.ageData} margin={{ top: 20, right: 30, left: 20, bottom: 5 }}>
+                      <XAxis dataKey="name" />
+                      <YAxis />
+                      <Tooltip />
+                      <Bar dataKey="value" fill="#FF914D">
+                        {statisticsData.ageData.map((entry, index) => (
+                          <Cell key={`cell-${index}`} fill={COLORS[0]} />
+                        ))}
+                      </Bar>
+                    </BarChart>
+                  </ResponsiveContainer>
+                </div>
+
+                {/* Provincias */}
+                <div className="statistics-card">
+                  <h3>Distribución por Provincia</h3>
+                  <ResponsiveContainer width="100%" height={300}>
+                    <BarChart
+                      data={statisticsData.provinciasData}
+                      layout="vertical"
+                      margin={{ top: 5, right: 30, left: 50, bottom: 5 }}
+                    >
+                      <XAxis type="number" />
+                      <YAxis type="category" dataKey="name" />
+                      <Tooltip />
+                      <Bar dataKey="value" fill="#FF914D" label={{ position: "right", fill: "#666" }}>
+                        {statisticsData.provinciasData.map((entry, index) => (
+                          <Cell key={`cell-${index}`} fill={COLORS[0]} />
+                        ))}
+                      </Bar>
+                    </BarChart>
+                  </ResponsiveContainer>
+                </div>
               </div>
+            </>
+          ) : (
+            <div className="error-container">
+              <p>No hay datos disponibles</p>
+              <button className="retry-button" onClick={fetchStatistics}>
+                Reintentar
+              </button>
             </div>
-          </div>
+          )}
         </div>
       </div>
     </>
