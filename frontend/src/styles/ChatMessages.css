@@ -120,7 +120,7 @@
 
 .speaker-button {
   background-color: none;
-  color: var(--primary-color); /* Color del texto en naranja */
+  color: var(--text-color); /* Color del texto en naranja */
   border: none; /* Sin borde */
   padding: 8px 12px; /* Relleno interno */
   border-radius: 4px; /* Bordes redondeados */
