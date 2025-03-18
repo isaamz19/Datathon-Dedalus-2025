@@ -10,22 +10,22 @@ last_question = ""
 last_table = None
 column_name = ""
 df = None
+historial_conversacion = []
 
 @app.route('/api/send-question', methods=['POST'])
 def send_question():
-    global last_question
+    global last_question , historial_conversacion
     data = request.json
     if not data or 'message' not in data:
         return jsonify({"error": "Mensaje no proporcionado"}), 400
     
     last_question = data['message']
     print(f"Pregunta recibida: {last_question}")
-    
     return jsonify({"success": True, "message": "Pregunta recibida correctamente"})
 
 @app.route('/api/get-bot-response', methods=['GET'])
 def get_bot_response():
-    global last_question, last_table
+    global last_question, last_table, historial_conversacion
     
     if not last_question:
         return jsonify({"message": "No hay preguntas pendientes"}), 400
@@ -35,7 +35,9 @@ def get_bot_response():
     query = modelo.preguntar_query(last_question,modelo.descripcion)
     last_table ,column_name  = modelo.abrirbasededatos(query)
     convert_last_table_to_df(last_table, column_name)
-    response = modelo.preguntar_chatbot(last_question,last_table)
+    response = modelo.preguntar_chatbot(last_question,last_table,historial_conversacion)
+
+    historial_conversacion.append({"pregunta": last_question, "respuesta": response})
     last_question = ""
     return jsonify({"message": response})
 
@@ -63,16 +65,12 @@ def get_estadistic():
 
     provincia_data = get_provincias_distribution()
     
-    # Obtener patologías más comunes
-    pathology_data = get_pathology_distribution()
-    
     # Devolver todos los datos en un solo objeto
     return jsonify({
         "summaryData": summary_data,
         "genderData": gender_data,
         "ageData": age_data,
         "provinciasData": provincia_data,
-        "pathologyData": pathology_data
     })
 
 def get_summary_data():
@@ -90,14 +88,5 @@ def get_provincias_distribution():
     # En un entorno real, esto sería una consulta SQL
     return modelo.calcular_distribucion_provincias(df)
 
-def get_pathology_distribution():
-    # En un entorno real, esto sería una consulta SQL
-    return [
-        {"name": "Hipertensión", "value": 24},
-        {"name": "Diabetes", "value": 18},
-        {"name": "Resp.", "value": 15},
-        {"name": "Cardio.", "value": 12},
-        {"name": "Otras", "value": 31}
-    ]
 if __name__ == '__main__':
     app.run(debug=True, port=5000)

@@ -1,53 +1,101 @@
-import "../styles/ConsultasSidebar.css"
+"use client"
+
 import { useState } from "react"
-import { Plus, ChevronDown, ChevronUp } from "lucide-react"
+import { ChevronDown, ChevronUp } from "lucide-react"
+import "../styles/ConsultasSidebar.css"
+
+type TableSection = {
+  title: string
+  color: string
+  fields: string[]
+}
 
 const ConsultasSidebar = () => {
-  // Estado para controlar si las consultas están expandidas o no
-  const [isExpanded, setIsExpanded] = useState(true)
+  const [expandedSection, setExpandedSection] = useState<string | null>("pacientes")
 
-  // Función para alternar la expansión de las consultas
-  const toggleExpansion = () => {
-    setIsExpanded(!isExpanded)
-  }
+  const tableSections: TableSection[] = [
+    {
+      title: "Pacientes",
+      color: "#FF914D",
+      fields: ["Fecha de nacimiento", "Raza", "Fecha de muerte", "Edad", "Provincia", "Género"],
+    },
+    {
+      title: "Medicaciones",
+      color: "#B8D2AD",
+      fields: [
+        "Fecha de inicio",
+        "Fecha de fin",
+        "Código del medicamento",
+        "Frecuencia",
+        "Vía de administración",
+        "Descripción/Nombre",
+      ],
+    },
+    {
+      title: "Condiciones",
+      color: "#9FAD86",
+      fields: ["Descripción de la condición", "Código de la condición", "Fecha de inicio", "Fecha de fin"],
+    },
+    {
+      title: "Encuentros",
+      color: "#CFBDAA",
+      fields: [
+        "Fecha de inicio",
+        "Fecha de fin",
+        "Tipo de encuentro",
+        "Razón del encuentro",
+        "Descripción del encuentro",
+      ],
+    },
+    {
+      title: "Procedimientos",
+      color: "#EAE2DA",
+      fields: ["Razón del procedimiento", "Descripción del procedimiento", "Código del procedimiento"],
+    },
+    {
+      title: "Inmunizaciones",
+      color: "#FFB347",
+      fields: ["Código de vacunación", "Descripción de la vacunación"],
+    },
+    {
+      title: "Alergias",
+      color: "#A2CDB0",
+      fields: ["Descripción de la alergia", "Código de la alergia"],
+    },
+  ]
 
-  // const consultas = ["CONSULTA 1", "CONSULTA 2", "CONSULTA 3", "CONSULTA 4", "CONSULTA 5", "CONSULTA 6"]
-  // Estado para almacenar las consultas dinámicamente
-  const [consultas, setConsultas] = useState<string[]>([])
-  
-  const addConsulta = () => {
-    const newConsultaNumber = consultas.length + 1;
-    setConsultas((prevConsultas) => [
-      ...prevConsultas,
-      `CONSULTA ${newConsultaNumber}`,
-    ])
+  const toggleSection = (title: string) => {
+    setExpandedSection(expandedSection === title ? null : title)
   }
 
   return (
-    <div className="consultas-sidebar">
-      <div className="consultas-header" onClick={toggleExpansion}>
-        <h3>CONSULTAS</h3>
-        {isExpanded ? <ChevronUp size={18} /> : <ChevronDown size={18} />}
-      </div>
-
-      {/* Botón para agregar nueva consulta */}
-      <div className="add-consulta-button-container">
-        <button className="add-consulta-button" onClick={addConsulta} 
-        aria-label="Nueva consulta"
-        title="Nueva consulta">
-          <Plus size={20} />
-        </button>
-      </div>
-
-      {isExpanded && (
-        <div className="consultas-container">
-          {consultas.slice().reverse().map((consulta, index) => (
-            <button key={index} className="consulta-button">
-              {consulta}
+    <div className="sidebar-content">
+      <h2 className="sidebar-title">Campos Disponibles</h2>
+      <div className="table-sections">
+        {tableSections.map((section) => (
+          <div key={section.title} className="table-section">
+            <button
+              className="section-header"
+              onClick={() => toggleSection(section.title)}
+              style={{ backgroundColor: section.color }}
+            >
+              <span>{section.title}</span>
+              {expandedSection === section.title ? <ChevronUp size={20} /> : <ChevronDown size={20} />}
             </button>
-          ))}
-        </div>
-      )}
+            {expandedSection === section.title && (
+              <div className="section-content">
+                <ul className="fields-list">
+                  {section.fields.map((field) => (
+                    <li key={field} className="field-item">
+                      {field}
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            )}
+          </div>
+        ))}
+      </div>
     </div>
   )
 }

@@ -2,6 +2,8 @@ import pandas as pd
 import openai
 import sqlite3
 import os
+import app as app
+
 
 #Datos para calcular las estadisticas
 def calcular_resumen(tabla):
@@ -55,9 +57,12 @@ def calcular_distribucion_edad(tabla):
     ]
     return result
 
-def preguntar_chatbot(pregunta, contexto):
+def preguntar_chatbot(pregunta, contexto, historial_conversacion):
     """Envía la pregunta con el contexto relevante a litellm."""
     client = openai.OpenAI(api_key="sk-P_a0RaVeWsY5R46N1ACKIQ", base_url="https://litellm.dccp.pbu.dedalus.com")
+    historial = "\n".join(
+        [f"Usuario: {item['pregunta']}\nAsistente: {item['respuesta']}" for item in historial_conversacion if item["respuesta"]]
+    )
 
     mensajes = [
         {"role": "system", "content": "Eres un asistente médico especializado en análisis de datos clínicos. "
@@ -88,7 +93,9 @@ def preguntar_chatbot(pregunta, contexto):
         "Etnia: Asiático"
         "Si el usuario pregunta algo fuera del alcance: Mi función es identificar cohortes "
         "de pacientes con enfermedades crónicas a partir de criterios clínicos. Para otro tipo de "
-        "consultas, te recomiendo acudir a un especialista en el área correspondiente."},
+        "consultas, te recomiendo acudir a un especialista en el área correspondiente."
+        "Por otro lado si la pregunta no es acerca de ninguna tabla en concreto sino de la conversación previa que habeis mantenido aqui te dejo toda la conversacion: "
+        f"{historial}"},
         {"role": "user", "content": f"Pregunta: {pregunta}\nTabla: {contexto}"}
     ]
     response = client.chat.completions.create(
@@ -158,7 +165,7 @@ descripcion = "Estamos trabajando sobre una base de datos que" \
 "Tipo_encuentro es de tipo TEXT. Los posibles valores son: Atención primaria, Hospital (Si te dicen persona que haya ideo al hospital y nada más se refiere a esto si te da alguna mas informacion ya ves cual es más adecuada entre las otras opciones), Urgencia, Hospicio, Casa y Virtual."\
 "Descripcion es de tipo TEXT. Los posibles valores son: Visita del niño sano, Consulta por problema, Examen general del paciente, Consulta para chequeo, Visita postnatal, Consulta por síntoma, Consulta de seguimiento, Administración de vacuna para producir inmunidad activa, Consulta para tratamiento, Visita prenatal inicial, Visita prenatal, Clínica de atención urgente, Procedimiento de encuentro con paciente, Admisión en sala de emergencia, Admisión hospitalaria, Admisión al departamento de cirugía, Admisión hospitalaria por emergencia obstétrica, Visita domiciliaria, Seguimiento de asma, Admisión en hospicio, Admisión hospitalaria de emergencia por asma, Visita al consultorio, Tratamiento de emergencia, Admisión hospitalaria de emergencia, Admisión hospitalaria para aislamiento, Rehabilitación y desintoxicación de drogas, Evaluación y manejo de paciente domiciliario o en hogar de reposo, Visita de seguimiento postoperatorio, Admisión al departamento de cirugía torácica, Certificación de defunción, Consulta iniciada por el paciente, Admisión ortopédica no urgente, Entrevista psiquiátrica inicial con evaluación del estado mental, Visita de seguimiento, Traslado de paciente a unidad de cuidados intensivos, Admisión a sala hospitalaria, Admisión a unidad de cuidados intensivos, Admisión al departamento de trasplante quirúrgico, Consulta telefónica, Evaluación inicial de trastorno alérgico, Procedimiento ambulatorio, Evaluación de seguimiento de trastorno alérgico, Admisión al departamento de oncología clínica, Reevaluación periódica y manejo de individuo sano, Vigilancia de detección, Consulta de telemedicina con paciente, Servicio de ginecología, Trastorno de estrés postraumático, Visita al médico con evaluación y/o manejo, Traslado a unidad de transición, Consulta por videotelefonía, Discusión sobre tratamiento, Visita de paciente a departamento de emergencia, Coordinación preoperatoria, Procedimiento quirúrgico y Consulta indirecta." \
 "" \
-"La tabla Inmunizaciones contiene información sobre las inmunizaciones recibidas por los pacientes. " \
+"La tabla Inmunizaciones contiene información sobre las inmunizaciones/vacunaciones recibidas por los pacientes. " \
 "Tiene como PRIMARY KEY EncuentroID y Codigo. Contiene las siguientes columnas:" \
 "PacienteID es de tipo TEXT NOT NULL." \
 "EncuentroID es de tipo TEXT." \

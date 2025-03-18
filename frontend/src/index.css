@@ -1,5 +1,4 @@
 :root {
-  /* Light theme (default) */
   --background-color: #eae2da;
   --sidebar-color: #b8d2ad;
   --text-color: #ff914d;
@@ -11,7 +10,16 @@
   --user-message-bg: #ffffff;
   --user-message-tx: #ff914d;
   --border-color: #dddddd;
-  --background-image: url('/LogoNaranja.png');
+  --background-image: url("/LogoNaranja.png");
+
+  --text-color-accessible: #d97339;
+  --link-hover-color: #c85a20;
+  --focus-ring-color: #0066cc;
+  --chart-color-1: #ff914d;
+  --chart-color-2: #b8d2ad;
+  --chart-color-3: #9fad86;
+  --chart-color-4: #cfbdaa;
+  --chart-color-5: #eae2da;
 }
 
 [data-theme="dark"] {
@@ -26,8 +34,17 @@
   --user-message-bg: #f1a87b;
   --user-message-tx: #ffffff;
   --border-color: #eae2da;
-  --background-image: url('/LogoBlanco.png');
-  --speaker-icon-color: #ffffff; /* Cambiar color del icono del altavoz a blanco en modo oscuro */
+  --background-image: url("/LogoBlanco.png");
+  --speaker-icon-color: #ffffff;
+
+  --text-color-accessible: #ffffff;
+  --link-hover-color: #ffcca8;
+  --focus-ring-color: #4db8ff;
+  --chart-color-1: #ff914d;
+  --chart-color-2: #d8f0cc;
+  --chart-color-3: #bfcca8;
+  --chart-color-4: #e0d0c0;
+  --chart-color-5: #f5f0eb;
 }
 
 [data-theme="colorblind"] {
@@ -44,6 +61,24 @@
   --border-color: #B0B0B0;
   --background-image: url('/LogoNegro.png');
   --font-family: 'Atkinson Hyperlegible', sans-serif;
+
+  --text-color-accessible: #000000;
+  --link-hover-color: #003d5c;
+  --focus-ring-color: #e76f51;
+  --chart-color-1: #264653;
+  --chart-color-2: #2a9d8f;
+  --chart-color-3: #e9c46a;
+  --chart-color-4: #f4a261;
+  --chart-color-5: #e76f51;
+
+  --text-color-accessible: #000000;
+  --link-hover-color: #0f1a2b;
+  --focus-ring-color: #f4a261;
+  --chart-color-1: #1d3557;
+  --chart-color-2: #457b9d;
+  --chart-color-3: #a8dadc;
+  --chart-color-4: #f1faee;
+  --chart-color-5: #e63946;
 }
 
 [data-theme="dyslexia"] {
