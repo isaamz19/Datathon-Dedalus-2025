@@ -1,24 +1,26 @@
-import { Moon, Sun, Eye, BookOpen} from "lucide-react"
+"use client"
+
+import { Moon, Sun, Eye, BookOpen } from "lucide-react"
 import "../styles/ThemeToggle.css"
 
 type ThemeToggleProps = {
   currentTheme: "light" | "dark" | "colorblind" | "dyslexia"
-  onThemeChange: (theme: "light" | "dark" | "colorblind"| "dyslexia") => void
+  onThemeChange: (theme: "light" | "dark" | "colorblind" | "dyslexia") => void
 }
 
-const ThemeToggle = ({ currentTheme, onThemeChange }: { currentTheme: string; onThemeChange: (theme: string) => void }) => {
-  const isLightMode = currentTheme === "light";  
-  
+const ThemeToggle = ({ currentTheme, onThemeChange }: ThemeToggleProps) => {
+  const isLightMode = currentTheme === "light"
+
   return (
     <div className="theme-toggle">
       <button
-      className="theme-button"
-      onClick={() => onThemeChange(isLightMode ? "dark" : "light")}
-      aria-label={isLightMode ? "Modo noche" : "Modo día"}
-      title={isLightMode ? "Modo noche" : "Modo día"}
-    >
-      {isLightMode ? <Moon size={20} /> : <Sun size={20} />}
-    </button>
+        className={`theme-button ${currentTheme === "light" || currentTheme === "dark" ? "active" : ""}`}
+        onClick={() => onThemeChange(isLightMode ? "dark" : "light")}
+        aria-label={isLightMode ? "Modo noche" : "Modo día"}
+        title={isLightMode ? "Modo noche" : "Modo día"}
+      >
+        {isLightMode ? <Moon size={20} /> : <Sun size={20} />}
+      </button>
       <button
         className={`theme-button ${currentTheme === "colorblind" ? "active" : ""}`}
         onClick={() => onThemeChange("colorblind")}

@@ -98,6 +98,77 @@
   color: var(--primary-color);
 }
 
+/* Mejorar el contraste para los elementos de la lista */
+.field-item {
+  padding: 0.5rem;
+  border-bottom: 1px solid #eee;
+  color: var(--text-color);
+  font-size: 0.9rem;
+  font-weight: 500; /* Hacer el texto un poco más grueso */
+}
+
+/* Mejorar contraste en modo claro */
+[data-theme="light"] .section-content {
+  background-color: #ffffff;
+  border: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+[data-theme="light"] .field-item {
+  color: #333333; /* Texto más oscuro para mejor contraste */
+}
+
+/* Mejorar contraste en modo oscuro */
+[data-theme="dark"] .field-item {
+  color: #000000; /* Texto negro para mejor contraste */
+  border-bottom-color: rgba(0, 0, 0, 0.2);
+}
+
+[data-theme="dark"] .section-content {
+  background-color: #f1a87b;
+  border: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+/* Mejorar contraste en modo daltónico */
+[data-theme="colorblind"] .section-content {
+  background-color: #ffffff;
+  border: 1px solid #264653;
+}
+
+[data-theme="colorblind"] .field-item {
+  color: #264653;
+  border-bottom-color: #2a9d8f;
+}
+
+/* Mejorar contraste en modo dislexia */
+[data-theme="dyslexia"] .field-item {
+  color: #000000; /* Texto negro para mejor contraste */
+  border-bottom-color: #1d3557;
+  font-weight: bold; /* Hacer el texto más legible */
+}
+
+[data-theme="dyslexia"] .section-content {
+  background-color: #ffffff;
+  border: 1px solid #1d3557;
+}
+
+[data-theme="dyslexia"] .field-item {
+  border-bottom-color: #a8dadc;
+}
+
+/* Asegurar que los títulos de sección también sean legibles */
+[data-theme="dark"] .sidebar-title,
+[data-theme="dyslexia"] .sidebar-title {
+  color: #000000;
+  font-weight: bold;
+}
+
+/* Mejorar contraste para los nombres de sección */
+[data-theme="dark"] .section-header span,
+[data-theme="dyslexia"] .section-header span {
+  color: #000000;
+  font-weight: bold;
+}
+
 @media (max-width: 768px) {
   .leyenda-sidebar {
     padding: 0.5rem;

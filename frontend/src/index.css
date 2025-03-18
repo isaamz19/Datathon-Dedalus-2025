@@ -48,19 +48,19 @@
 }
 
 [data-theme="colorblind"] {
-  --background-color: #F5F5F5;
-  --sidebar-color: #0077B6;
+  --background-color: #f5f5f5;
+  --sidebar-color: #0077b6;
   --text-color: #222222;
   --primary-color: #264653;
-  --secondary-color: #E76F51;
-  --button-text: #FFFFFF;
-  --input-bg: #FFFFFF;
-  --bot-message-bg: #DDE5B6;
-  --user-message-bg: #DDE5B6;
+  --secondary-color: #e76f51;
+  --button-text: #ffffff;
+  --input-bg: #ffffff;
+  --bot-message-bg: #dde5b6;
+  --user-message-bg: #dde5b6;
   --user-message-tx: #000000;
-  --border-color: #B0B0B0;
-  --background-image: url('/LogoNegro.png');
-  --font-family: 'Atkinson Hyperlegible', sans-serif;
+  --border-color: #b0b0b0;
+  --background-image: url("/LogoNegro.png");
+  --font-family: "Atkinson Hyperlegible", sans-serif;
 
   --text-color-accessible: #000000;
   --link-hover-color: #003d5c;
@@ -82,19 +82,19 @@
 }
 
 [data-theme="dyslexia"] {
-  --background-color: #FAF3E0;
-  --sidebar-color: #A8DADC;
+  --background-color: #faf3e0;
+  --sidebar-color: #a8dadc;
   --text-color: #000000;
-  --primary-color: #1D3557;
-  --secondary-color: #F4A261;
-  --button-text: #FFFFFF;
-  --input-bg: #Ffffff;
+  --primary-color: #1d3557;
+  --secondary-color: #f4a261;
+  --button-text: #ffffff;
+  --input-bg: #ffffff;
   --bot-message-bg: #ffffff;
   --user-message-bg: #ffffff;
   --user-message-tx: #000000;
-  --border-color: #D0C8B4;
-  --background-image: url('/LogoNegro.png');
-  --font-family: 'Comic Sans MS', sans-serif;
+  --border-color: #d0c8b4;
+  --background-image: url("/LogoNegro.png");
+  --font-family: "Comic Sans MS", sans-serif;
 }
 
 * {
@@ -263,5 +263,50 @@ img {
 /* Asegurarse de que el icono del altavoz sea blanco en modo oscuro */
 [data-theme="dark"] .speaker-icon {
   color: var(--speaker-icon-color); /* Cambiar color del altavoz */
+}
+
+/* Mejorar contraste en modo claro */
+[data-theme="light"] .statistics-card,
+[data-theme="light"] .patient-summary-card,
+[data-theme="light"] .summary-description,
+[data-theme="light"] .total-patients-container,
+[data-theme="light"] .info-panel {
+  border: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+[data-theme="light"] .summary-description,
+[data-theme="light"] .total-patients-container,
+[data-theme="light"] .info-panel {
+  background-color: rgba(184, 210, 173, 0.3);
+}
+
+[data-theme="light"] .statistics-card {
+  background-color: rgba(255, 255, 255, 0.9);
+}
+
+/* Mejorar contraste en modo oscuro */
+[data-theme="dark"] .statistics-card,
+[data-theme="dark"] .patient-summary-card {
+  background-color: rgba(241, 168, 123, 0.2);
+  color: white;
+}
+
+[data-theme="dark"] .summary-description,
+[data-theme="dark"] .total-patients-container,
+[data-theme="dark"] .info-panel {
+  background-color: rgba(207, 189, 170, 0.3);
+  color: white;
+}
+
+/* Mejorar contraste en modo daltónico */
+[data-theme="colorblind"] .field-item {
+  color: #264653;
+  border-bottom-color: #2a9d8f;
+}
+
+/* Mejorar contraste en modo dislexia */
+[data-theme="dyslexia"] .field-item {
+  color: #1d3557;
+  border-bottom-color: #a8dadc;
 }
 

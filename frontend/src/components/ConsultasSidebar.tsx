@@ -1,6 +1,6 @@
 "use client"
 
-import { useState } from "react"
+import { useState, useEffect } from "react"
 import { ChevronDown, ChevronUp } from "lucide-react"
 import "../styles/ConsultasSidebar.css"
 
@@ -12,6 +12,73 @@ type TableSection = {
 
 const ConsultasSidebar = () => {
   const [expandedSection, setExpandedSection] = useState<string | null>("pacientes")
+  const [theme, setTheme] = useState<string>("light")
+
+  // Detectar cambios en el tema
+  useEffect(() => {
+    const currentTheme = document.documentElement.getAttribute("data-theme") || "light"
+    setTheme(currentTheme)
+
+    // Observar cambios en el atributo data-theme
+    const observer = new MutationObserver((mutations) => {
+      mutations.forEach((mutation) => {
+        if (mutation.type === "attributes" && mutation.attributeName === "data-theme") {
+          setTheme(document.documentElement.getAttribute("data-theme") || "light")
+        }
+      })
+    })
+
+    observer.observe(document.documentElement, { attributes: true })
+
+    return () => observer.disconnect()
+  }, [])
+
+  // Función para obtener colores adaptados al tema
+  const getThemeColor = (baseColor: string): string => {
+    switch (theme) {
+      case "dark":
+        // Colores más claros para el tema oscuro
+        return (
+          {
+            "#FF914D": "#FFA76B", // Naranja más claro
+            "#B8D2AD": "#D8F0CC", // Verde más claro
+            "#9FAD86": "#BFCCa8", // Verde oliva más claro
+            "#CFBDAA": "#E0D0C0", // Beige más claro
+            "#EAE2DA": "#F5F0EB", // Crema más claro
+            "#FFB347": "#FFC675", // Naranja amarillento más claro
+            "#A2CDB0": "#C2EDD0", // Verde menta más claro
+          }[baseColor] || baseColor
+        )
+      case "colorblind":
+        // Colores para daltonismo
+        return (
+          {
+            "#FF914D": "#264653", // Azul oscuro
+            "#B8D2AD": "#2A9D8F", // Verde azulado
+            "#9FAD86": "#E9C46A", // Amarillo
+            "#CFBDAA": "#F4A261", // Naranja
+            "#EAE2DA": "#E76F51", // Rojo anaranjado
+            "#FFB347": "#1D3557", // Azul muy oscuro
+            "#A2CDB0": "#457B9D", // Azul medio
+          }[baseColor] || baseColor
+        )
+      case "dyslexia":
+        // Colores para dislexia (alto contraste)
+        return (
+          {
+            "#FF914D": "#1D3557", // Azul oscuro
+            "#B8D2AD": "#457B9D", // Azul medio
+            "#9FAD86": "#A8DADC", // Azul claro
+            "#CFBDAA": "#F1FAEE", // Blanco roto
+            "#EAE2DA": "#E63946", // Rojo
+            "#FFB347": "#1D3557", // Azul oscuro
+            "#A2CDB0": "#A8DADC", // Azul claro
+          }[baseColor] || baseColor
+        )
+      default:
+        return baseColor
+    }
+  }
 
   const tableSections: TableSection[] = [
     {
@@ -77,7 +144,7 @@ const ConsultasSidebar = () => {
             <button
               className="section-header"
               onClick={() => toggleSection(section.title)}
-              style={{ backgroundColor: section.color }}
+              style={{ backgroundColor: getThemeColor(section.color) }}
             >
               <span>{section.title}</span>
               {expandedSection === section.title ? <ChevronUp size={20} /> : <ChevronDown size={20} />}
@@ -101,4 +168,3 @@ const ConsultasSidebar = () => {
 }
 
 export default ConsultasSidebar
-

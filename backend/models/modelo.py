@@ -59,7 +59,8 @@ def calcular_distribucion_edad(tabla):
 
 def preguntar_chatbot(pregunta, contexto, historial_conversacion):
     """Envía la pregunta con el contexto relevante a litellm."""
-    client = openai.OpenAI(api_key="sk-P_a0RaVeWsY5R46N1ACKIQ", base_url="https://litellm.dccp.pbu.dedalus.com")
+    client = openai.OpenAI(api_key="sk-nQ05crZr3n-9i5yNwX0suQ", base_url="https://litellm.dccp.pbu.dedalus.com")
+    
     historial = "\n".join(
         [f"Usuario: {item['pregunta']}\nAsistente: {item['respuesta']}" for item in historial_conversacion if item["respuesta"]]
     )
@@ -107,7 +108,7 @@ def preguntar_chatbot(pregunta, contexto, historial_conversacion):
 
 def preguntar_query(pregunta, contexto):
     """Envía la pregunta con el contexto relevante a litellm."""
-    client = openai.OpenAI(api_key="sk-P_a0RaVeWsY5R46N1ACKIQ", base_url="https://litellm.dccp.pbu.dedalus.com")
+    client = openai.OpenAI(api_key="sk-nQ05crZr3n-9i5yNwX0suQ", base_url="https://litellm.dccp.pbu.dedalus.com")
 
     mensajes = [
         {"role": "system", "content": "Responde unicamente con la query que vaya a darme la "
