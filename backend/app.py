@@ -38,6 +38,7 @@ def get_bot_response():
     response = modelo.preguntar_chatbot(last_question,last_table,historial_conversacion)
 
     historial_conversacion.append({"pregunta": last_question, "respuesta": response})
+
     last_question = ""
     return jsonify({"message": response})
 
