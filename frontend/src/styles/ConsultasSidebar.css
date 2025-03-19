@@ -113,6 +113,14 @@
   border: 1px solid rgba(0, 0, 0, 0.1);
 }
 
+[data-theme="light"] #ChevronUp {
+  filter: invert(27%) sepia(83%) saturate(2644%) hue-rotate(358deg) brightness(95%) contrast(99%);
+}
+
+[data-theme="dark"] svg {
+  fill: #ffffff; /* Color claro en modo oscuro */
+}
+
 [data-theme="light"] .field-item {
   color: #333333; /* Texto más oscuro para mejor contraste */
 }
