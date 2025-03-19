@@ -34,7 +34,7 @@ def calcular_distribucion_edad(tabla):
     
     # Definir los bins y etiquetas
     bins = [0, 18, 25, 40, 70, 100]  # Rango de edades
-    labels = ['< 18', '18-25', '25-40', '40-70', '> 70']  # Etiquetas para los bins
+    labels = ['<= 18', '19-25', '26-40', '41-70', '> 70']  # Etiquetas para los bins
     
     # Aplicar pd.cut para categorizar las edades
     tabla['Rango Edad'] = pd.cut(tabla['Edad'], bins=bins, labels=labels, right=False)
@@ -48,10 +48,10 @@ def calcular_distribucion_edad(tabla):
 
     # Construir la lista final con la distribución de edades
     result = [
-        {"name": "< 18", "value": int(age_distribution.get('< 18', 0))},
-        {"name": "18-25", "value": int(age_distribution.get('18-25', 0))},
-        {"name": "25-40", "value": int(age_distribution.get('25-40', 0))},
-        {"name": "40-70", "value": int(age_distribution.get('40-70', 0))},
+        {"name": "<= 18", "value": int(age_distribution.get('<= 18', 0))},
+        {"name": "19-25", "value": int(age_distribution.get('19-25', 0))},
+        {"name": "26-40", "value": int(age_distribution.get('26-40', 0))},
+        {"name": "41-70", "value": int(age_distribution.get('41-70', 0))},
         {"name": "> 70", "value": int(age_distribution.get('> 70', 0))},
         {"name": "Fallecidos", "value": int(fallecidos_count)}
     ]
@@ -81,7 +81,7 @@ def preguntar_chatbot(pregunta, contexto, historial_conversacion):
         "Si el usuario solicita información fuera de tu alcance, explícale cortésmente que tu función es "
         "exclusivamente la identificación de cohortes de pacientes con enfermedades crónicas. A continuación, te muestro la"
         "estructura de respuesta sugerida en distintos escenarios: "
-        "Si hay pacientes que cumplen los criterios: Se han identificado exitosamente pacientes que cumplen con los criterios clínicos especificados. A continuación, se presentan los detalles:"
+        "Si hay pacientes que cumplen los criterios: Se han identificado {num} exitosamente pacientes que cumplen con los criterios clínicos especificados. A continuación, se presentan los detalles:"
         "(Proporciona la información de la cohorte según el formato clínico adecuado)."
         "No debes contestar con la información específica de cada paciente, sólo con estadísticas generales del conjunto que no sean ni el numero de pacientes , ni estadisticas de la edad ni el genero, ni la provincia."
         "Si el usuario pregunta algo fuera del alcance: Mi función es identificar cohortes "
@@ -105,8 +105,13 @@ def preguntar_query(pregunta, contexto,pregunta_anterior):
         pregunta_anterior = 'No hay contexto por el momento.'
 
     mensajes = [
-        {"role": "system", "content": "Responde unicamente con la query que vaya a darme la "
-        "informacion necesaría. Tus mensaje se deben reducir únicamente a la query. Bajo ningún concepto utilices Codigo_SNOMED para hacer las query."
+        {"role": "system", "content": "Genera consultas SQL precisas alineadas con la intención del usuario."
+        "Devuelve declaraciones SQL sin explicaciones ni comentarios."
+        "Prefija todas las columnas seleccionadas o contadas con el nombre de la tabla y envuélvelas entre comillas dobles."
+        "No uses marcadores de posición (por ejemplo, nombre_de_tabla, nombre_de_columna)."
+        "Asume una base de datos SQLite y evita funciones no disponibles en ella."
+        "Prefiere soluciones simples con llamadas mínimas a funciones o condiciones booleanas redundantes.No uses alias de tabla."
+        "Al comparar cadenas, conviértelas a minúsculas usando LOWER()."
         "Por ejemplo: SELECT p.*, a.* FROM Pacientes p JOIN Alergias a ON p.PacienteID = a.PacienteID WHERE p.Edad = 'X años' AND a.Descripcion = 'Alergia al polen'."
         "Al hacer la query, en el SELECT tráete todas las columnas de las tablas usadas."
         "Esta es la pregunta anterior que se te hizo el caso es que si te pide ango de lo anterior fijate aquí para construir la quary si se necesita contexto."

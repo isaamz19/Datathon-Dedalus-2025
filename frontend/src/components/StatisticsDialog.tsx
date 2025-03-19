@@ -250,7 +250,7 @@ const StatisticsDialog = ({ isOpen, onClose }: StatisticsDialogProps) => {
                         dataKey="value"
                         label={({ name, value }) => `${name}: ${value}%`}
                       >
-                        {statisticsData.genderData.map((entry, index) => (
+                        {statisticsData.genderData.map((_, index) => (
                           <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
                         ))}
                       </Pie>
@@ -267,7 +267,7 @@ const StatisticsDialog = ({ isOpen, onClose }: StatisticsDialogProps) => {
                       <YAxis />
                       <Tooltip />
                       <Bar dataKey="value" fill="#FF914D">
-                        {statisticsData.ageData.map((entry, index) => (
+                        {statisticsData.ageData.map((_, index) => (
                           <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
                         ))}
                       </Bar>
@@ -287,8 +287,8 @@ const StatisticsDialog = ({ isOpen, onClose }: StatisticsDialogProps) => {
                       <YAxis type="category" dataKey="name" />
                       <Tooltip />
                       <Bar dataKey="value" fill="#FF914D">
-                        {statisticsData.provinciasData.map((entry, index) => (
-                          <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
+                        {statisticsData.provinciasData.map((_, index) => (
+                          <Cell key={`cell-${index}`} fill={COLORS?.[index % (COLORS.length || 1)]} />
                         ))}
                       </Bar>
                     </BarChart>
