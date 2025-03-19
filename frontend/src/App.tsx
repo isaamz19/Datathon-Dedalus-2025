@@ -4,7 +4,7 @@ import ChatInterface from "./components/ChatInterface"
 import "./index.css"
 
 // Tipos de temas disponibles
-type Theme = "light" | "dark" | "colorblind"
+type Theme = "light" | "dark" | "colorblind" | "dyslexia"
 
 function App() {
   const [theme, setTheme] = useState<Theme>("light")
@@ -27,7 +27,7 @@ function App() {
   }
 
   return (
-    <div className="app-container">
+    <div className="app-container" data-theme={theme}>
       {!started ? <WelcomeScreen onStart={handleStart} /> : <ChatInterface theme={theme} onThemeChange={toggleTheme} />}
     </div>
   )

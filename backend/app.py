@@ -50,6 +50,8 @@ def convert_last_table_to_df(last_table, column_name):
     try:
         df = pd.DataFrame(last_table, columns=column_name)
         df = df.loc[:, ~df.columns.duplicated()]
+        if 'PacienteID' in df.columns:
+            df = df.drop_duplicates(subset='PacienteID', keep='first')
     except Exception as e:
         return jsonify({"error": f"Error al convertir a DataFrame: {str(e)}"}), 500
     

@@ -1,3 +1,237 @@
+.statistics-dialog {
+  max-width: 90vw;
+  width: 800px;
+  background-color: var(--background-color);
+  border-radius: 1rem;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 1000;
+  overflow: auto;
+  max-height: 90vh;
+}
+
+.statistics-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 999;
+}
+
+/* Modificar la estructura del encabezado para que los botones sean visibles */
+.statistics-header {
+  padding: 1rem;
+  text-align: center;
+  background-color: var(--primary-color);
+  color: white;
+  font-weight: bold;
+  font-size: 1.5rem;
+  border-top-left-radius: 1rem;
+  border-top-right-radius: 1rem;
+  position: relative; /* Asegurar que sea un contenedor posicionado */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 60px; /* Altura mínima para asegurar espacio */
+}
+
+/* Reposicionar los botones de la cabecera */
+.header-buttons {
+  position: absolute;
+  right: 15px;
+  top: 50%;
+  transform: translateY(-50%);
+  display: flex;
+  gap: 12px;
+  z-index: 10; /* Asegurar que estén por encima */
+}
+
+.close-button,
+.download-button,
+.info-button {
+  background-color: rgba(255, 255, 255, 0.2); /* Fondo semi-transparente */
+  border: none;
+  color: white;
+  cursor: pointer;
+  padding: 8px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background-color 0.2s;
+  width: 32px;
+  height: 32px;
+}
+
+.close-button:hover,
+.download-button:hover,
+.info-button:hover {
+  background-color: rgba(255, 255, 255, 0.4);
+}
+
+.statistics-content {
+  padding: 1.5rem;
+}
+
+.statistics-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1.5rem;
+  margin-top: 1.5rem;
+}
+
+@media (min-width: 768px) {
+  .statistics-grid {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+.statistics-card {
+  background-color: white;
+  border-radius: 0.5rem;
+  padding: 1rem;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.statistics-card h3 {
+  font-size: 1.1rem;
+  font-weight: bold;
+  margin-bottom: 1rem;
+  text-align: center;
+  color: var(--text-color);
+}
+
+.chart-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.stats-button {
+  background-color: var(--primary-color);
+  color: white;
+  border: none;
+  border-radius: 2rem;
+  padding: 0.5rem 1.5rem;
+  font-size: 0.9rem;
+  font-weight: bold;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  transition: background-color 0.2s;
+  margin-top: 0.5rem;
+  align-self: flex-end;
+}
+
+.stats-button:hover {
+  background-color: var(--primary-color);
+  opacity: 0.9;
+}
+
+/* Estilos para la tarjeta de resumen de pacientes */
+.patient-summary-card {
+  background-color: white;
+  border-radius: 0.5rem;
+  padding: 1.5rem;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  margin-bottom: 1.5rem;
+}
+
+.patient-summary-card h3 {
+  font-size: 1.3rem;
+  font-weight: bold;
+  margin-bottom: 1.5rem;
+  text-align: center;
+  color: var(--primary-color);
+}
+
+/* Estilos para el total de pacientes */
+.total-patients-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 2rem;
+  background-color: var(--secondary-color);
+  border-radius: 0.5rem;
+  margin: 0 auto;
+  max-width: 300px;
+}
+
+.total-patients-value {
+  font-size: 3rem;
+  font-weight: bold;
+  color: var(--primary-color);
+  margin-bottom: 0.5rem;
+}
+
+.total-patients-label {
+  font-size: 1.2rem;
+  color: var(--text-color);
+  font-weight: 500;
+}
+
+.pathology-title {
+  font-size: 1.1rem;
+  font-weight: bold;
+  margin: 1.5rem 0 1rem;
+  text-align: center;
+  color: var(--primary-color);
+}
+
+/* Estilos para estados de carga y error */
+.loading-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 3rem;
+  text-align: center;
+}
+
+.spinner {
+  animation: spin 1s linear infinite;
+  color: var(--primary-color);
+  margin-bottom: 1rem;
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+.error-container {
+  text-align: center;
+  padding: 2rem;
+  color: #e74c3c;
+}
+
+.retry-button {
+  background-color: var(--primary-color);
+  color: white;
+  border: none;
+  border-radius: 0.5rem;
+  padding: 0.5rem 1.5rem;
+  margin-top: 1rem;
+  cursor: pointer;
+  font-weight: bold;
+  transition: background-color 0.2s;
+}
+
+.retry-button:hover {
+  opacity: 0.9;
+}
+
 .sidebar-content {
   padding: 1rem;
   height: 100%;
@@ -128,5 +362,211 @@
 .sidebar-content::-webkit-scrollbar-thumb {
   background-color: var(--primary-color);
   border-radius: 3px;
+}
+
+/* Estilos para el panel de información */
+.info-panel {
+  background-color: var(--secondary-color);
+  border-radius: 0.5rem;
+  padding: 1rem;
+  margin-bottom: 1rem;
+  position: relative;
+  color: var(--text-color);
+}
+
+.info-panel h3 {
+  font-size: 1.1rem;
+  margin-bottom: 0.5rem;
+  color: var(--primary-color);
+}
+
+.info-panel p {
+  margin-bottom: 0.5rem;
+  font-size: 0.9rem;
+}
+
+/* Mejorar los botones de cerrar info y PDF */
+.close-info-button {
+  background-color: var(--primary-color);
+  color: white;
+  border: none;
+  border-radius: 0.5rem;
+  padding: 0.5rem 1rem;
+  margin-top: 0.5rem;
+  cursor: pointer;
+  font-weight: bold;
+  transition: background-color 0.2s;
+  width: 100%; /* Hacer que ocupe todo el ancho en móviles */
+  max-width: 200px; /* Limitar el ancho en pantallas grandes */
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  text-align: center;
+}
+
+.close-info-button:hover {
+  opacity: 0.9;
+}
+
+/* Mejorar el botón de descarga */
+.download-button {
+  background: none;
+  border: none;
+  color: white;
+  cursor: pointer;
+  padding: 8px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background-color 0.2s;
+}
+
+/* Mejorar el botón de información */
+.info-button {
+  background: none;
+  border: none;
+  color: white;
+  cursor: pointer;
+  padding: 8px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background-color 0.2s;
+}
+
+/* Mejorar el botón de cerrar */
+.close-button {
+  background: none;
+  border: none;
+  color: white;
+  cursor: pointer;
+  padding: 8px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background-color 0.2s;
+}
+
+/* Estilos para los botones en pantallas pequeñas */
+@media (max-width: 480px) {
+  .header-buttons {
+    right: 10px;
+    gap: 8px;
+  }
+
+  .download-button,
+  .info-button,
+  .close-button {
+    padding: 6px;
+    width: 28px;
+    height: 28px;
+  }
+
+  .download-button svg,
+  .info-button svg,
+  .close-button svg {
+    width: 16px;
+    height: 16px;
+  }
+
+  .close-info-button {
+    font-size: 0.9rem;
+    padding: 0.4rem 0.8rem;
+  }
+}
+
+/* Estilos para el PDF loading */
+.pdf-loading {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.7);
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.2rem;
+  z-index: 2000;
+}
+
+/* Mejorar el diseño de la tarjeta de resumen */
+.summary-content {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+@media (min-width: 768px) {
+  .summary-content {
+    flex-direction: row;
+  }
+
+  .total-patients-container {
+    flex: 1;
+  }
+
+  .summary-description {
+    flex: 2;
+  }
+}
+
+.summary-description {
+  background-color: var(--secondary-color);
+  padding: 1.5rem;
+  border-radius: 0.5rem;
+}
+
+.summary-description h4 {
+  font-size: 1.1rem;
+  margin-bottom: 0.5rem;
+  color: var(--primary-color);
+}
+
+.summary-description p {
+  font-size: 0.9rem;
+  color: var(--text-color);
+}
+
+/* Ajuste para la tarjeta de ancho completo */
+.full-width {
+  grid-column: 1 / -1;
+}
+
+/* Mejorar contraste en modo claro */
+[data-theme="light"] .statistics-card,
+[data-theme="light"] .patient-summary-card,
+[data-theme="light"] .summary-description,
+[data-theme="light"] .total-patients-container,
+[data-theme="light"] .info-panel {
+  border: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+[data-theme="light"] .summary-description,
+[data-theme="light"] .total-patients-container,
+[data-theme="light"] .info-panel {
+  background-color: rgba(184, 210, 173, 0.3);
+}
+
+[data-theme="light"] .statistics-card {
+  background-color: rgba(255, 255, 255, 0.9);
+}
+
+/* Mejorar contraste en modo oscuro */
+[data-theme="dark"] .statistics-card,
+[data-theme="dark"] .patient-summary-card {
+  background-color: rgba(241, 168, 123, 0.2);
+  color: white;
+}
+
+[data-theme="dark"] .summary-description,
+[data-theme="dark"] .total-patients-container,
+[data-theme="dark"] .info-panel {
+  background-color: rgba(207, 189, 170, 0.3);
+  color: white;
 }
 

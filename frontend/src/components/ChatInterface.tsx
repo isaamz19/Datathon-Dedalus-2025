@@ -70,7 +70,7 @@ const ChatInterface = ({ theme, onThemeChange }: ChatInterfaceProps) => {
       setMessages((prev) => [
         ...prev,
         {
-          text: "Lo siento el conjunto de datos que pide es demasiado grande para ser procesado por el servidor.Por favor, añada más filtros para reducir el tamaño del conjunto de datos.",
+          text: "Lo siento el conjunto de datos que pide es demasiado grande para ser procesado por el servidor. Por favor, añada más filtros para reducir el tamaño del conjunto de datos.",
           isBot: true,
         },
       ])
@@ -80,7 +80,7 @@ const ChatInterface = ({ theme, onThemeChange }: ChatInterfaceProps) => {
   }
 
   return (
-    <div className="chat-interface">
+    <div className="chat-interface" data-theme={theme}>
       <header className="app-header">
         <div className="header-content">
           <div className="header-left">

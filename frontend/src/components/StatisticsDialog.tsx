@@ -1,4 +1,4 @@
-import { useEffect, useState, useRef } from "react"
+import { useEffect, useState, useRef, useCallback } from "react"
 import { PieChart, Pie, Cell, BarChart, Bar, XAxis, YAxis, Tooltip, ResponsiveContainer } from "recharts"
 import { X, Loader, Download, Info } from "lucide-react"
 import "../styles/StatisticsDialog.css"
@@ -23,8 +23,6 @@ type StatisticsData = {
   provinciasData: ProvinciasData
 }
 
-const COLORS = ["#FF914D", "#B8D2AD", "#9FAD86", "#CFBDAA", "#EAE2DA"]
-
 // URL base del backend
 const API_BASE_URL = "http://localhost:5000"
 
@@ -39,6 +37,41 @@ const StatisticsDialog = ({ isOpen, onClose }: StatisticsDialogProps) => {
   const [error, setError] = useState<string | null>(null)
   const [showInfo, setShowInfo] = useState(false)
   const contentRef = useRef<HTMLDivElement>(null)
+
+  // Función para obtener colores adaptados al tema actual
+  const getThemeColors = useCallback(() => {
+    const theme = document.documentElement.getAttribute("data-theme") || "light"
+
+    switch (theme) {
+      case "dark":
+        return ["#FFA76B", "#D8F0CC", "#BFCCa8", "#E0D0C0", "#F5F0EB"]
+      case "colorblind":
+        return ["#264653", "#2A9D8F", "#E9C46A", "#F4A261", "#E76F51"]
+      case "dyslexia":
+        return ["#1D3557", "#457B9D", "#A8DADC", "#F1FAEE", "#E63946"]
+      default:
+        return ["#FF914D", "#B8D2AD", "#9FAD86", "#CFBDAA", "#EAE2DA"]
+    }
+  }, [])
+
+  const [COLORS, setColors] = useState(getThemeColors())
+
+  // Actualizar colores cuando cambia el tema
+  useEffect(() => {
+    setColors(getThemeColors())
+
+    const observer = new MutationObserver((mutations) => {
+      mutations.forEach((mutation) => {
+        if (mutation.type === "attributes" && mutation.attributeName === "data-theme") {
+          setColors(getThemeColors())
+        }
+      })
+    })
+
+    observer.observe(document.documentElement, { attributes: true })
+
+    return () => observer.disconnect()
+  }, [getThemeColors])
 
   const fetchStatistics = async () => {
     if (!isOpen) return

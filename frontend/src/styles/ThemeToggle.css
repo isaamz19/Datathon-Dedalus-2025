@@ -10,9 +10,11 @@
   justify-content: center;
   color: var(--text-color);
   opacity: 0.6;
-  transition: opacity 0.2s;
-  padding: 0.3rem;
+  transition: opacity 0.2s, background-color 0.2s;
+  padding: 0.5rem;
   border-radius: 50%;
+  width: 36px;
+  height: 36px;
 }
 
 .theme-button:hover {
@@ -22,5 +24,45 @@
 
 .theme-button.active {
   opacity: 1;
+  background-color: rgba(0, 0, 0, 0.15);
+}
+
+/* Mejorar contraste en modo oscuro */
+[data-theme="dark"] .theme-button {
+  color: white;
+}
+
+[data-theme="dark"] .theme-button:hover {
+  background-color: rgba(255, 255, 255, 0.2);
+}
+
+[data-theme="dark"] .theme-button.active {
+  background-color: rgba(255, 255, 255, 0.3);
+}
+
+/* Mejorar contraste en modo daltónico */
+[data-theme="colorblind"] .theme-button {
+  color: #264653;
+}
+
+[data-theme="colorblind"] .theme-button:hover {
+  background-color: rgba(38, 70, 83, 0.2);
+}
+
+[data-theme="colorblind"] .theme-button.active {
+  background-color: rgba(38, 70, 83, 0.3);
+}
+
+/* Mejorar contraste en modo dislexia */
+[data-theme="dyslexia"] .theme-button {
+  color: #1d3557;
+}
+
+[data-theme="dyslexia"] .theme-button:hover {
+  background-color: rgba(29, 53, 87, 0.2);
+}
+
+[data-theme="dyslexia"] .theme-button.active {
+  background-color: rgba(29, 53, 87, 0.3);
 }
 
