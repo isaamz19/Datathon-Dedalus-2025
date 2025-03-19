@@ -57,7 +57,7 @@ def calcular_distribucion_edad(tabla):
     ]
     return result
 
-def preguntar_chatbot(pregunta, contexto, historial_conversacion):
+def preguntar_chatbot(pregunta, contexto, historial_conversacion, num):
     """Envía la pregunta con el contexto relevante a litellm."""
     client = openai.OpenAI(api_key="sk-P_a0RaVeWsY5R46N1ACKIQ", base_url="https://litellm.dccp.pbu.dedalus.com")
     
@@ -81,13 +81,17 @@ def preguntar_chatbot(pregunta, contexto, historial_conversacion):
         "Si el usuario solicita información fuera de tu alcance, explícale cortésmente que tu función es "
         "exclusivamente la identificación de cohortes de pacientes con enfermedades crónicas. A continuación, te muestro la"
         "estructura de respuesta sugerida en distintos escenarios: "
-        "Si hay pacientes que cumplen los criterios: Se han identificado {num} exitosamente pacientes que cumplen con los criterios clínicos especificados. A continuación, se presentan los detalles:"
+        "Si hay pacientes que cumplen los criterios: Se han identificado exitosamente"
+        f"{num}"
+        " pacientes que cumplen con los criterios clínicos especificados. A continuación, se presentan los detalles:"
         "(Proporciona la información de la cohorte según el formato clínico adecuado)."
         "No debes contestar con la información específica de cada paciente, sólo con estadísticas generales del conjunto que no sean ni el numero de pacientes , ni estadisticas de la edad ni el genero, ni la provincia."
+        "Además, si el usuario lo especifica, puedes recomendarle un par de acciones que se pueden hacer sobre ese conjunto de pacientes dependiendo de las características"
+        "comunes de los pacientes. Por ejemplo, puedes recomendarle meterlos en un plan de medicina preventiva."
         "Si el usuario pregunta algo fuera del alcance: Mi función es identificar cohortes "
         "de pacientes con enfermedades crónicas a partir de criterios clínicos. Para otro tipo de "
         "consultas, te recomiendo acudir a un especialista en el área correspondiente."
-        "Por otro lado si la pregunta no es acerca de ninguna tabla en concreto sino de la conversación previa que habeis mantenido aqui te dejo toda la conversacion: "
+        "Por otro lado si la pregunta no es acerca de ninguna tabla en concreto sino de la conversación previa que habeis mantenido, aquí puedes acceder a toda la información sobre la conversación previa: "
         f"{historial}"},
         {"role": "user", "content": f"Pregunta: {pregunta}\nTabla: {contexto}"}
     ]
