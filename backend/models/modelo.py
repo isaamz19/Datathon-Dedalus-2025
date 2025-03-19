@@ -59,7 +59,7 @@ def calcular_distribucion_edad(tabla):
 
 def preguntar_chatbot(pregunta, contexto, historial_conversacion):
     """Envía la pregunta con el contexto relevante a litellm."""
-    client = openai.OpenAI(api_key="sk-nQ05crZr3n-9i5yNwX0suQ", base_url="https://litellm.dccp.pbu.dedalus.com")
+    client = openai.OpenAI(api_key="sk-P_a0RaVeWsY5R46N1ACKIQ", base_url="https://litellm.dccp.pbu.dedalus.com")
     
     historial = "\n".join(
         [f"Usuario: {item['pregunta']}\nAsistente: {item['respuesta']}" for item in historial_conversacion if item["respuesta"]]
@@ -81,18 +81,9 @@ def preguntar_chatbot(pregunta, contexto, historial_conversacion):
         "Si el usuario solicita información fuera de tu alcance, explícale cortésmente que tu función es "
         "exclusivamente la identificación de cohortes de pacientes con enfermedades crónicas. A continuación, te muestro la"
         "estructura de respuesta sugerida en distintos escenarios: "
-        "Si hay pacientes que cumplen los criterios: Se han identificado exitosamente X (Debe ser el número que devuelve int(tabla['PacienteID'].nunique()) donde tabla es la tabla que se te proporciona) pacientes que cumplen con los criterios "
-        "clínicos especificados. A continuación, se presentan los detalles:(Proporciona la información "
-        "de la cohorte según el formato clínico adecuado)."
-        "No debes contestar con la información específica de cada paciente, sólo con estadísticas generales del conjunto. "
-        # "A menos que se te pida detalles concretos como por ejemplo, informame más sobre el paciente X, solo debes contestar haciendo una descripcion general  de 4 o 5 frases."
-        # "Si te pregunta acerca de un paciente ya si debes contetar toda la informacion de forma estructurada que poseas."
-        # "Ejemplo: 3. ID: 2ace29d0-1625-302c-eb43-3ce86b20aeaf"
-        # "Fecha de nacimiento: 1992-08-30"
-        # "Sexo: Femenino"
-        # "Ciudad: Málaga"
-        # "Edad: 32 años"
-        # "Etnia: Asiático"
+        "Si hay pacientes que cumplen los criterios: Se han identificado exitosamente pacientes que cumplen con los criterios clínicos especificados. A continuación, se presentan los detalles:"
+        "(Proporciona la información de la cohorte según el formato clínico adecuado)."
+        "No debes contestar con la información específica de cada paciente, sólo con estadísticas generales del conjunto que no sean ni el numero de pacientes , ni estadisticas de la edad ni el genero, ni la provincia."
         "Si el usuario pregunta algo fuera del alcance: Mi función es identificar cohortes "
         "de pacientes con enfermedades crónicas a partir de criterios clínicos. Para otro tipo de "
         "consultas, te recomiendo acudir a un especialista en el área correspondiente."
@@ -106,17 +97,23 @@ def preguntar_chatbot(pregunta, contexto, historial_conversacion):
     )
     return response.choices[0].message.content
 
-def preguntar_query(pregunta, contexto):
+def preguntar_query(pregunta, contexto,pregunta_anterior):
     """Envía la pregunta con el contexto relevante a litellm."""
-    client = openai.OpenAI(api_key="sk-nQ05crZr3n-9i5yNwX0suQ", base_url="https://litellm.dccp.pbu.dedalus.com")
+    client = openai.OpenAI(api_key="sk-P_a0RaVeWsY5R46N1ACKIQ", base_url="https://litellm.dccp.pbu.dedalus.com")
+    
+    if pregunta_anterior is None:
+        pregunta_anterior = 'No hay contexto por el momento.'
 
     mensajes = [
         {"role": "system", "content": "Responde unicamente con la query que vaya a darme la "
         "informacion necesaría. Tus mensaje se deben reducir únicamente a la query. Bajo ningún concepto utilices Codigo_SNOMED para hacer las query."
         "Por ejemplo: SELECT p.*, a.* FROM Pacientes p JOIN Alergias a ON p.PacienteID = a.PacienteID WHERE p.Edad = 'X años' AND a.Descripcion = 'Alergia al polen'."
-        "Al hacer la query, en el SELECT tráete todas las columnas de las tablas usadas."},
+        "Al hacer la query, en el SELECT tráete todas las columnas de las tablas usadas."
+        "Esta es la pregunta anterior que se te hizo el caso es que si te pide ango de lo anterior fijate aquí para construir la quary si se necesita contexto."
+        f"{pregunta_anterior}"},
         {"role": "user", "content": f"Pregunta: {pregunta}\nContexto: {contexto}"}
     ]
+
     response = client.chat.completions.create(
         model="bedrock/anthropic.claude-3-5-sonnet-20240620-v1:0",
         messages=mensajes
