@@ -152,7 +152,7 @@
 }
 
 [data-theme="dyslexia"] .field-item {
-  border-bottom-color: #a8dadc;
+  border-bottom-color: #222222;
 }
 
 /* Asegurar que los títulos de sección también sean legibles */
@@ -162,10 +162,20 @@
   font-weight: bold;
 }
 
+[data-theme="colorblind"] .sidebar-title {
+  color: #f5f5f5;
+  font-weight: bold;
+}
+
 /* Mejorar contraste para los nombres de sección */
 [data-theme="dark"] .section-header span,
 [data-theme="dyslexia"] .section-header span {
   color: #000000;
+  font-weight: bold;
+}
+
+[data-theme="colorblind"] .section-header span {
+  color: #222222;
   font-weight: bold;
 }
 

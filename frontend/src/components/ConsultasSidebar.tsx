@@ -53,26 +53,26 @@ const ConsultasSidebar = () => {
         // Colores para daltonismo
         return (
           {
-            "#FF914D": "#264653", // Azul oscuro
-            "#B8D2AD": "#2A9D8F", // Verde azulado
-            "#9FAD86": "#E9C46A", // Amarillo
-            "#CFBDAA": "#F4A261", // Naranja
-            "#EAE2DA": "#E76F51", // Rojo anaranjado
-            "#FFB347": "#1D3557", // Azul muy oscuro
-            "#A2CDB0": "#457B9D", // Azul medio
+            "#FF914D": "#dde5b6", // Azul oscuro
+            "#B8D2AD": "#dde5b6", // Verde azulado
+            "#9FAD86": "#dde5b6", // Amarillo
+            "#CFBDAA": "#dde5b6", // Naranja
+            "#EAE2DA": "#dde5b6", // Rojo anaranjado
+            "#FFB347": "#dde5b6", // Azul muy oscuro
+            "#A2CDB0": "#dde5b6", // Azul medio
           }[baseColor] || baseColor
         )
       case "dyslexia":
         // Colores para dislexia (alto contraste)
         return (
           {
-            "#FF914D": "#1D3557", // Azul oscuro
-            "#B8D2AD": "#457B9D", // Azul medio
-            "#9FAD86": "#A8DADC", // Azul claro
-            "#CFBDAA": "#F1FAEE", // Blanco roto
-            "#EAE2DA": "#E63946", // Rojo
-            "#FFB347": "#1D3557", // Azul oscuro
-            "#A2CDB0": "#A8DADC", // Azul claro
+            "#FF914D": "#ffffff", // Azul oscuro
+            "#B8D2AD": "#ffffff", // Azul medio
+            "#9FAD86": "#ffffff", // Azul claro
+            "#CFBDAA": "#ffffff", // Blanco roto
+            "#EAE2DA": "#ffffff", // Rojo
+            "#FFB347": "#ffffff", // Azul oscuro
+            "#A2CDB0": "#ffffff", // Azul claro
           }[baseColor] || baseColor
         )
       default:
