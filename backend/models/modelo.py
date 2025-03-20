@@ -115,7 +115,7 @@ def preguntar_query(pregunta, contexto,pregunta_anterior):
         "No uses marcadores de posición (por ejemplo, nombre_de_tabla, nombre_de_columna)."
         "Asume una base de datos SQLite y evita funciones no disponibles en ella."
         "Prefiere soluciones simples con llamadas mínimas a funciones o condiciones booleanas redundantes.No uses alias de tabla."
-        "Al comparar cadenas, conviértelas a minúsculas usando LOWER()."
+        "Al comparar cadenas, conviértelas a minúsculas usando LOWER() y identifica las coincidencias con LIKE '%palabra%'."
         "Por ejemplo: SELECT p.*, a.* FROM Pacientes p JOIN Alergias a ON p.PacienteID = a.PacienteID WHERE p.Edad = 'X años' AND a.Descripcion = 'Alergia al polen'."
         "Al hacer la query, en el SELECT tráete todas las columnas de las tablas usadas."
         "Esta es la pregunta anterior que se te hizo el caso es que si te pide ango de lo anterior fijate aquí para construir la quary si se necesita contexto."
