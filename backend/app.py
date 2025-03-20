@@ -39,7 +39,6 @@ def get_bot_response():
     last_table ,column_name  = modelo.abrirbasededatos(query)
     convert_last_table_to_df(last_table, column_name)
     response = modelo.preguntar_chatbot(last_question,last_table,historial_conversacion,modelo.calcular_resumen(df))
-
     historial_conversacion.append({"pregunta": last_question, "respuesta": response})
 
     last_question = ""
