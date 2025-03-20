@@ -85,8 +85,8 @@ def preguntar_chatbot(pregunta, contexto, historial_conversacion, num):
         f"{num}"
         " pacientes que cumplen con los criterios clínicos especificados. A continuación, se presentan los detalles:"
         "(Proporciona la información de la cohorte según el formato clínico adecuado)."
-        "No debes contestar con la información específica de cada paciente, sólo con estadísticas generales del conjunto que no sean ni el numero de pacientes , ni estadisticas de la edad ni el genero, ni la provincia."
-        "Además, si el usuario lo especifica, puedes recomendarle un par de acciones que se pueden hacer sobre ese conjunto de pacientes dependiendo de las características"
+        "No debes contestar con la información específica de cada paciente, sólo con varias estadísticas generales del conjunto que no sean ni el numero de pacientes , ni estadisticas de la edad ni el genero, ni la provincia."
+        "Además, si el usuario lo especifica, puedes recomendarle sólo un par de acciones que se pueden hacer sobre ese conjunto de pacientes dependiendo de las características"
         "comunes de los pacientes. Por ejemplo, puedes recomendarle meterlos en un plan de medicina preventiva."
         "Si el usuario pregunta algo fuera del alcance: Mi función es identificar cohortes "
         "de pacientes con enfermedades crónicas a partir de criterios clínicos. Para otro tipo de "
@@ -124,7 +124,7 @@ def preguntar_query(pregunta, contexto,pregunta_anterior):
     ]
 
     response = client.chat.completions.create(
-        model="bedrock/anthropic.claude-3-5-sonnet-20240620-v1:0",
+        model="bedrock/anthropic.claude-3-haiku-20240307-v1:0",
         messages=mensajes
     )
     return response.choices[0].message.content
